@@ -10,4 +10,5 @@ public interface IMarchPanel {
     String getPrimaryCommander();
     String getSecondaryCommander();
     String getSkill(int i);
+    String getTeam();
 }

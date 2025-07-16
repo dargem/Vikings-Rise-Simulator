@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -82,8 +83,11 @@ public class SimulatorGUI extends JFrame {
         // March List Panel (styled)
         JPanel marchListPanel = new JPanel();
         marchListPanel.setLayout(new BoxLayout(marchListPanel, BoxLayout.X_AXIS));
+        //marchListPanel.setLayout(new BoxLayout(marchListPanel, BoxLayout.Y_AXIS));
+
         marchListPanel.setBackground(new java.awt.Color(232, 234, 246));
-        JScrollPane marchScrollPane = new JScrollPane(marchListPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane marchScrollPane = new JScrollPane(marchListPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
         marchScrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Marches"));
 
         JButton addMarchButton = new JButton("+ Add March");
@@ -118,8 +122,57 @@ public class SimulatorGUI extends JFrame {
             marchListPanel.add(dummy);
             marchListPanel.revalidate();
             marchListPanel.repaint();
-      });
+        });
 
+        JButton cloneMarchButton = new JButton("+ Clone March");
+        cloneMarchButton.setToolTipText("Clone an existing march");
+        cloneMarchButton.setBackground(new java.awt.Color(33, 150, 243)); // Blue
+        cloneMarchButton.setForeground(java.awt.Color.WHITE);
+        cloneMarchButton.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14));
+        cloneMarchButton.setFocusPainted(false);
+        cloneMarchButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        cloneMarchButton.setOpaque(true);
+        cloneMarchButton.setContentAreaFilled(true);
+        cloneMarchButton.addActionListener(e -> {
+            if (marchPanels.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No marches to clone.", "Clone March", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Create choices for selection dialog
+            String[] options = new String[marchPanels.size()];
+            for (int i = 0; i < marchPanels.size(); i++) {
+                options[i] = "March " + (i + 1) + (marchPanels.get(i).isFriendly() ? " (Friendly)" : " (Enemy)");
+            }
+
+            String selected = (String) JOptionPane.showInputDialog(this,
+                "Select a march to clone:",
+                "Clone March",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+            if (selected != null) {
+                int selectedIndex = java.util.Arrays.asList(options).indexOf(selected);
+                IMarchPanel original = marchPanels.get(selectedIndex);
+                IMarchPanel clone;
+
+                if (original instanceof MarchPanel) {
+                    clone = new MarchPanel(marchListPanel, marchPanels, (MarchPanel) original);
+                } else if (original instanceof EnemyDummyPanel) {
+                    clone = new EnemyDummyPanel(marchListPanel, marchPanels, (EnemyDummyPanel) original);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Unknown march type. Cannot clone.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                marchPanels.add(clone);
+                marchListPanel.add((JPanel) clone);
+                marchListPanel.revalidate();
+                marchListPanel.repaint();
+            }
+        });
 
         // Add one march by default
         MarchPanel mp = new MarchPanel(marchListPanel, marchPanels);
@@ -132,6 +185,7 @@ public class SimulatorGUI extends JFrame {
         buttonRow.setBackground(new java.awt.Color(232, 234, 246));
         buttonRow.add(addMarchButton);
         buttonRow.add(addEnemyDummyButton);
+        buttonRow.add(cloneMarchButton);
         marchPanelContainer.add(buttonRow, BorderLayout.NORTH);
         marchPanelContainer.add(marchScrollPane, BorderLayout.CENTER);
 

@@ -43,7 +43,11 @@ public class Combatant {
     private double keptHealth;
 
     // Constructor
-    public Combatant(double attack, double defense, double health, int troopCount, String commander1Name, String commander2Name, String skill1Name, String skill2Name, String skill3Name, String skill4Name, String mountFirstSlot1Name, String mountFirstSlot2Name, String mountSecondSlot1Name, String mountSecondSlot2Name) {
+    public Combatant(double attack, double defense, double health, int troopCount, 
+                     String commander1Name, String commander2Name, 
+                     String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
+                     String mountFirstSlot1Name, String mountFirstSlot2Name, 
+                     String mountSecondSlot1Name, String mountSecondSlot2Name) {
         combatantInfo = new CombatantInfo(troopCount, attack, defense, health);
         keptAttack=attack;
         keptDefense=defense;

@@ -175,7 +175,7 @@ public class CombatantInfo {
 
     public void addDamageTaken (double scaledDamage) { 
         scaledDamage /= defense;
-        retributionDamage += scaledDamage * retribution; // done after your own defense but not health, and does reflect damage taken by shields, check if helps on statuses
+        retributionDamage += scaledDamage * retribution; 
         for (StatusEffect absorption : absorptionList) {
             double holder = absorption.getMagnitude();
             if (holder > 0) {
@@ -220,15 +220,13 @@ public class CombatantInfo {
     public void addDebuffEffect(int id, StatusEffect statusEffect) {
         if (immunityControl) {
             String effectType = statusEffect.getType();
-            if (effectType.equals("disarm") || effectType.equals("brokenBlade") || effectType.equals("silence")) {
-                // Your logic here (e.g., return early or skip applying the debuff)
+            if (effectType.equals("disarm") || 
+                effectType.equals("brokenBlade") || 
+                effectType.equals("silence")) {
                 return;
             }
         }
-
         debuffEffectCollection.addEffect(id, statusEffect);
-
-        // Apply debuff logic here
     }
 
     public void addDamageDebuffEffect (int id, StatusEffect statusEffect) {

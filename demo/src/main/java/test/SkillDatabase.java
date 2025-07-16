@@ -80,7 +80,8 @@ public class SkillDatabase {
             "Gunnar",
             "Heidrun",
             "Charlton",
-            "Hilda"
+            "Hilda",
+            "Greta"
 
 
         ));

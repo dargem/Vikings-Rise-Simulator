@@ -115,7 +115,28 @@ public class MarchPanel extends JPanel implements IMarchPanel {
         add(removeButton);
         setBorder(BorderFactory.createTitledBorder("March"));
     }
+
+    public MarchPanel(JPanel parent, List<IMarchPanel> list, MarchPanel original) {
+        this(parent, list);
+        this.setFrom(original);
+    }
+    
+    public void setFrom(MarchPanel other) {
+        hpField.setText(String.valueOf(other.getHp()));
+        atkField.setText(String.valueOf(other.getAtk()));
+        defField.setText(String.valueOf(other.getDef()));
+        troopField.setText(String.valueOf(other.getTroopSize()));
+        primaryCommander.setSelectedItem(other.getPrimaryCommander());
+        secondaryCommander.setSelectedItem(other.getSecondaryCommander());
+        for (int i = 0; i < 8; i++) {
+            skills[i].setSelectedItem(other.getSkill(i));
+        }
+        teamBox.setSelectedItem(other.getTeam());
+    }
+
+    @Override
     public boolean isFriendly() { return teamBox.getSelectedItem().equals("Friendly"); }
+    @Override
     public boolean isValidMarch() {
         try {
             Integer.parseInt(hpField.getText());
@@ -125,11 +146,20 @@ public class MarchPanel extends JPanel implements IMarchPanel {
             return true;
         } catch (Exception e) { return false; }
     }
+    @Override
     public int getHp() { return Integer.parseInt(hpField.getText()); }
+    @Override
     public int getAtk() { return Integer.parseInt(atkField.getText()); }
+    @Override
     public int getDef() { return Integer.parseInt(defField.getText()); }
+    @Override
     public int getTroopSize() { return Integer.parseInt(troopField.getText()); }
+    @Override
     public String getPrimaryCommander() { return (String) primaryCommander.getSelectedItem(); }
+    @Override
     public String getSecondaryCommander() { return (String) secondaryCommander.getSelectedItem(); }
+    @Override
+    public String getTeam() { return (String) teamBox.getSelectedItem(); }
+    @Override
     public String getSkill(int i) { return (String) skills[i].getSelectedItem(); }
 }

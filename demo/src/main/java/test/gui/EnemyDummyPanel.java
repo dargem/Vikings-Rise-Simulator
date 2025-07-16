@@ -65,6 +65,18 @@ public class EnemyDummyPanel extends JPanel implements IMarchPanel {
         setBorder(BorderFactory.createTitledBorder("Enemy Dummy"));
     }
 
+    public EnemyDummyPanel(JPanel parent, List<IMarchPanel> list, EnemyDummyPanel original) {
+        this(parent, list);
+        this.setFrom(original);
+    }
+
+    public void setFrom(EnemyDummyPanel other) {
+        hpField.setText(String.valueOf(other.getHp()));
+        atkField.setText(String.valueOf(other.getAtk()));
+        defField.setText(String.valueOf(other.getDef()));
+        troopField.setText(String.valueOf(other.getTroopSize()));
+    }
+
     @Override
     public boolean isFriendly() {
         return false;
@@ -116,5 +128,9 @@ public class EnemyDummyPanel extends JPanel implements IMarchPanel {
     @Override
     public String getSkill(int i) {
         return "N/A";
+    }
+    @Override
+    public String getTeam() {
+        return teamBox.getSelectedItem().toString();
     }
 }
