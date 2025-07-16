@@ -1,0 +1,7 @@
+.DS_Store
+/demo/target/
+/demo/.vscode/
+.vscode/
+.idea/
+*.iml
+*.log

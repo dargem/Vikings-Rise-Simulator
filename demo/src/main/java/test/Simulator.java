@@ -17,20 +17,46 @@ public class Simulator {
     private List<Combatant> enemyCombatantList = new ArrayList<>();
     private int idCount = 0;
 
-    private Combatant dummy = new Combatant(100, 100, 100, 200000, "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
-
-    public void setNewCombatant(double attack, double defense, double health, int troopCount, String commander1Name, String commander2Name, String skill1Name, String skill2Name, String skill3Name, String skill4Name, String mountFirstSlot1Name, String mountFirstSlot2Name, String mountSecondSlot1Name, String mountSecondSlot2Name){
-        Combatant combatant = new Combatant(attack, defense, health, troopCount, commander1Name, commander2Name, skill1Name, skill2Name, skill3Name, skill4Name, mountFirstSlot1Name, mountFirstSlot2Name, mountSecondSlot1Name, mountSecondSlot2Name);
+    public void setNewCombatant(double attack, double defense, double health, int troopCount, 
+                                String commander1Name, String commander2Name, 
+                                String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
+                                String mountFirstSlot1Name, String mountFirstSlot2Name, 
+                                String mountSecondSlot1Name, String mountSecondSlot2Name){
+        Combatant combatant = new Combatant(attack, defense, health, troopCount, 
+                                            commander1Name, commander2Name, 
+                                            skill1Name, skill2Name, skill3Name, skill4Name, 
+                                            mountFirstSlot1Name, mountFirstSlot2Name, 
+                                            mountSecondSlot1Name, mountSecondSlot2Name);
         combatant.setCombatantId(idCount);
         combatantList.add(combatant);
         idCount++;
     }
 
-    public void setNewEnemyCombatant(double attack, double defense, double health, int troopCount, String commander1Name, String commander2Name, String skill1Name, String skill2Name, String skill3Name, String skill4Name, String mountFirstSlot1Name, String mountFirstSlot2Name, String mountSecondSlot1Name, String mountSecondSlot2Name){
-        Combatant combatant = new Combatant(attack, defense, health, troopCount, commander1Name, commander2Name, skill1Name, skill2Name, skill3Name, skill4Name, mountFirstSlot1Name, mountFirstSlot2Name, mountSecondSlot1Name, mountSecondSlot2Name);
+    public void setNewEnemyCombatant(double attack, double defense, double health, int troopCount, 
+                                     String commander1Name, String commander2Name, 
+                                     String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
+                                     String mountFirstSlot1Name, String mountFirstSlot2Name, 
+                                     String mountSecondSlot1Name, String mountSecondSlot2Name){
+        Combatant combatant = new Combatant(attack, defense, health, troopCount, 
+                                            commander1Name, commander2Name, 
+                                            skill1Name, skill2Name, skill3Name, skill4Name, 
+                                            mountFirstSlot1Name, mountFirstSlot2Name, 
+                                            mountSecondSlot1Name, mountSecondSlot2Name);
         combatant.setCombatantId(idCount);
         enemyCombatantList.add(combatant);
         idCount++;
+    }
+
+    public void addNewEnemyDummy(double attack, double defense, double health, int troopCount) {
+        enemyCombatantList.add(createDummy(attack,defense,health,troopCount));
+    }
+
+    public Combatant createDummy(double attack, double defense, double health, int troopCount) {
+        return new Combatant(attack, defense, health, troopCount, 
+                             "N/A", "N/A", 
+                             "N/A", "N/A", "N/A", "N/A", 
+                             "N/A", "N/A", 
+                             "N/A", "N/A");
     }
 
     public String getAllSkills() {
