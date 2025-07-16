@@ -236,12 +236,12 @@ public class SimulatorGUI extends JFrame {
                 for (IMarchPanel mp : marchPanels) {
                     if (!mp.isValidMarch()) continue;
                     if (mp.isFriendly()) {
-                        simulator.setNewCombatant(mp.getHp(), mp.getAtk(), mp.getDef(), mp.getTroopSize(),
+                        simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
                             mp.getPrimaryCommander(), mp.getSecondaryCommander(),
                             mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
                             mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
                     } else {
-                        simulator.setNewEnemyCombatant(mp.getHp(), mp.getAtk(), mp.getDef(), mp.getTroopSize(),
+                        simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
                             mp.getPrimaryCommander(), mp.getSecondaryCommander(),
                             mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
                             mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
@@ -269,12 +269,12 @@ public class SimulatorGUI extends JFrame {
                 for (IMarchPanel mp : marchPanels) {
                     if (!mp.isValidMarch()) continue;
                     if (mp.isFriendly()) {
-                        simulator.setNewCombatant(mp.getHp(), mp.getAtk(), mp.getDef(), mp.getTroopSize(),
+                        simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
                             mp.getPrimaryCommander(), mp.getSecondaryCommander(),
                             mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
                             mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
                     } else {
-                        simulator.setNewEnemyCombatant(mp.getHp(), mp.getAtk(), mp.getDef(), mp.getTroopSize(),
+                        simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
                             mp.getPrimaryCommander(), mp.getSecondaryCommander(),
                             mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
                             mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
@@ -283,7 +283,8 @@ public class SimulatorGUI extends JFrame {
                 test.CombatRecord record = simulator.findTrades(rounds, false);
                 SwingUtilities.invokeLater(() -> resultArea.setText("Simulation complete!\n" +
                     "Trades Pre-Heal: " + record.getTradesPreHeal() + "\n" +
-                    "Trades Post-Heal: " + record.getTradesPostHeal()));
+                    "Trades Post-Heal: " + record.getTradesPostHeal() + "\n" + 
+                    "Enemy Lost Per Round: " + record.getEnemyLostAverage(rounds)));
             } catch (Exception ex) {
                 SwingUtilities.invokeLater(() -> resultArea.setText("Error: " + ex.getMessage()));
             }
@@ -299,12 +300,12 @@ public class SimulatorGUI extends JFrame {
                 for (IMarchPanel mp : marchPanels) {
                     if (!mp.isValidMarch()) continue;
                     if (mp.isFriendly()) {
-                        simulator.setNewCombatant(mp.getHp(), mp.getAtk(), mp.getDef(), mp.getTroopSize(),
+                        simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
                             mp.getPrimaryCommander(), mp.getSecondaryCommander(),
                             mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
                             mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
                     } else {
-                        simulator.setNewEnemyCombatant(mp.getHp(), mp.getAtk(), mp.getDef(), mp.getTroopSize(),
+                        simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
                             mp.getPrimaryCommander(), mp.getSecondaryCommander(),
                             mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
                             mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));

@@ -13,6 +13,7 @@ public class CombatRecord {
     }
 
     public double getEnemyLost() { return enemyLost; }
+    public double getEnemyLostAverage(int rounds) { return enemyLost/(double)rounds;}
     public double getEnemyHealed() { return enemyHealed; }
     public double getFriendlyLost() { return friendlyLost; }
     public double getFriendlyHealed() { return friendlyHealed; }

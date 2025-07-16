@@ -21,23 +21,23 @@ public class EnemyDummyPanel extends JPanel implements IMarchPanel {
         this.marchPanels = marchPanels;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel lblHp = new JLabel("Health");
-        lblHp.setAlignmentX(CENTER_ALIGNMENT);
-        add(lblHp);
-        hpField = new JTextField("830");
-        add(hpField);
-
         JLabel lblAtk = new JLabel("Attack");
         lblAtk.setAlignmentX(CENTER_ALIGNMENT);
         add(lblAtk);
-        atkField = new JTextField("696");
+        atkField = new JTextField("830"); //830
         add(atkField);
-
+        
         JLabel lblDef = new JLabel("Defense");
         lblDef.setAlignmentX(CENTER_ALIGNMENT);
         add(lblDef);
-        defField = new JTextField("396");
+        defField = new JTextField("696"); //696
         add(defField);
+
+        JLabel lblHp = new JLabel("Health");
+        lblHp.setAlignmentX(CENTER_ALIGNMENT);
+        add(lblHp);
+        hpField = new JTextField("396"); // 396
+        add(hpField);
 
         JLabel lblTroops = new JLabel("Troops");
         lblTroops.setAlignmentX(CENTER_ALIGNMENT);
