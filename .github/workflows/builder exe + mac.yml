@@ -30,7 +30,7 @@ jobs:
           jpackage ^
             --input target ^
             --name VikingsRiseSimulator ^
-            --main-jar Vikings-Rise-Simulator*.jar ^
+            --main-jar Vikings-Rise-Simulator.jar ^
             --main-class test.gui.SimulatorGUI ^
             --type exe ^
             --win-console
@@ -65,7 +65,7 @@ jobs:
           jpackage \
             --input target \
             --name VikingsRiseSimulator \
-            --main-jar Vikings-Rise-Simulator*.jar \
+            --main-jar Vikings-Rise-Simulator.jar \
             --main-class test.gui.SimulatorGUI \
             --type app-image
 
