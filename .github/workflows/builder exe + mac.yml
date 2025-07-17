@@ -19,20 +19,16 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Clean previous build
-        shell: pwsh
-        run: Remove-Item -Recurse -Force demo\target
-      
-      - name: Build JAR
+      - name: Copy JAR into packaging folder
         run: |
-          cd demo
-          mvn clean package -U
+          mkdir -p jar
+          copy "Vikings Rise Simulator.jar" jar/
 
       - name: Package as EXE
         shell: pwsh
         run: |
           jpackage `
-            --input demo/target `
+            --input jar `
             --name "VikingsRiseSimulator" `
             --main-jar "Vikings Rise Simulator.jar" `
             --main-class test.gui.SimulatorGUI `
@@ -42,13 +38,9 @@ jobs:
             --dest .
 
       - name: Check if EXE was created
-        run: dir demo
+        run: dir
         shell: cmd
 
-      - name: Check entire workspace
-        run: dir /s /b
-        shell: cmd
-        
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
         with:
@@ -68,19 +60,15 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Clean previous build
-        shell: pwsh
-        run: Remove-Item -Recurse -Force demo\target
-      
-      - name: Build JAR
+      - name: Copy JAR into packaging folder
         run: |
-          cd demo
-          mvn clean package -U
+          mkdir -p jar
+          cp "Vikings Rise Simulator.jar" jar/
 
       - name: Package as macOS App
         run: |
           jpackage \
-            --input demo/target \
+            --input jar \
             --name "VikingsRiseSimulator" \
             --main-jar "Vikings Rise Simulator.jar" \
             --main-class test.gui.SimulatorGUI \
