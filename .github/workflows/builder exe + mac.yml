@@ -33,6 +33,7 @@ jobs:
             --main-jar "Vikings Rise Simulator.jar" ^
             --main-class test.gui.SimulatorGUI ^
             --type exe ^
+            --resource-dir src/main/resources \
             --win-console ^
             --dest ..\
 
@@ -69,6 +70,7 @@ jobs:
             --main-jar "Vikings Rise Simulator.jar" \
             --main-class test.gui.SimulatorGUI \
             --type app-image \
+            --resource-dir src/main/resources \
             --dest ../
 
       - name: Upload macOS App
