@@ -5,6 +5,7 @@ on:
     branches: [main]
 
 jobs:
+
   build-windows:
     name: Build Windows EXE
     runs-on: windows-latest
@@ -22,6 +23,14 @@ jobs:
         run: |
           cd demo
           mvn clean package
+
+      - name: Check demo folder contents
+        shell: cmd
+        run: dir demo
+      
+      - name: Check demo/target folder contents
+        shell: cmd
+        run: dir demo/target
 
       - name: List target directory contents (Windows)
         run: |
