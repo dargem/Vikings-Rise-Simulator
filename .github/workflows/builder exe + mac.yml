@@ -22,7 +22,6 @@ jobs:
         run: |
           cd demo
           mvn clean package
-          mv target/"Vikings Rise Simulator".jar target/VikingsRiseSimulator.jar
 
       - name: Create Windows EXE
         shell: cmd
@@ -31,7 +30,7 @@ jobs:
           jpackage ^
             --input target ^
             --name VikingsRiseSimulator ^
-            --main-jar VikingsRiseSimulator.jar ^
+            --main-jar "Vikings Rise Simulator.jar" ^
             --main-class test.gui.SimulatorGUI ^
             --type exe ^
             --win-console ^
@@ -60,7 +59,6 @@ jobs:
         run: |
           cd demo
           mvn clean package
-          mv target/"Vikings Rise Simulator".jar target/VikingsRiseSimulator.jar
 
       - name: Create macOS App
         run: |
@@ -68,7 +66,7 @@ jobs:
           jpackage \
             --input target \
             --name VikingsRiseSimulator \
-            --main-jar VikingsRiseSimulator.jar \
+            --main-jar "Vikings Rise Simulator.jar" \
             --main-class test.gui.SimulatorGUI \
             --type app-image \
             --dest ../
