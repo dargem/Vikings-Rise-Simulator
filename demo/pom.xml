@@ -28,6 +28,18 @@
 
     <build>
         <finalName>Vikings Rise Simulator</finalName>
+        
+        <!-- Add resources configuration here -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.json</include>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
