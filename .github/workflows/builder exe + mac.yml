@@ -19,6 +19,9 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
+      - name: Clean target folder
+        run: rm -rf demo/target
+  
       - name: Build shaded JAR
         run: |
           cd demo
@@ -64,6 +67,9 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
+      - name: Clean target folder
+        run: rm -rf demo/target
+        
       - name: Build shaded JAR
         run: |
           cd demo
