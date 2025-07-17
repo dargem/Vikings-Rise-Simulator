@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class EnemyDummyPanel extends JPanel implements IMarchPanel {
     private JTextField hpField, atkField, defField, troopField;
-    private final JComboBox<String> teamBox;
+    private final JComboBox<String> teamBox,troopTypeBox;
     private List<IMarchPanel> marchPanels;
     private JPanel parentPanel;
 
@@ -51,6 +51,9 @@ public class EnemyDummyPanel extends JPanel implements IMarchPanel {
         teamBox = new JComboBox<>(new String[]{"Enemy"});
         teamBox.setEnabled(false);
         add(teamBox);
+
+        troopTypeBox = new JComboBox<>(new String[]{"Field","Rally"});
+        add(troopTypeBox);
 
         JButton removeButton = new JButton("Remove");
         removeButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -133,4 +136,7 @@ public class EnemyDummyPanel extends JPanel implements IMarchPanel {
     public String getTeam() {
         return teamBox.getSelectedItem().toString();
     }
+
+    @Override
+    public Boolean isRally() { return ((String)troopTypeBox.getSelectedItem()).equalsIgnoreCase("Rally"); }
 }

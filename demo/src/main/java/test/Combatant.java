@@ -38,20 +38,18 @@ public class Combatant {
     private Random random = new Random();
     private int activeCount = 0;
     private int secondaryCount = 0;
-    private double keptAttack;
-    private double keptDefense;
-    private double keptHealth;
+
+    private CombatantInfoHolder combatantInfoHolder;
 
     // Constructor
-    public Combatant(double attack, double defense, double health, int troopCount, 
+    public Combatant(double attack, double defense, double health, int troopCount, boolean isRally,
                      String commander1Name, String commander2Name, 
                      String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
                      String mountFirstSlot1Name, String mountFirstSlot2Name, 
                      String mountSecondSlot1Name, String mountSecondSlot2Name) {
-        combatantInfo = new CombatantInfo(troopCount, attack, defense, health);
-        keptAttack=attack;
-        keptDefense=defense;
-        keptHealth=health;
+        combatantInfoHolder = new CombatantInfoHolder(troopCount, attack, defense, health, isRally);
+        combatantInfo = combatantInfoHolder.generateNewCombatantInfo();
+
         initialTroopCount = troopCount;
         setupNames.put("commander1", commander1Name);
         setupNames.put("commander2", commander2Name);
@@ -84,7 +82,7 @@ public class Combatant {
     }
 
     public void reset() {
-        combatantInfo = new CombatantInfo(initialTroopCount,keptAttack,keptDefense,keptHealth);
+        combatantInfo = combatantInfoHolder.generateNewCombatantInfo();
         startPhase(SkillDatabase.dummy.getCombatantInfo()); // lazy way to keep base effects for r1
         clearTempBuffs();
         internalReset();

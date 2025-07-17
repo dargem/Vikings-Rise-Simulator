@@ -11,4 +11,5 @@ public interface IMarchPanel {
     String getSecondaryCommander();
     String getSkill(int i);
     String getTeam();
+    Boolean isRally();
 }

@@ -144,33 +144,40 @@ public class SimulatorGUI extends JFrame {
             for (int i = 0; i < marchPanels.size(); i++) {
                 options[i] = "March " + (i + 1) + (marchPanels.get(i).isFriendly() ? " (Friendly)" : " (Enemy)");
             }
-
+            JTextField numberClones = new JTextField(); 
+            numberClones.setText("1"); // defaults to 1
+            Object[] message = {
+                "Number of clones:", numberClones
+            };
             String selected = (String) JOptionPane.showInputDialog(this,
-                "Select a march to clone:",
+                message,
                 "Clone March",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 options,
+                
                 options[0]);
 
             if (selected != null) {
                 int selectedIndex = java.util.Arrays.asList(options).indexOf(selected);
                 IMarchPanel original = marchPanels.get(selectedIndex);
                 IMarchPanel clone;
+                int numberOfLoops = Integer.parseInt(numberClones.getText());
+                for (int i = 0; i < numberOfLoops; i++) {
+                    if (original instanceof MarchPanel) {
+                        clone = new MarchPanel(marchListPanel, marchPanels, (MarchPanel) original);
+                    } else if (original instanceof EnemyDummyPanel) {
+                        clone = new EnemyDummyPanel(marchListPanel, marchPanels, (EnemyDummyPanel) original);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Unknown march type. Cannot clone.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
 
-                if (original instanceof MarchPanel) {
-                    clone = new MarchPanel(marchListPanel, marchPanels, (MarchPanel) original);
-                } else if (original instanceof EnemyDummyPanel) {
-                    clone = new EnemyDummyPanel(marchListPanel, marchPanels, (EnemyDummyPanel) original);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Unknown march type. Cannot clone.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
+                    marchPanels.add(clone);
+                    marchListPanel.add((JPanel) clone);
+                    marchListPanel.revalidate();
+                    marchListPanel.repaint();
                 }
-
-                marchPanels.add(clone);
-                marchListPanel.add((JPanel) clone);
-                marchListPanel.revalidate();
-                marchListPanel.repaint();
             }
         });
 
@@ -235,17 +242,7 @@ public class SimulatorGUI extends JFrame {
                 simulator = new test.Simulator();
                 for (IMarchPanel mp : marchPanels) {
                     if (!mp.isValidMarch()) continue;
-                    if (mp.isFriendly()) {
-                        simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
-                            mp.getPrimaryCommander(), mp.getSecondaryCommander(),
-                            mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
-                            mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
-                    } else {
-                        simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
-                            mp.getPrimaryCommander(), mp.getSecondaryCommander(),
-                            mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
-                            mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
-                    }
+                    addMarchesToSimulator(mp);
                 }
                 java.util.List<test.CombatRecord> results = simulator.groupRoundSimulator(totalTradeSamples, maxRounds);
                 StringBuilder sb = new StringBuilder();
@@ -268,17 +265,7 @@ public class SimulatorGUI extends JFrame {
                 simulator = new test.Simulator();
                 for (IMarchPanel mp : marchPanels) {
                     if (!mp.isValidMarch()) continue;
-                    if (mp.isFriendly()) {
-                        simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
-                            mp.getPrimaryCommander(), mp.getSecondaryCommander(),
-                            mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
-                            mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
-                    } else {
-                        simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
-                            mp.getPrimaryCommander(), mp.getSecondaryCommander(),
-                            mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
-                            mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
-                    }
+                    addMarchesToSimulator(mp);
                 }
                 test.CombatRecord record = simulator.findTrades(rounds, false);
                 SwingUtilities.invokeLater(() -> resultArea.setText("Simulation complete!\n" +
@@ -299,17 +286,7 @@ public class SimulatorGUI extends JFrame {
                 simulator = new test.Simulator();
                 for (IMarchPanel mp : marchPanels) {
                     if (!mp.isValidMarch()) continue;
-                    if (mp.isFriendly()) {
-                        simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
-                            mp.getPrimaryCommander(), mp.getSecondaryCommander(),
-                            mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
-                            mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
-                    } else {
-                        simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(),
-                            mp.getPrimaryCommander(), mp.getSecondaryCommander(),
-                            mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
-                            mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
-                    }
+                    addMarchesToSimulator(mp);
                 }
                 simulator.runFights(fights);
                 SwingUtilities.invokeLater(() -> resultArea.setText("Fight histogram plotted (see new window)."));
@@ -317,6 +294,20 @@ public class SimulatorGUI extends JFrame {
                 SwingUtilities.invokeLater(() -> resultArea.setText("Error: " + ex.getMessage()));
             }
         }).start();
+    }
+
+    private void addMarchesToSimulator(IMarchPanel mp) {
+        if (mp.isFriendly()) {
+            simulator.setNewCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(), mp.isRally(),
+                                      mp.getPrimaryCommander(), mp.getSecondaryCommander(),
+                                      mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
+                                      mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));
+        } else {
+            simulator.setNewEnemyCombatant(mp.getAtk(), mp.getDef(), mp.getHp(), mp.getTroopSize(), mp.isRally(),
+                                      mp.getPrimaryCommander(), mp.getSecondaryCommander(),
+                                      mp.getSkill(0), mp.getSkill(1), mp.getSkill(2), mp.getSkill(3),
+                                      mp.getSkill(4), mp.getSkill(5), mp.getSkill(6), mp.getSkill(7));  
+        }
     }
 
     public static void main(String[] args) {

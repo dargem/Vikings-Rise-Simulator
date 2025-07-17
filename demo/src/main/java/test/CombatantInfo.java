@@ -30,6 +30,7 @@ public class CombatantInfo {
     private double healthBoost;
     private boolean roundPostActiveCheck;
     private boolean immunityControl;
+    private boolean isRally;
     public int buffClear;
     // setters
     public void setRound(int round) { this.round = round; }
@@ -68,7 +69,7 @@ public class CombatantInfo {
     public double getDamageReceivedIncrease() { return debuffEffectCollection.getDamageReceivedIncrease(); }
 
     // constructor
-    public CombatantInfo(int troopCount, double attack, double defense, double health) {
+    public CombatantInfo(int troopCount, double attack, double defense, double health, boolean isRally) {
         this.round = 1; // no tick at start
         this.activeCounter = 4;
         this.troopCount = troopCount;
@@ -79,6 +80,7 @@ public class CombatantInfo {
         this.retributionDamage = 0;
         this.troopChange = 0;
         this.roundPostActiveCheck = true;
+        this.isRally = isRally;
     }
 
     // methods
@@ -218,7 +220,7 @@ public class CombatantInfo {
     }
 
     public void addDebuffEffect(int id, StatusEffect statusEffect) {
-        if (immunityControl) {
+        if (immunityControl) { // divine shield immunity effect
             String effectType = statusEffect.getType();
             if (effectType.equals("disarm") || 
                 effectType.equals("brokenBlade") || 
@@ -226,8 +228,16 @@ public class CombatantInfo {
                 return;
             }
         }
+        // rally based immunity effect
+        if (isRally) {
+            if (SkillDatabase.immunityEffectSet.contains(statusEffect.getType()) &&
+                debuffEffectCollection.isEffectActive(statusEffect.getType())) {
+                return;
+            }
+        }
         debuffEffectCollection.addEffect(id, statusEffect);
     }
+
 
     public void addDamageDebuffEffect (int id, StatusEffect statusEffect) {
         // need to scale using defence

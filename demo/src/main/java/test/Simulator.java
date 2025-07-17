@@ -17,12 +17,12 @@ public class Simulator {
     private List<Combatant> enemyCombatantList = new ArrayList<>();
     private int idCount = 0;
 
-    public void setNewCombatant(double attack, double defense, double health, int troopCount, 
+    public void setNewCombatant(double attack, double defense, double health, int troopCount, boolean isRally,
                                 String commander1Name, String commander2Name, 
                                 String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
                                 String mountFirstSlot1Name, String mountFirstSlot2Name, 
                                 String mountSecondSlot1Name, String mountSecondSlot2Name){
-        Combatant combatant = new Combatant(attack, defense, health, troopCount, 
+        Combatant combatant = new Combatant(attack, defense, health, troopCount, isRally,
                                             commander1Name, commander2Name, 
                                             skill1Name, skill2Name, skill3Name, skill4Name, 
                                             mountFirstSlot1Name, mountFirstSlot2Name, 
@@ -32,12 +32,12 @@ public class Simulator {
         idCount++;
     }
 
-    public void setNewEnemyCombatant(double attack, double defense, double health, int troopCount, 
+    public void setNewEnemyCombatant(double attack, double defense, double health, int troopCount, boolean isRally,
                                      String commander1Name, String commander2Name, 
                                      String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
                                      String mountFirstSlot1Name, String mountFirstSlot2Name, 
                                      String mountSecondSlot1Name, String mountSecondSlot2Name){
-        Combatant combatant = new Combatant(attack, defense, health, troopCount, 
+        Combatant combatant = new Combatant(attack, defense, health, troopCount, isRally,
                                             commander1Name, commander2Name, 
                                             skill1Name, skill2Name, skill3Name, skill4Name, 
                                             mountFirstSlot1Name, mountFirstSlot2Name, 
@@ -47,12 +47,12 @@ public class Simulator {
         idCount++;
     }
 
-    public void addNewEnemyDummy(double attack, double defense, double health, int troopCount) {
-        enemyCombatantList.add(createDummy(attack,defense,health,troopCount));
+    public void addNewEnemyDummy(double attack, double defense, double health, int troopCount, boolean isRally) {
+        enemyCombatantList.add(createDummy(attack,defense,health,troopCount,isRally));
     }
 
-    public Combatant createDummy(double attack, double defense, double health, int troopCount) {
-        return new Combatant(attack, defense, health, troopCount, 
+    public Combatant createDummy(double attack, double defense, double health, int troopCount, boolean isRally) {
+        return new Combatant(attack, defense, health, troopCount, isRally,
                              "N/A", "N/A", 
                              "N/A", "N/A", "N/A", "N/A", 
                              "N/A", "N/A", 

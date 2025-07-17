@@ -15,7 +15,7 @@ public class MarchPanel extends JPanel implements IMarchPanel {
     private JComboBox<String> primaryCommander, secondaryCommander;
     private JTextField hpField, atkField, defField, troopField;
     private JComboBox<String>[] skills = new JComboBox[8];
-    private JComboBox<String> teamBox;
+    private JComboBox<String> teamBox,troopTypeBox;
     private List<IMarchPanel> marchPanels;
     private JPanel parentPanel;
 
@@ -102,11 +102,13 @@ public class MarchPanel extends JPanel implements IMarchPanel {
             skills[i] = new JComboBox<>(slot2Skills.toArray(new String[0]));
             add(skills[i]);
         }
-        JLabel lblTeam = new JLabel("Team");
+        JLabel lblTeam = new JLabel("Configurations, Team/Type");
         lblTeam.setAlignmentX(CENTER_ALIGNMENT);
         add(lblTeam);
         teamBox = new JComboBox<>(new String[]{"Friendly", "Enemy"});
         add(teamBox);
+        troopTypeBox = new JComboBox<>(new String[]{"Field","Rally"});
+        add(troopTypeBox);
         JButton removeButton = new JButton("Remove");
         removeButton.setAlignmentX(CENTER_ALIGNMENT);
         removeButton.addActionListener(e -> {
@@ -163,6 +165,8 @@ public class MarchPanel extends JPanel implements IMarchPanel {
     public String getSecondaryCommander() { return (String) secondaryCommander.getSelectedItem(); }
     @Override
     public String getTeam() { return (String) teamBox.getSelectedItem(); }
+    @Override
+    public Boolean isRally() { return ((String)troopTypeBox.getSelectedItem()).equalsIgnoreCase("Rally"); }
     @Override
     public String getSkill(int i) { return (String) skills[i].getSelectedItem(); }
 }

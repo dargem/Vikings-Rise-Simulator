@@ -25,7 +25,12 @@ public class SkillDatabase {
     public static HashSet<String> localKeptSet;
     public static HashSet<String> damageEffectSet;
     public static HashSet<String> debuffEffectSet; // non damaging debuffs lie slow
-    public static Combatant dummy = new Combatant(100, 100, 100, 200000, "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
+    public static HashSet<String> immunityEffectSet; // stuff div shield and rally immunity grants immunity to
+    public static Combatant dummy = new Combatant(100, 100, 100, 200000, false,
+                                                  "N/A", "N/A", 
+                                                  "N/A", "N/A", "N/A", "N/A", 
+                                                  "N/A", "N/A", 
+                                                  "N/A", "N/A");
 
 
     static {
@@ -124,12 +129,20 @@ public class SkillDatabase {
             "bleedDamage",
             "poisonDamage",
             "lacerateDamage"
-            ));
+        ));
 
         debuffEffectSet = new HashSet<>(List.of(
             "slow",
             "silence"
         ));
+
+        immunityEffectSet = new HashSet<>(List.of(
+            "silence",
+            "brokenBlade",
+            "disarm"
+        ));
+
+
 
         ObjectMapper objectMapper = new ObjectMapper();
 
