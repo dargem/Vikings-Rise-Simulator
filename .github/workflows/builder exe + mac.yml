@@ -12,16 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Java 23
+      - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '23'
+          java-version: '21'
 
       - name: Build JAR with Maven
         run: |
           cd demo
           mvn clean package
+
+      - name: List target directory contents (Windows)
+        run: |
+          cd demo
+          dir target
 
       - name: Create Windows EXE
         shell: cmd
@@ -33,7 +38,7 @@ jobs:
             --main-jar "Vikings Rise Simulator.jar" ^
             --main-class test.gui.SimulatorGUI ^
             --type exe ^
-            --resource-dir src/main/resources/target ^
+            --resource-dir src/main/resources ^
             --win-console ^
             --dest ..\
 
@@ -50,16 +55,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Java 23
+      - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '23'
+          java-version: '21'
 
       - name: Build JAR with Maven
         run: |
           cd demo
           mvn clean package
+
+      - name: List target directory contents (macOS)
+        run: |
+          cd demo
+          ls -la target/
 
       - name: Create macOS App
         run: |
@@ -70,7 +80,7 @@ jobs:
             --main-jar "Vikings Rise Simulator.jar" \
             --main-class test.gui.SimulatorGUI \
             --type app-image \
-            --resource-dir src/main/resources/target \
+            --resource-dir src/main/resources \
             --dest ../
 
       - name: Upload macOS App
