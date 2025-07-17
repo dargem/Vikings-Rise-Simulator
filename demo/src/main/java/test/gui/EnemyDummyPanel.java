@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+//temp
 public class EnemyDummyPanel extends JPanel implements IMarchPanel {
     private JTextField hpField, atkField, defField, troopField;
     private final JComboBox<String> teamBox;
