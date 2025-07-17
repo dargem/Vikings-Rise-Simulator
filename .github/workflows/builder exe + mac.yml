@@ -30,7 +30,7 @@ jobs:
       
       - name: Check demo/target folder contents
         shell: cmd
-        run: dir demo/target
+        run: dir "demo/target"
 
       - name: List target directory contents (Windows)
         run: |
