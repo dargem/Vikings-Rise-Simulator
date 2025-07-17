@@ -20,7 +20,8 @@ jobs:
           java-version: '21'
 
       - name: Clean target folder
-        run: rm -rf demo/target
+        shell: pwsh
+        run: Remove-Item -Recurse -Force demo\target
   
       - name: Build shaded JAR
         run: |
@@ -68,7 +69,8 @@ jobs:
           java-version: '21'
 
       - name: Clean target folder
-        run: rm -rf demo/target
+        shell: pwsh
+        run: Remove-Item -Recurse -Force demo\target
         
       - name: Build shaded JAR
         run: |
