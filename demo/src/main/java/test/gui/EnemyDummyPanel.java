@@ -20,7 +20,7 @@ public class EnemyDummyPanel extends JPanel implements IMarchPanel {
         this.parentPanel = parentPanel;
         this.marchPanels = marchPanels;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        //test
         JLabel lblAtk = new JLabel("Attack");
         lblAtk.setAlignmentX(CENTER_ALIGNMENT);
         add(lblAtk);
