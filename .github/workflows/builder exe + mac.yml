@@ -24,10 +24,6 @@ jobs:
           cd demo
           mvn clean package
 
-      - name: Rename shaded JAR
-        run: |
-          Rename-Item "demo/target/demo-1.0-SNAPSHOT-shaded.jar" "demo/target/Vikings Rise Simulator.jar"
-
       - name: Package as EXE
         shell: pwsh
         run: |
@@ -64,9 +60,6 @@ jobs:
         run: |
           cd demo
           mvn clean package
-
-      - name: Rename shaded JAR
-        run: mv demo/target/demo-1.0-SNAPSHOT-shaded.jar "demo/target/Vikings Rise Simulator.jar"
 
       - name: Package as macOS App
         run: |
