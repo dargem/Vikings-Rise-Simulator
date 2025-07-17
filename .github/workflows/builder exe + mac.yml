@@ -19,40 +19,29 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Build JAR with Maven
+      - name: Build shaded JAR
         run: |
           cd demo
           mvn clean package
 
-      - name: Check demo folder contents
-        shell: cmd
-        run: dir demo
-      
-      - name: Check demo/target folder contents
-        shell: cmd
-        run: dir "demo/target"
-
-      - name: List target directory contents (Windows)
+      - name: Rename shaded JAR
         run: |
-          cd demo
-          dir target
-      
-      - name: Create Windows EXE
-        shell: cmd
+          Rename-Item "demo/target/demo-1.0-SNAPSHOT-shaded.jar" "demo/target/Vikings Rise Simulator.jar"
+
+      - name: Package as EXE
+        shell: pwsh
         run: |
-          cd demo
-          jpackage ^
-            --input target ^
-            --name VikingsRiseSimulator ^
-            --main-jar "Vikings Rise Simulator.jar" ^
-            --main-class test.gui.SimulatorGUI ^
-            --type exe ^
-            --resource-dir src/main/resources ^
-            --win-console ^
-            --dest ..\
+          jpackage `
+            --input demo/target `
+            --name "VikingsRiseSimulator" `
+            --main-jar "Vikings Rise Simulator.jar" `
+            --main-class test.gui.SimulatorGUI `
+            --type exe `
+            --resource-dir demo/src/main/resources `
+            --win-console `
+            --dest .
 
-
-      - name: Upload Windows Installer
+      - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: VikingsRiseSimulator-Windows
@@ -71,33 +60,24 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Build JAR with Maven
+      - name: Build shaded JAR
         run: |
           cd demo
           mvn clean package
 
-      - name: List target directory contents (macOS)
+      - name: Rename shaded JAR
+        run: mv demo/target/demo-1.0-SNAPSHOT-shaded.jar "demo/target/Vikings Rise Simulator.jar"
+
+      - name: Package as macOS App
         run: |
-          cd demo
-          ls -la target/
-      
-      - name: Rename shaded JAR for jpackage
-        run: |
-          cd demo/target
-          mv demo-1.0-SNAPSHOT-shaded.jar "Vikings Rise Simulator.jar"
-      
-      - name: Create macOS App
-        run: |
-          cd demo
           jpackage \
-            --input target \
-            --name VikingsRiseSimulator \
+            --input demo/target \
+            --name "VikingsRiseSimulator" \
             --main-jar "Vikings Rise Simulator.jar" \
             --main-class test.gui.SimulatorGUI \
             --type app-image \
-            --resource-dir src/main/resources \
-            --dest ../
-
+            --resource-dir demo/src/main/resources \
+            --dest .
 
       - name: Upload macOS App
         uses: actions/upload-artifact@v4
