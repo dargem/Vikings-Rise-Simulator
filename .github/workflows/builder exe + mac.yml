@@ -22,6 +22,7 @@ jobs:
         run: |
           cd demo
           mvn clean package
+          mv target/"Vikings Rise Simulator".jar target/VikingsRiseSimulator.jar
 
       - name: Create Windows EXE
         shell: cmd
@@ -30,16 +31,17 @@ jobs:
           jpackage ^
             --input target ^
             --name VikingsRiseSimulator ^
-            --main-jar "Vikings Rise Simulator.jar" ^
+            --main-jar VikingsRiseSimulator.jar ^
             --main-class test.gui.SimulatorGUI ^
             --type exe ^
-            --win-console
+            --win-console ^
+            --dest ..\
 
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
         with:
           name: VikingsRiseSimulator-Windows
-          path: demo/VikingsRiseSimulator.exe
+          path: VikingsRiseSimulator.exe
 
   build-macos:
     name: Build macOS App
@@ -58,6 +60,7 @@ jobs:
         run: |
           cd demo
           mvn clean package
+          mv target/"Vikings Rise Simulator".jar target/VikingsRiseSimulator.jar
 
       - name: Create macOS App
         run: |
@@ -65,12 +68,13 @@ jobs:
           jpackage \
             --input target \
             --name VikingsRiseSimulator \
-            --main-jar "Vikings Rise Simulator.jar" \
+            --main-jar VikingsRiseSimulator.jar \
             --main-class test.gui.SimulatorGUI \
-            --type app-image
+            --type app-image \
+            --dest ../
 
       - name: Upload macOS App
         uses: actions/upload-artifact@v4
         with:
           name: VikingsRiseSimulator-macOS
-          path: "demo/VikingsRiseSimulator.app"
+          path: VikingsRiseSimulator.app
