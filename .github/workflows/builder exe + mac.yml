@@ -40,6 +40,7 @@ jobs:
       - name: Rename shaded JAR for jpackage
         shell: cmd
         run: |
+          D:
           cd demo\target
           ren "demo-1.0-SNAPSHOT-shaded.jar" "Vikings Rise Simulator.jar"
       
