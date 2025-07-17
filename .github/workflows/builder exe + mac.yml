@@ -37,6 +37,14 @@ jobs:
             --win-console `
             --dest .
 
+      - name: Check if EXE was created
+        run: dir demo
+        shell: cmd
+
+      - name: Check entire workspace
+        run: dir /s /b
+        shell: cmd
+
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
