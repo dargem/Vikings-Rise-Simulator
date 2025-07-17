@@ -40,8 +40,7 @@ jobs:
       - name: Rename shaded JAR for jpackage
         shell: cmd
         run: |
-          D:
-          cd demo\target
+          cd /d "%GITHUB_WORKSPACE%\demo\target"
           ren "demo-1.0-SNAPSHOT-shaded.jar" "Vikings Rise Simulator.jar"
       
       - name: Create Windows EXE
