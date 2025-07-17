@@ -64,7 +64,8 @@ public class Skill {
     public static Skill loadFromJsonByName(String skillName) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            InputStream is = SkillDatabase.class.getClassLoader().getResourceAsStream("test/SkillDatabase.json");
+            InputStream is = SkillDatabase.class.getResourceAsStream("/test/SkillDatabase.json");
+
             if (is == null) {
                 throw new FileNotFoundException("SkillDatabase.json not found in resources");
             }

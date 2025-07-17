@@ -132,39 +132,43 @@ public class SkillDatabase {
         ));
 
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            InputStream one = SkillDatabase.class.getClassLoader().getResourceAsStream("test/SkillDatabase.json");
-            if (one == null) {
+
+        try (
+            InputStream skillStream = SkillDatabase.class.getResourceAsStream("/test/SkillDatabase.json");
+            InputStream nameMapStream = SkillDatabase.class.getResourceAsStream("/test/NameAssosciatedSkillDatabase.json");
+        ) {
+            // Validate resources
+            if (skillStream == null) {
                 throw new FileNotFoundException("SkillDatabase.json not found in resources");
             }
+            if (nameMapStream == null) {
+                throw new FileNotFoundException("NameAssosciatedSkillDatabase.json not found in resources");
+            }
+
+            // Load skills
             skills = objectMapper.readValue(
-                one,
+                skillStream,
                 objectMapper.getTypeFactory().constructCollectionType(List.class, Skill.class)
             );
 
-
-            InputStream two = SkillDatabase.class.getClassLoader().getResourceAsStream("test/NameAssosciatedSkillDatabase.json");
-            if (two == null) {
-                throw new FileNotFoundException("NameAssosciatedSkillDatabase.json not found in resources");
-            }
-            //skills reads the skill json making a list
+            // Load name-to-skill mapping
             List<Map<String, String>> skillDataList = objectMapper.readValue(
-                two, new TypeReference<List<Map<String, String>>>() {}
+                nameMapStream,
+                new TypeReference<List<Map<String, String>>>() {}
             );
 
-            //skillDataList of maps is made, 1 map = 1 json entry
+            // Create lookup map
             skillLookup = new HashMap<>();
-            for (Map<String, String> skillEntry : skillDataList) { //iterating through the list of hashmaps
-                String nameKey = skillEntry.get("name").toLowerCase(); //namekey is the name of commander/or header skill
-                skillLookup.put(nameKey, skillEntry); //puts in namekey with the whole entry, keep information on if awakened type
+            for (Map<String, String> entry : skillDataList) {
+                String nameKey = entry.get("name").toLowerCase();
+                skillLookup.put(nameKey, entry);
             }
-            //skillLookup is a map, string key for map value
-            //gets a map where name of a commander can be inputted for its entry, also want it to note if awakened associated though
+
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error with the lookup, wrong file location?");
-            System.exit(0);
-            //on error just makes an empty list
+            System.err.println("Error loading skill database or lookup — check file paths and packaging.");
+            System.exit(1);
         }
+
     }
 }
