@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
@@ -131,16 +133,25 @@ public class SkillDatabase {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File skillsFile = new File("demo/src/main/java/test/SkillDatabase.json");
+            InputStream one = SkillDatabase.class.getClassLoader().getResourceAsStream("test/SkillDatabase.json");
+            if (one == null) {
+                throw new FileNotFoundException("SkillDatabase.json not found in resources");
+            }
             skills = objectMapper.readValue(
-                skillsFile,
+                one,
                 objectMapper.getTypeFactory().constructCollectionType(List.class, Skill.class)
             );
+
+
+            InputStream two = SkillDatabase.class.getClassLoader().getResourceAsStream("test/NameAssosciatedSkillDatabase.json");
+            if (two == null) {
+                throw new FileNotFoundException("NameAssosciatedSkillDatabase.json not found in resources");
+            }
             //skills reads the skill json making a list
-            File lookupFile = new File("demo/src/main/java/test/NameAssosciatedSkillDatabase.json");
             List<Map<String, String>> skillDataList = objectMapper.readValue(
-                lookupFile, new TypeReference<List<Map<String, String>>>() {}
+                two, new TypeReference<List<Map<String, String>>>() {}
             );
+
             //skillDataList of maps is made, 1 map = 1 json entry
             skillLookup = new HashMap<>();
             for (Map<String, String> skillEntry : skillDataList) { //iterating through the list of hashmaps

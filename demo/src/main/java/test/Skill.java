@@ -1,7 +1,8 @@
 package test;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -63,9 +64,12 @@ public class Skill {
     public static Skill loadFromJsonByName(String skillName) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = new File("demo/src/main/java/test/SkillDatabase.json");
+            InputStream is = SkillDatabase.class.getClassLoader().getResourceAsStream("test/SkillDatabase.json");
+            if (is == null) {
+                throw new FileNotFoundException("SkillDatabase.json not found in resources");
+            }
             List<Skill> skills = objectMapper.readValue(
-                    file,
+                    is,
                     objectMapper.getTypeFactory().constructCollectionType(List.class, Skill.class)
             );
 
