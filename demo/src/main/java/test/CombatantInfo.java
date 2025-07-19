@@ -1,15 +1,19 @@
 package test;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import test.combatrecords.CombatRecordOverview;
 
 public class CombatantInfo {
     // This class is used to store combatants info for passing between combatants
+
+    private CombatRecordOverview combatRecordOverview = new CombatRecordOverview();
+    private int combatantId;
     // round info
     private int round;
     private int activeCounter;
     private int troopChange;
-    private int troopHealed;
-    private int troopHealedHolder;
     // stats of the combatant
     private int troopCount;
     private double rage;
@@ -67,9 +71,10 @@ public class CombatantInfo {
     public boolean getImmunityControl() { return immunityControl; }
     public double getRetributionDamage() { double holder = retributionDamage; retributionDamage=0; return holder; }
     public double getDamageReceivedIncrease() { return debuffEffectCollection.getDamageReceivedIncrease(); }
+    public CombatRecordOverview getCombatRecordOverview() { return combatRecordOverview; }
 
-    // constructor
-    public CombatantInfo(int troopCount, double attack, double defense, double health, boolean isRally) {
+    public CombatantInfo(int troopCount, double attack, double defense, double health, boolean isRally, int combatantId) {
+        this.combatantId = combatantId;
         this.round = 1; // no tick at start
         this.activeCounter = 4;
         this.troopCount = troopCount;
@@ -88,8 +93,6 @@ public class CombatantInfo {
         // tick the round
         //System.out.println(troopChange);
         //System.out.println(activeCounter);
-        troopHealedHolder=troopHealed; // holds the info from the round while resetting because of how its called
-        troopHealed=0;
         immunityControl = false;
         round++;
         troopCount+=troopChange;
@@ -130,7 +133,12 @@ public class CombatantInfo {
         retribution = 0;
         debuffEffectCollection.tickAll();
         debuffEffectCollection.runInfo();
-        addDamageTakenPostDefense(debuffEffectCollection.getTotalDamage()); // so that damage counts the round after like ingame
+        // so that damage counts the round after like ingame
+        for (Map.Entry<Integer,Double> entry : debuffEffectCollection.getDamageById().entrySet()) {
+            addDamageTakenPostDefense(entry.getKey(), entry.getValue());
+        }
+        //addDamageTakenPostDefense(debuffEffectCollection.getTotalDamage()); 
+
         rage -= debuffEffectCollection.getRageDamp();
         attackBoost -= debuffEffectCollection.getAttackDamp();
         defenseBoost -= debuffEffectCollection.getDefenseDamp();
@@ -171,11 +179,10 @@ public class CombatantInfo {
     public boolean isEffectActive(String type) { return debuffEffectCollection.isEffectActive(type); }
     public boolean isAbsorptionActive() { return !absorptionList.isEmpty(); }
     public double getRetribution() { return retribution; }
-    public int getTroopHealed() { return troopHealedHolder; }
-    public void setTroopHealed(int troopHealed) { this.troopHealed = troopHealed; }
     public int getBuffClear() { return buffClear; }
+    public int getCombatantId() { return combatantId; }
 
-    public void addDamageTaken (double scaledDamage) { 
+    public void addDamageTaken (int attackerId, double scaledDamage) { 
         scaledDamage /= defense;
         retributionDamage += scaledDamage * retribution; 
         for (StatusEffect absorption : absorptionList) {
@@ -186,10 +193,11 @@ public class CombatantInfo {
             }
         }
         scaledDamage /= health;
+        combatRecordOverview.addEnemyTroopsKilled(attackerId, combatantId, scaledDamage);
         troopChange -= scaledDamage;
     }
 
-    public void addDamageTakenPostDefense (double scaledDamagePostDefense) {
+    public void addDamageTakenPostDefense (int attackerId, double scaledDamagePostDefense) {
         
         for (StatusEffect absorption : absorptionList) {
             double holder = absorption.getMagnitude();
@@ -197,12 +205,11 @@ public class CombatantInfo {
                 if (holder < scaledDamagePostDefense) {scaledDamagePostDefense -= holder; absorption.setMagnitude(0);}
                 else {absorption.addMagnitude(-scaledDamagePostDefense); return;}
             }
-        }
-        
+        }        
         scaledDamagePostDefense /= health;
+        combatRecordOverview.addEnemyTroopsKilled(attackerId, combatantId, scaledDamagePostDefense);
         //System.out.println(scaledDamagePostDefense);
         troopChange -= scaledDamagePostDefense;
-        // check if retribution can be blocked by shields
     }
 
     public void addAbsorption (StatusEffect scaledAbsorption) {
@@ -215,7 +222,7 @@ public class CombatantInfo {
         // should already be divided by targets defense
         scaledHealing /= health;
         // doesn't add to troop change so heavily wounded pre heal can be checked
-        troopHealed += scaledHealing; // troopHealed is a counter not an actual var
+        combatRecordOverview.addTroopsHealed(combatantId, scaledHealing);
         troopChange += scaledHealing;
     }
 
@@ -229,7 +236,7 @@ public class CombatantInfo {
             }
         }
         // rally based immunity effect
-        if (isRally) {
+        if (true) { // currently works for both field and rallies due to ingame bugs
             if (SkillDatabase.immunityEffectSet.contains(statusEffect.getType()) &&
                 debuffEffectCollection.isEffectActive(statusEffect.getType())) {
                 return;

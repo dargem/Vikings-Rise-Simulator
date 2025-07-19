@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import test.combatrecords.CombatRecordOverview;
+
 public class Combatant {
     private HashMap<String, String> setupNames = new HashMap<>();
     Set<String> triggeredSet = new HashSet<>();
@@ -33,7 +35,6 @@ public class Combatant {
     private double lacerateDamageIncrease;
     public double activeDealtIncrease;
     private int numberEnemyAttackers;
-    private int combatantId;
     private int initialTroopCount; // for resetting combatant info when needed
     private Random random = new Random();
     private int activeCount = 0;
@@ -42,14 +43,15 @@ public class Combatant {
     private CombatantInfoHolder combatantInfoHolder;
 
     // Constructor
-    public Combatant(double attack, double defense, double health, int troopCount, boolean isRally,
+    public Combatant(double attack, double defense, double health, 
+                     int troopCount, boolean isRally, int combatantId,
                      String commander1Name, String commander2Name, 
-                     String skill1Name, String skill2Name, String skill3Name, String skill4Name, 
+                     String skill1Name, String skill2Name, 
+                     String skill3Name, String skill4Name, 
                      String mountFirstSlot1Name, String mountFirstSlot2Name, 
                      String mountSecondSlot1Name, String mountSecondSlot2Name) {
-        combatantInfoHolder = new CombatantInfoHolder(troopCount, attack, defense, health, isRally);
+        combatantInfoHolder = new CombatantInfoHolder(troopCount, attack, defense, health, isRally, combatantId);
         combatantInfo = combatantInfoHolder.generateNewCombatantInfo();
-
         initialTroopCount = troopCount;
         setupNames.put("commander1", commander1Name);
         setupNames.put("commander2", commander2Name);
@@ -64,8 +66,6 @@ public class Combatant {
         createSkillsList();
         internalReset();
     }
-
-    public void setCombatantId(int combatantId) { this.combatantId = combatantId; }
 
     private void internalReset() {
         
@@ -213,6 +213,8 @@ public class Combatant {
     public CombatantInfo getEnemyCombatant() { return enemyCombatant; }
     public double getInitialTroopCount() { return initialTroopCount; }
     public void setTroopCount() { combatantInfo.setTroopCount(initialTroopCount); }
+    public int getCombatantId() { return combatantInfo.getCombatantId(); }
+    public CombatRecordOverview getCombatRecordOverview() { return combatantInfo.getCombatRecordOverview(); }
     // methods
     /*
     private double computeDamage() {
@@ -276,7 +278,7 @@ public class Combatant {
         double enemyEvasion = enemyCombatant.getEvasion(); // evasion prevents damage but not triggers
         if (Math.random() > enemyEvasion) {
             totalCounter.addDamageFactor((1+basicAttackDamage+enemyCombatant.getDamageReceivedIncrease()-enemyCombatant.getNullification())*200);
-            enemyCombatant.addDamageTaken(Scaler.scale((1+basicAttackDamage+enemyCombatant.getDamageReceivedIncrease()-enemyCombatant.getNullification())*200,combatantInfo.getAttack(),combatantInfo.getTroopCount()));
+            enemyCombatant.addDamageTaken(combatantInfo.getCombatantId(), Scaler.scale((1+basicAttackDamage+enemyCombatant.getDamageReceivedIncrease()-enemyCombatant.getNullification())*200,combatantInfo.getAttack(),combatantInfo.getTroopCount()));
         }
         if (combatantInfo.getBasicAttackCheck()) { triggeredSet.add("basicAttack"); }
         if (combatantInfo.getCounterAttackCheck()) { triggeredSet.add("counterAttack"); }
@@ -324,15 +326,15 @@ public class Combatant {
                         // active dealt increases do help status damage from active skills, generic dealt increases don't though for some reason
                         debuff.setMagnitude(Scaler.scale(skill.getMagnitude()*(1+holder),combatantInfo.getAttack(),combatantInfo.getTroopCount()));
                         totalCounter.addStatusFactor(skill.getMagnitude()*(1+holder)*debuff.getDuration()); //adds status factors, done all at once since status will still do damage after changing target
-                        enemyCombatant.addDamageDebuffEffect(combatantId,debuff);
+                        enemyCombatant.addDamageDebuffEffect(combatantInfo.getCombatantId(),debuff);
                         continue;
                     }
-                    enemyCombatant.addDebuffEffect(combatantId,debuff);
+                    enemyCombatant.addDebuffEffect(combatantInfo.getCombatantId(),debuff);
                     //System.out.println(debuff.getName()); // add better system for error cases
                 }
             }
         }
-        combatantInfo.addDamageTakenPostDefense(enemyCombatant.getRetributionDamage()); // check if damage received increases help retribution
+        combatantInfo.addDamageTakenPostDefense(combatantInfo.getCombatantId(), enemyCombatant.getRetributionDamage()); // check if damage received increases help retribution
     }
 
     public void counterattackPhase(CombatantInfo enemyCombatant) {
@@ -346,10 +348,10 @@ public class Combatant {
         }
         if (damage > 0) {
             totalCounter.addDamageFactor(damage);
-            enemyCombatant.addDamageTaken(Scaler.scale(damage, combatantInfo.getAttack(), combatantInfo.getTroopCount()));
+            enemyCombatant.addDamageTaken(combatantInfo.getCombatantId(), Scaler.scale(damage, combatantInfo.getAttack(), combatantInfo.getTroopCount()));
         }
         //System.out.println(enemyCombatant.getRetributionDamage());
-        combatantInfo.addDamageTakenPostDefense(enemyCombatant.getRetributionDamage());
+        combatantInfo.addDamageTakenPostDefense(combatantInfo.getCombatantId(), enemyCombatant.getRetributionDamage());
     }
 
     public void endPhase() {
@@ -488,6 +490,6 @@ public class Combatant {
         if (skill.getDependent().equalsIgnoreCase("activeMain") || skill.getDependent().equals("activeSecondary")) { additionalDealt+= activeDealtIncrease; }
         damage *= (1 + dealtIncrease + additionalDealt + enemyCombatant.getDamageReceivedIncrease() - enemyCombatant.getNullification());
         totalCounter.addDamageFactor(damage);
-        enemyCombatant.addDamageTaken(Scaler.scale(damage, combatantInfo.getAttack(), combatantInfo.getTroopCount()));
+        enemyCombatant.addDamageTaken(combatantInfo.getCombatantId(), Scaler.scale(damage, combatantInfo.getAttack(), combatantInfo.getTroopCount()));
     }
 }   
