@@ -1,5 +1,6 @@
-package test;
+package test.combatrecords;
 public class CombatRecord {
+    public boolean isFriendly;
     private double enemyLost;
     private double enemyHealed;
     private double friendlyLost;
@@ -17,6 +18,8 @@ public class CombatRecord {
     public double getEnemyHealed() { return enemyHealed; }
     public double getFriendlyLost() { return friendlyLost; }
     public double getFriendlyHealed() { return friendlyHealed; }
+    public void setFriendly(boolean isFriendly) { this.isFriendly = isFriendly; }
+    public boolean isFriendly() { return isFriendly; }
 
     //public void setEnemyLost(int enemyLost) { this.enemyLost = enemyLost; }
     //public void setFriendlyLost(int friendlyLost) { this.friendlyLost = friendlyLost; }
@@ -37,5 +40,4 @@ public class CombatRecord {
         friendlyLost += combatRecord.getFriendlyLost();
         friendlyHealed += combatRecord.getFriendlyHealed();
     }
-    
 }

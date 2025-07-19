@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class DebuffEffectCollection {
     private HashMap<Integer, List<StatusEffect>> effectsById = new HashMap<>();
     private HashMap<String, Boolean> activeEffectTypes = new HashMap<>();
+    private HashMap<Integer, Double> damageById = new HashMap<>();
 
-    double damageTotal;
     double attackDamp;
     double defenseDamp;
     double healthDamp;
@@ -21,7 +22,9 @@ public class DebuffEffectCollection {
 
     public boolean getBasicAttack() { return basicAttack; }
     public boolean getCounterAttack() { return counterAttack; }
-    public double getTotalDamage() { return damageTotal; }
+
+    public HashMap<Integer, Double> getDamageById() { return damageById; }
+
     public double getAttackDamp() { return attackDamp; }
     public double getDefenseDamp() { return defenseDamp; }
     public double getHealthDamp() { return healthDamp; }
@@ -94,12 +97,12 @@ public class DebuffEffectCollection {
     }
 
     public void tickAll() {
-        damageTotal = 0;
         attackDamp = 0;
         defenseDamp = 0;
         healthDamp = 0;
         rageDamp = 0;
         damageReceivedIncrease = 0;
+        damageById.clear();
         
         for (List<StatusEffect> effectList : effectsById.values()) {
             Iterator<StatusEffect> iterator = effectList.iterator();
@@ -117,12 +120,16 @@ public class DebuffEffectCollection {
         activeEffectTypes.clear();
         basicAttack = true;
         counterAttack = true;
-        for (List<StatusEffect> list : effectsById.values()) {
+        for (Map.Entry<Integer,List<StatusEffect>> entry : effectsById.entrySet()) {
+            List<StatusEffect> list = entry.getValue();
+            Integer id = entry.getKey();
+            double damageTotal = 0;
             for (StatusEffect effect : list) {
                 //System.out.println(effect.getName());
                 activeEffectTypes.put(effect.getType(),true);
                 if (SkillDatabase.damageEffectSet.contains(effect.getType())) {
                     damageTotal += effect.getMagnitude();
+                    
                 }
                 else {
                     switch (effect.getType()) {
@@ -139,6 +146,7 @@ public class DebuffEffectCollection {
                     }
                 }
             }
+            damageById.put(id,damageTotal);
         }
     }
 }

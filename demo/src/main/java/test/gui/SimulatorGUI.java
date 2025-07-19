@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import test.combatrecords.CombatRecordOverview;
+
 
 public class SimulatorGUI extends JFrame {
     private JTextArea resultArea;
@@ -244,11 +246,11 @@ public class SimulatorGUI extends JFrame {
                     if (!mp.isValidMarch()) continue;
                     addMarchesToSimulator(mp);
                 }
-                java.util.List<test.CombatRecord> results = simulator.groupRoundSimulator(totalTradeSamples, maxRounds);
+                List<CombatRecordOverview> results = simulator.groupRoundSimulator(totalTradeSamples, maxRounds);
                 StringBuilder sb = new StringBuilder();
                 sb.append("Group Round Simulation Results (Rounds: TradesPreHeal, TradesPostHeal):\n");
                 for (int i = 0; i < results.size(); i++) {
-                    test.CombatRecord rec = results.get(i);
+                    CombatRecordOverview rec = results.get(i);
                     sb.append(String.format("%2d: %.3f, %.3f\n", (i+1), rec.getTradesPreHeal(), rec.getTradesPostHeal()));
                 }
                 SwingUtilities.invokeLater(() -> resultArea.setText(sb.toString()));
@@ -267,11 +269,11 @@ public class SimulatorGUI extends JFrame {
                     if (!mp.isValidMarch()) continue;
                     addMarchesToSimulator(mp);
                 }
-                test.CombatRecord record = simulator.findTrades(rounds, false);
+                CombatRecordOverview record = simulator.findTrades(rounds, false);
                 SwingUtilities.invokeLater(() -> resultArea.setText("Simulation complete!\n" +
                     "Trades Pre-Heal: " + record.getTradesPreHeal() + "\n" +
                     "Trades Post-Heal: " + record.getTradesPostHeal() + "\n" + 
-                    "Enemy Lost Per Round: " + record.getEnemyLostAverage(rounds)));
+                    "Enemy Lost Per Round: " + record.getEnemyLostPostHeal(rounds)));
             } catch (Exception ex) {
                 SwingUtilities.invokeLater(() -> resultArea.setText("Error: " + ex.getMessage()));
             }

@@ -6,11 +6,9 @@ import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
-import java.util.Set;
 import java.util.HashSet;
 
 //for storing parsed json
@@ -26,9 +24,11 @@ public class SkillDatabase {
     public static HashSet<String> damageEffectSet;
     public static HashSet<String> debuffEffectSet; // non damaging debuffs lie slow
     public static HashSet<String> immunityEffectSet; // stuff div shield and rally immunity grants immunity to
-    public static Combatant dummy = new Combatant(100, 100, 100, 200000, false,
+    public static Combatant dummy = new Combatant(100, 100, 100, 
+                                                  200000, false, -1,
                                                   "N/A", "N/A", 
-                                                  "N/A", "N/A", "N/A", "N/A", 
+                                                  "N/A", "N/A", 
+                                                  "N/A", "N/A", 
                                                   "N/A", "N/A", 
                                                   "N/A", "N/A");
 
