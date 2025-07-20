@@ -125,7 +125,7 @@ public class Simulator {
         if (printCheck) {
             //System.out.println("Enemies Killed Per Troop Lost Pre Heal: " + combatRecord.getTradesPreHeal());
             //System.out.println("Enemies Killed Per Troop Lost Post Heal: " + combatRecord.getTradesPostHeal());
-            System.out.println("does not consider heavy wounded conversion");
+            //System.out.println("does not consider heavy wounded conversion");
         }
         addCombatRecordOverviewTeams(combatRecordOverview);
         return combatRecordOverview;
@@ -312,6 +312,7 @@ public class Simulator {
         //int binCount = 31;
         int binCount = (int) Math.round(data.length/850); // increase bins on deeper searches
         if (binCount % 2 == 0) { binCount++; } //keeps uneven for plot
+        if (binCount > 59) { binCount = 59; }
 
         HistogramDataset dataset = new HistogramDataset();
         dataset.addSeries("Troops Left", data, binCount, -binRange, binRange);

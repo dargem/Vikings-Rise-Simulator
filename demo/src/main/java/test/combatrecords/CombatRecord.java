@@ -29,9 +29,9 @@ public class CombatRecord {
     public void addFriendlyLost(double friendlyLost) { this.friendlyLost += friendlyLost; }
     public void addFriendlyHealed(double friendlyHealed) { this.friendlyHealed += friendlyHealed; }
 
-    public double getTradesPostHeal() { return enemyLost/friendlyLost; }
+    public double getTradesPostHeal() { return enemyLost/(friendlyLost-friendlyHealed); }
     public double getTradesPreHeal() { 
-        return (enemyLost+enemyHealed)/(friendlyLost+friendlyHealed); 
+        return (enemyLost)/(friendlyLost); 
     }
 
     public void combineCombatRecord(CombatRecord combatRecord) {

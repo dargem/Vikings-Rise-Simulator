@@ -1,6 +1,7 @@
 package test.combatrecords;
 import java.util.HashMap;
 
+
 public class CombatRecordOverview {
     private HashMap<Integer,CombatRecord> combatRecordsById = new HashMap<>();
 
@@ -67,7 +68,7 @@ public class CombatRecordOverview {
         return enemyLost/friendlyLost;
     }
 
-    public double getEnemyLostPostHeal(int rounds) {
+    public double getEnemyLostPreHeal(int rounds) {
         int totalLost = 0;
         for (CombatRecord combatRecord : combatRecordsById.values()) {
             if (!combatRecord.isFriendly()) {
@@ -76,5 +77,22 @@ public class CombatRecordOverview {
             }
         }
         return totalLost/(double)rounds;
+    }
+
+    public String getStringCombatRecords(int rounds) {
+        String returnString = "";
+        for (HashMap.Entry<Integer, CombatRecord> entry : combatRecordsById.entrySet()) {
+            int id = entry.getKey();
+            CombatRecord combatRecord = entry.getValue();
+            returnString += "\n";
+            returnString += ("For Combatant Slot " + id + "\n" + 
+                            "Trades Before Heal " + combatRecord.getTradesPreHeal() + "\n" +
+                            "Trades After Your Own Heal " + combatRecord.getTradesPostHeal() + "\n" +
+                            "Enemies Lost Per Round " + combatRecord.getEnemyLost()/rounds + "\n" +
+                            "Enemies Lost " + combatRecord.getEnemyLost() + "\n" +
+                            "Friendlies Lost " + combatRecord.getFriendlyLost() + "\n" +
+                            "Friendlies Healed " + combatRecord.getFriendlyHealed() + "\n");
+        }
+        return returnString;
     }
 }

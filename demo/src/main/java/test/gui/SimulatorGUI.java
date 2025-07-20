@@ -270,10 +270,15 @@ public class SimulatorGUI extends JFrame {
                     addMarchesToSimulator(mp);
                 }
                 CombatRecordOverview record = simulator.findTrades(rounds, false);
-                SwingUtilities.invokeLater(() -> resultArea.setText("Simulation complete!\n" +
+                String resultText = ("Simulation complete! \n" +
                     "Trades Pre-Heal: " + record.getTradesPreHeal() + "\n" +
                     "Trades Post-Heal: " + record.getTradesPostHeal() + "\n" + 
-                    "Enemy Lost Per Round: " + record.getEnemyLostPostHeal(rounds)));
+                    "Enemy Lost Per Round Pre Heal: " + record.getEnemyLostPreHeal(rounds) + "\n\n" +
+                    "Per Combatant Rundown: " + "\n" + 
+                    record.getStringCombatRecords(rounds)
+                    );
+                
+                SwingUtilities.invokeLater(() -> resultArea.setText(resultText));
             } catch (Exception ex) {
                 SwingUtilities.invokeLater(() -> resultArea.setText("Error: " + ex.getMessage()));
             }

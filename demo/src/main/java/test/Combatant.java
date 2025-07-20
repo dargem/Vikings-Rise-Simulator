@@ -69,7 +69,8 @@ public class Combatant {
 
     private void internalReset() {
         
-        combatantInfo.setTroopCount(initialTroopCount);
+        //combatantInfo.setTroopCount(initialTroopCount);
+        combatantInfo = combatantInfoHolder.generateNewCombatantInfo();
         combatantInfo.resetRound();
         uptimeDic.put("heal",false);
         uptimeDic.put("absorption",false);
@@ -334,7 +335,7 @@ public class Combatant {
                 }
             }
         }
-        combatantInfo.addDamageTakenPostDefense(combatantInfo.getCombatantId(), enemyCombatant.getRetributionDamage()); // check if damage received increases help retribution
+        combatantInfo.addDamageTakenPostDefense(enemyCombatant.getCombatantId(), enemyCombatant.getRetributionDamage()); // check if damage received increases help retribution
     }
 
     public void counterattackPhase(CombatantInfo enemyCombatant) {
@@ -351,7 +352,7 @@ public class Combatant {
             enemyCombatant.addDamageTaken(combatantInfo.getCombatantId(), Scaler.scale(damage, combatantInfo.getAttack(), combatantInfo.getTroopCount()));
         }
         //System.out.println(enemyCombatant.getRetributionDamage());
-        combatantInfo.addDamageTakenPostDefense(combatantInfo.getCombatantId(), enemyCombatant.getRetributionDamage());
+        combatantInfo.addDamageTakenPostDefense(enemyCombatant.getCombatantId(), enemyCombatant.getRetributionDamage());
     }
 
     public void endPhase() {
