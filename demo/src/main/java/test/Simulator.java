@@ -131,7 +131,7 @@ public class Simulator {
         return combatRecordOverview;
     }
 
-    public void runFights(int fights) {
+    public List<Integer> runFights(int fights) {
         if (combatantList.isEmpty() || enemyCombatantList.isEmpty()) {
             throw new IllegalStateException("Combatant lists must be initialized before running fights.");
         }
@@ -145,7 +145,7 @@ public class Simulator {
             int val = singleFight(currentFriendlyCombatants, currentEnemyCombatants);
             results.add(val);
         }
-        plotHistogram(results);
+        return results;
     }
 
     private int singleFight(List<Combatant> currentFriendlyCombatants, List<Combatant> currentEnemyCombatants) {
@@ -280,10 +280,6 @@ public class Simulator {
         //System.out.println("Phase ended " + friendlyCombatants.get(0).getCombatantInfo().getTroopCount());
     }
 
-    /**
-     * Runs group round simulations for 1 to maxRounds, each with totalTradeSamples total rounds distributed evenly.
-     * Returns a List of CombatRecord, one for each round count.
-     */
     public List<CombatRecordOverview> groupRoundSimulator(int totalTradeSamples, int maxRounds) {
         List<CombatRecordOverview> combatRecordOverviewListResults = new ArrayList<>();
 
@@ -300,45 +296,6 @@ public class Simulator {
             combatRecordOverviewListResults.add(combatRecordOverview);
         }
         return combatRecordOverviewListResults;
-    }
-
-    public void plotHistogram(List<Integer> values) {
-        // Convert List<Integer> to double[]
-        double[] data = values.stream().mapToDouble(Integer::doubleValue).toArray();
-        double max = values.stream().mapToInt(Integer::intValue).max().getAsInt()*1.5;
-        double min = values.stream().mapToInt(Integer::intValue).min().getAsInt()*1.5;
-        double binRange = max > -min ? max : -min;
-        // Create dataset
-        //int binCount = 31;
-        int binCount = (int) Math.round(data.length/850); // increase bins on deeper searches
-        if (binCount % 2 == 0) { binCount++; } //keeps uneven for plot
-        if (binCount > 59) { binCount = 59; }
-
-        HistogramDataset dataset = new HistogramDataset();
-        dataset.addSeries("Troops Left", data, binCount, -binRange, binRange);
-
-
-        // Create chart
-        JFreeChart histogram = ChartFactory.createHistogram(
-            "Troop Survival Distribution",
-            "Troops Alive After Fight",
-            "Frequency",
-            dataset,
-            PlotOrientation.VERTICAL,
-            true,
-            true,
-            false
-        );
-
-        // Display chart
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Fight Result Histogram");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new ChartPanel(histogram));
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
     }
 
     private void addCombatRecordOverviewTeams(CombatRecordOverview combatRecordOverview) {

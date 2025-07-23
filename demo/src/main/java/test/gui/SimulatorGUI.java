@@ -295,7 +295,7 @@ public class SimulatorGUI extends JFrame {
                     if (!mp.isValidMarch()) continue;
                     addMarchesToSimulator(mp);
                 }
-                simulator.runFights(fights);
+                PlotlyHistogram.showHistogram(simulator.runFights(fights));
                 SwingUtilities.invokeLater(() -> resultArea.setText("Fight histogram plotted (see new window)."));
             } catch (Exception ex) {
                 SwingUtilities.invokeLater(() -> resultArea.setText("Error: " + ex.getMessage()));
