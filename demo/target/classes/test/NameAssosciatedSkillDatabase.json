@@ -2316,5 +2316,24 @@
         "otherSkill9": "N/A",
         "otherSkill10": "N/A",
         "activeSkill": "N/A"
+    },
+    {
+        "name": "Royal Authority v2",
+        "awakenedSkill": "N/A",
+        "secondarySkill": "N/A",
+        "firstTalentSkill": "N/A",
+        "thirdTalentSkill": "N/A",
+        "sixthTalentSkill": "N/A",
+        "otherSkill": "Royal Authority Retribution on Basic Attack",
+        "otherSkill2": "Royal Authority Silence on Retribution on Royal Authority Retribution on Basic Attack",
+        "otherSkill3": "Royal Authority Damage Nullification on Bleed on Royal Authority Retribution on Basic Attack",
+        "otherSkill4": "N/A",
+        "otherSkill5": "N/A",
+        "otherSkill6": "N/A",
+        "otherSkill7": "N/A",
+        "otherSkill8": "N/A",
+        "otherSkill9": "N/A",
+        "otherSkill10": "N/A",
+        "activeSkill": "N/A"
     }
 ]
