@@ -1,6 +1,6 @@
-/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/CombatRecord.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/Combatant.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/CombatantInfo.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/CombatantInfoHolder.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/DebuffEffectCollection.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/PathDebugTool.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/Scaler.java
@@ -9,7 +9,10 @@
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/SkillDatabase.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/StatusEffect.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/TotalCounter.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/combatrecords/CombatRecord.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/combatrecords/CombatRecordOverview.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/EnemyDummyPanel.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/IMarchPanel.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/MarchPanel.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/PlotlyHistogram.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/SimulatorGUI.java
