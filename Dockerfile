@@ -1,5 +1,5 @@
 # Use the official Maven image to build the application
-FROM maven:3.9.4-openjdk-23 AS build
+FROM maven:3.9.4-openjdk-17 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -13,7 +13,7 @@ WORKDIR /app/backend
 RUN mvn clean package -DskipTests
 
 # Use a lighter image for the runtime
-FROM openjdk:23-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Set the working directory
 WORKDIR /app
