@@ -41,9 +41,9 @@ export const CreditText = styled.div`
 export const MainContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  padding: 30px;
-  max-width: 1600px;
+  gap: 20px; /* Reduced from 25px */
+  padding: 25px; /* Reduced from 30px to give more screen space */
+  max-width: 1700px; /* Increased from 1600px for more room */
   margin: 0 auto;
   min-height: 0; /* Allows flex item to shrink */
 
@@ -53,13 +53,13 @@ export const MainContent = styled.div`
 `;
 
 export const LeftPanel = styled.div`
-  flex: 0 0 320px;
+  flex: 0 0 300px; /* Reduced from 320px */
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  padding: 25px;
+  padding: 22px; /* Slightly reduced padding */
 `;
 
 export const CenterPanel = styled.div`
@@ -70,17 +70,17 @@ export const CenterPanel = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  padding: 25px;
+  padding: 22px; /* Reduced from 25px */
 `;
 
 export const RightPanel = styled.div`
-  flex: 0 0 420px;
+  flex: 0 0 400px; /* Reduced from 420px */
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  padding: 25px;
+  padding: 22px; /* Slightly reduced padding */
 
   h3 {
     margin-top: 0;
@@ -241,9 +241,10 @@ export const Button = styled.button<{ variant?: 'primary' | 'secondary' | 'dange
     transform: translateY(0);
   }
 `;
+
 export const MarchesContainer = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 16px; /* Reduced from 20px to fit more cards */
   margin-bottom: 25px;
   overflow-x: auto;
   padding: 10px 0 15px 0;
@@ -274,8 +275,8 @@ export const MarchCard = styled.div`
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
-  padding: 20px;
-  width: 320px;
+  padding: 18px;
+  width: 280px; /* Reduced from 320px to fit 2 cards comfortably */
   flex-shrink: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
