@@ -59,7 +59,8 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
               <Label>Rounds:</Label>
               <Input
                 type="number"
-                value={config.rounds || 1000000}
+                value={config.rounds || ''}
+                placeholder="1000000"
                 onChange={(e) => handleConfigChange('rounds', parseInt(e.target.value) || 1000000)}
               />
             </FormGroup>
@@ -75,7 +76,8 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
               <Label>Fights:</Label>
               <Input
                 type="number"
-                value={config.fights || 30000}
+                value={config.fights || ''}
+                placeholder="30000"
                 onChange={(e) => handleConfigChange('fights', parseInt(e.target.value) || 30000)}
               />
             </FormGroup>
@@ -91,7 +93,8 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
               <Label>Fight Length (intervals for 1-n rounds ran):</Label>
               <Input
                 type="number"
-                value={config.fightLength || 20}
+                value={config.fightLength || ''}
+                placeholder="20"
                 onChange={(e) => handleConfigChange('fightLength', parseInt(e.target.value) || 20)}
               />
             </FormGroup>
@@ -99,7 +102,8 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
               <Label>Rounds per interval:</Label>
               <Input
                 type="number"
-                value={config.fightsPerLength || 100000}
+                value={config.fightsPerLength || ''}
+                placeholder="100000"
                 onChange={(e) => handleConfigChange('fightsPerLength', parseInt(e.target.value) || 100000)}
               />
             </FormGroup>

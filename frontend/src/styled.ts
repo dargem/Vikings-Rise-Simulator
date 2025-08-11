@@ -172,9 +172,29 @@ export const Button = styled.button<{ variant?: 'primary' | 'secondary' | 'dange
 
 export const MarchesContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  
+  /* Custom scrollbar styling */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
 `;
 
 export const MarchCard = styled.div`
@@ -182,8 +202,8 @@ export const MarchCard = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
-  min-width: 280px;
-  max-width: 300px;
+  width: 300px;
+  flex-shrink: 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 `;
 
