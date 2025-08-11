@@ -1,25 +1,30 @@
-# Use the official Maven image to build the application
-FROM maven:3.8.4-openjdk-17 AS build
+# Multi-stage build for both frontend and backend
 
-# Set the working directory
+# Stage 1: Build frontend
+FROM node:18-alpine AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Build backend
+FROM maven:3.8.4-openjdk-17 AS backend-build
 WORKDIR /app
-
-# Copy the backend pom.xml and source code
 COPY backend/pom.xml backend/pom.xml
 COPY backend/src backend/src
-
-# Build the application
 WORKDIR /app/backend
 RUN mvn clean package -DskipTests
 
-# Use a lighter image for the runtime
+# Stage 3: Runtime
 FROM openjdk:17-jdk-slim
-
-# Set the working directory
 WORKDIR /app
 
-# Copy the built JAR file from the build stage
-COPY --from=build /app/backend/target/simulator-backend-0.0.1-SNAPSHOT.jar app.jar
+# Copy the built JAR file from backend build stage
+COPY --from=backend-build /app/backend/target/simulator-backend-0.0.1-SNAPSHOT.jar app.jar
+
+# Copy the built frontend from frontend build stage
+COPY --from=frontend-build /app/frontend/dist ./static
 
 # Expose the port
 EXPOSE 8080

@@ -17,7 +17,7 @@ import com.vikingsrise.simulator.service.SimulatorService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://*.onrender.com"})
 public class SimulatorController {
 
     @Autowired
