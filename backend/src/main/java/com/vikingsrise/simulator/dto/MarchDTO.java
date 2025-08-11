@@ -55,10 +55,10 @@ public class MarchDTO {
     public void setTroopSize(int troopSize) { this.troopSize = troopSize; }
 
     public boolean isFriendly() { return isFriendly; }
-    public void setFriendly(boolean friendly) { isFriendly = friendly; }
+    public void setIsFriendly(boolean isFriendly) { this.isFriendly = isFriendly; }
 
     public boolean isRally() { return isRally; }
-    public void setRally(boolean rally) { isRally = rally; }
+    public void setIsRally(boolean isRally) { this.isRally = isRally; }
 
     public List<String> getSkills() { return skills; }
     public void setSkills(List<String> skills) { this.skills = skills; }
