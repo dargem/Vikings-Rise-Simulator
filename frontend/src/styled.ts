@@ -53,13 +53,16 @@ export const MainContent = styled.div`
 `;
 
 export const LeftPanel = styled.div`
-  flex: 0 0 300px; /* Reduced from 320px */
+  flex: 0 0 400px; /* Increased from 300px to accommodate results */
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  padding: 22px; /* Slightly reduced padding */
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const CenterPanel = styled.div`
@@ -316,7 +319,7 @@ export const ResultsArea = styled.div`
   font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
   font-size: 13px;
   white-space: pre-wrap;
-  max-height: 450px;
+  max-height: 400px; /* Reduced from 450px to fit better in left panel */
   overflow-y: auto;
   line-height: 1.5;
   color: #333;
@@ -338,6 +341,20 @@ export const ResultsArea = styled.div`
   
   &::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.3);
+  }
+`;
+
+export const ResultsSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
   }
 `;
 

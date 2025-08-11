@@ -11,11 +11,11 @@ import {
   MainContent,
   LeftPanel,
   CenterPanel,
-  RightPanel,
   MarchesContainer,
   ButtonGroup,
   Button,
-  ResultsArea
+  ResultsArea,
+  ResultsSection
 } from './styled';
 
 // Plotly histogram component - exact copy of original GUI
@@ -237,6 +237,15 @@ Range: ${minTroops} to ${maxTroops} troops`);
         <MainContent>
           <LeftPanel>
             <SimulationPanel onRunSimulation={runSimulation} isLoading={isLoading} />
+            <ResultsSection>
+              <h3>Results</h3>
+              <ResultsArea>
+                {results}
+                {fightResults && (
+                  <PlotlyHistogram fightResults={fightResults} />
+                )}
+              </ResultsArea>
+            </ResultsSection>
           </LeftPanel>
           
           <CenterPanel>
@@ -263,16 +272,6 @@ Range: ${minTroops} to ${maxTroops} troops`);
               ))}
             </MarchesContainer>
           </CenterPanel>
-          
-          <RightPanel>
-            <h3>Results</h3>
-            <ResultsArea>
-              {results}
-              {fightResults && (
-                <PlotlyHistogram fightResults={fightResults} />
-              )}
-            </ResultsArea>
-          </RightPanel>
         </MainContent>
       )}
     </AppContainer>
