@@ -1,0 +1,17 @@
+{
+  "name": "vikings-rise-simulator-web",
+  "version": "1.0.0",
+  "description": "Web-based Vikings Rise Simulator with React frontend and Spring Boot backend",
+  "scripts": {
+    "setup": "./setup.sh",
+    "start": "./start.sh",
+    "dev:frontend": "cd frontend && npm start",
+    "dev:backend": "cd backend && mvn spring-boot:run",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && mvn clean package",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && mvn clean install"
+  },
+  "keywords": ["vikings-rise", "simulator", "react", "spring-boot", "web"],
+  "license": "MIT"
+}
