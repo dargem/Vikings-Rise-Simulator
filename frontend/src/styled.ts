@@ -45,6 +45,7 @@ export const MainContent = styled.div`
   padding: 30px;
   max-width: 1600px;
   margin: 0 auto;
+  min-height: 0; /* Allows flex item to shrink */
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -63,6 +64,7 @@ export const LeftPanel = styled.div`
 
 export const CenterPanel = styled.div`
   flex: 1;
+  min-width: 0; /* Allows flex item to shrink below content size */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -239,13 +241,13 @@ export const Button = styled.button<{ variant?: 'primary' | 'secondary' | 'dange
     transform: translateY(0);
   }
 `;
-
 export const MarchesContainer = styled.div`
   display: flex;
   gap: 20px;
   margin-bottom: 25px;
   overflow-x: auto;
   padding: 10px 0 15px 0;
+  width: 100%; /* Constrain to parent width */
   
   /* Custom scrollbar styling */
   &::-webkit-scrollbar {
