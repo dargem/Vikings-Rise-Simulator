@@ -1,0 +1,13 @@
+{
+  "app": "vikings-rise-simulator-backend",
+  "build": {
+    "command": "cd backend && mvn clean package"
+  },
+  "start": {
+    "command": "cd backend && java -jar target/simulator-backend-0.0.1-SNAPSHOT.jar"
+  },
+  "environment": {
+    "JAVA_HOME": "/usr/lib/jvm/java-23-openjdk",
+    "PORT": "$PORT"
+  }
+}

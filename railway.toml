@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd backend && mvn clean package"
+
+[deploy]
+startCommand = "cd backend && java -jar target/simulator-backend-0.0.1-SNAPSHOT.jar"
+healthcheckPath = "/api/skills"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+
+[env]
+PORT = { default = "8080" }
