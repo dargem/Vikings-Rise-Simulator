@@ -48,7 +48,7 @@ const PlotlyHistogram: React.FC<{
     responsive: true,
     displayModeBar: true,
     displaylogo: false,
-    modeBarButtonsToRemove: ['pan2d' as const, 'lasso2d' as const, 'select2d' as const]
+    modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
   };
 
   return (

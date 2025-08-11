@@ -64,6 +64,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
           value={localMarch.primaryCommander}
           onChange={(e) => handleChange('primaryCommander', e.target.value)}
         >
+          <option value="N/A">N/A</option>
           {commanders.map(cmd => (
             <option key={cmd.name} value={cmd.name}>{cmd.name}</option>
           ))}
@@ -76,6 +77,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
           value={localMarch.secondaryCommander}
           onChange={(e) => handleChange('secondaryCommander', e.target.value)}
         >
+          <option value="N/A">N/A</option>
           {commanders.map(cmd => (
             <option key={cmd.name} value={cmd.name}>{cmd.name}</option>
           ))}
@@ -148,6 +150,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
               value={localMarch.skills[index] || 'N/A'}
               onChange={(e) => handleSkillChange(index, e.target.value)}
             >
+              <option value="N/A">N/A</option>
               {normalSkills.map(skill => (
                 <option key={skill.name} value={skill.name}>{skill.name}</option>
               ))}
@@ -164,6 +167,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
               value={localMarch.skills[index] || 'N/A'}
               onChange={(e) => handleSkillChange(index, e.target.value)}
             >
+              <option value="N/A">N/A</option>
               {mountSlot1Skills.map(skill => (
                 <option key={skill.name} value={skill.name}>{skill.name}</option>
               ))}
@@ -180,6 +184,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
               value={localMarch.skills[index] || 'N/A'}
               onChange={(e) => handleSkillChange(index, e.target.value)}
             >
+              <option value="N/A">N/A</option>
               {mountSlot2Skills.map(skill => (
                 <option key={skill.name} value={skill.name}>{skill.name}</option>
               ))}

@@ -11,6 +11,9 @@
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/TotalCounter.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/combatrecords/CombatRecord.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/combatrecords/CombatRecordOverview.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/effects/Effect.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/effects/TimedDamageEffect.java
+/Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/effects/TimedEffect.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/EnemyDummyPanel.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/IMarchPanel.java
 /Users/td/Desktop/Vikings Rise Simulator/demo/src/main/java/test/gui/MarchPanel.java

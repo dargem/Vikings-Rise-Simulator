@@ -177,6 +177,10 @@ public class CombatantInfo {
     public void addNullification (double nullification) { this.nullification += nullification; }
     public void addBuffClear () { buffClear ++; } 
     public boolean isEffectActive(String type) { return debuffEffectCollection.isEffectActive(type); }
+
+    public void resetRandom() {
+        debuffEffectCollection.resetRandom();
+    }
     public boolean isAbsorptionActive() { return !absorptionList.isEmpty(); }
     public double getRetribution() { return retribution; }
     public int getBuffClear() { return buffClear; }

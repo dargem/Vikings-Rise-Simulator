@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +30,8 @@ public class Skill {
     private boolean triggerOpposite;
     @JsonIgnore
     public int delay;
+    @JsonIgnore
+    private Random random = new Random();
     //default constructor for Jackson
     public Skill() {}
     // Getters and Setters, needed for Jackson
@@ -57,8 +60,12 @@ public class Skill {
     public String getDependent () { return dependent; }
     public void setDependent (String dependent) { this.dependent=dependent;}
     public void setTriggerOpposite (Boolean oppositeCheck) { this.triggerOpposite = oppositeCheck; }
-    public boolean getRemovable() { return this.removable; }
-    public void setRemovable(boolean setting) { this.removable = setting; }
+    public boolean getRemovable() { return removable; }
+    public void setRemovable(boolean removable) { this.removable = removable; }
+    
+    public void resetRandom() {
+        random = new Random(System.nanoTime() + hashCode());
+    }
 
     // Only call this manually if you need a skill by name
     public static Skill loadFromJsonByName(String skillName) {
@@ -125,7 +132,7 @@ public class Skill {
             //System.out.println("The skill " + name + " just triggered on round " + round);
             return true;
         }
-        if (Math.random() < triggerChance && currentCooldown == 0) {
+                if (random.nextDouble() < triggerChance && currentCooldown == 0) {
             currentCooldown = cooldown;
             //System.out.println("The skill " + name + " just triggered on round " + round);
             return true;

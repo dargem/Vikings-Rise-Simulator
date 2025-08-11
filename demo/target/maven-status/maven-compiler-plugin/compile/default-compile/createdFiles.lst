@@ -1,3 +1,4 @@
+test/effects/TimedEffect.class
 test/gui/SimulatorGUI.class
 test/PathDebugTool.class
 test/gui/EnemyDummyPanel.class
@@ -10,6 +11,7 @@ test/CombatantInfoHolder.class
 test/Skill.class
 test/combatrecords/CombatRecordOverview.class
 test/Scaler.class
+test/effects/Effect.class
 test/Combatant.class
 test/combatrecords/CombatRecord.class
 test/DebuffEffectCollection.class
@@ -17,3 +19,4 @@ test/TotalCounter.class
 test/gui/MarchPanel.class
 test/Simulator.class
 test/gui/PlotlyHistogram.class
+test/effects/TimedDamageEffect.class
