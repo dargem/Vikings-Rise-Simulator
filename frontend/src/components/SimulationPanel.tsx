@@ -6,6 +6,10 @@ import {
   Tab,
   TabContent,
   FormGroup,
+  FormRow,
+  FormGroupInline,
+  FormArea,
+  ButtonArea,
   Label,
   Input,
   Button,
@@ -83,61 +87,75 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
       <TabContent>
         {activeTab === 'trades' && (
           <>
-            <FormGroup>
-              <Label>Rounds:</Label>
-              <Input
-                type="number"
-                value={displayValues.rounds}
-                placeholder={DEFAULT_ROUNDS.toString()}
-                onChange={(e) => handleConfigChange('rounds', e.target.value)}
-              />
-            </FormGroup>
-            <Button variant="primary" onClick={handleRun} disabled={isLoading}>
-              {isLoading ? <LoadingSpinner /> : 'Run Trades'}
-            </Button>
+            <FormArea>
+              <FormGroup>
+                <Label>Rounds:</Label>
+                <Input
+                  type="number"
+                  value={displayValues.rounds}
+                  placeholder={DEFAULT_ROUNDS.toString()}
+                  onChange={(e) => handleConfigChange('rounds', e.target.value)}
+                />
+              </FormGroup>
+            </FormArea>
+            <ButtonArea>
+              <Button variant="primary" onClick={handleRun} disabled={isLoading}>
+                {isLoading ? <LoadingSpinner /> : 'Run Trades'}
+              </Button>
+            </ButtonArea>
           </>
         )}
 
         {activeTab === 'plotFights' && (
           <>
-            <FormGroup>
-              <Label>Fights:</Label>
-              <Input
-                type="number"
-                value={displayValues.fights}
-                placeholder="30000"
-                onChange={(e) => handleConfigChange('fights', e.target.value)}
-              />
-            </FormGroup>
-            <Button variant="primary" onClick={handleRun} disabled={isLoading}>
-              {isLoading ? <LoadingSpinner /> : 'Run Plot Fights'}
-            </Button>
+            <FormArea>
+              <FormGroup>
+                <Label>Fights:</Label>
+                <Input
+                  type="number"
+                  value={displayValues.fights}
+                  placeholder="30000"
+                  onChange={(e) => handleConfigChange('fights', e.target.value)}
+                />
+              </FormGroup>
+            </FormArea>
+            <ButtonArea>
+              <Button variant="primary" onClick={handleRun} disabled={isLoading}>
+                {isLoading ? <LoadingSpinner /> : 'Run Plot Fights'}
+              </Button>
+            </ButtonArea>
           </>
         )}
 
         {activeTab === 'groupRoundSim' && (
           <>
-            <FormGroup>
-              <Label>Fight Length:<br></br>(Intervals for 1-n rounds ran)</Label>
-              <Input
-                type="number"
-                value={displayValues.fightLength}
-                placeholder="20"
-                onChange={(e) => handleConfigChange('fightLength', e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Rounds per interval:</Label>
-              <Input
-                type="number"
-                value={displayValues.fightsPerLength}
-                placeholder="100000"
-                onChange={(e) => handleConfigChange('fightsPerLength', e.target.value)}
-              />
-            </FormGroup>
-            <Button variant="primary" onClick={handleRun} disabled={isLoading}>
-              {isLoading ? <LoadingSpinner /> : 'Run Group Round Sim'}
-            </Button>
+            <FormArea>
+              <FormGroupInline>
+                <Label>Fight Length:</Label>
+                <Input
+                  type="number"
+                  value={displayValues.fightLength}
+                  placeholder="20"
+                  onChange={(e) => handleConfigChange('fightLength', e.target.value)}
+                  inputSize="small"
+                />
+              </FormGroupInline>
+              <FormGroupInline>
+                <Label>Rounds / interval:</Label>
+                <Input
+                  type="number"
+                  value={displayValues.fightsPerLength}
+                  placeholder="100000"
+                  onChange={(e) => handleConfigChange('fightsPerLength', e.target.value)}
+                  inputSize="small"
+                />
+              </FormGroupInline>
+            </FormArea>
+            <ButtonArea>
+              <Button variant="primary" onClick={handleRun} disabled={isLoading}>
+                {isLoading ? <LoadingSpinner /> : 'Run Group Round Sim'}
+              </Button>
+            </ButtonArea>
           </>
         )}
       </TabContent>

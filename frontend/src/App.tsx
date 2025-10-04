@@ -23,7 +23,8 @@ import {
   Footer,
   FooterContent,
   FooterText,
-  FooterLinks
+  FooterLinks,
+  HintText
 } from './styled';
 
 const App: React.FC = () => {
@@ -37,6 +38,18 @@ const App: React.FC = () => {
       health: 396,
       troopSize: 300000,
       isFriendly: true,
+      isRally: false,
+      skills: ['N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A']
+    },
+    {
+      id: '2',
+      primaryCommander: 'N/A',
+      secondaryCommander: 'N/A',
+      attack: 830,
+      defense: 696,
+      health: 396,
+      troopSize: 300000,
+      isFriendly: false,
       isRally: false,
       skills: ['N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A']
     }
@@ -248,6 +261,7 @@ Max Troops: ${maxTroops}`);
                 )}
               </ResultsArea>
             </ResultsSection>
+            <HintText>Turning down the number of rounds is suggested for speed</HintText>
           </LeftPanel>
           
           <CenterPanel>
@@ -280,17 +294,17 @@ Max Troops: ${maxTroops}`);
       <Footer>
         <FooterContent>
           <FooterText>
-            VR Monte Carlo Simulator | Built by Dark
+          VR Monte Carlo Simulator | Built by Dargem
+          </FooterText>
+          <FooterText>
+            report bugs or feature suggestions @ genericname4 / dark on discord
           </FooterText>
           <FooterLinks>
             <a href="https://github.com/dargem/Vikings-Rise-Simulator" target="_blank" rel="noopener noreferrer">
-              Source Code
-            </a>
-            <a href="https://github.com/dargem/Vikings-Rise-Simulator/issues" target="_blank" rel="noopener noreferrer">
-              Report Issues
+              Leave A Star
             </a>
             <a href="https://github.com/dargem" target="_blank" rel="noopener noreferrer">
-              Developer
+              Dev
             </a>
           </FooterLinks>
         </FooterContent>

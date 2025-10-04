@@ -207,6 +207,9 @@ export const ResultsSection = styled.div`
   padding: 20px 20px 20px 20px; /* Increased top padding to match bottom for balanced spacing */
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow flex item to shrink below content size */
 `;
 
 export const ResultsTitle = styled.h3`
@@ -269,7 +272,9 @@ export const TabContainer = styled.div`
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px; /* Reduced from 15px */
   padding: 8px; /* Reduced from 18px */
-  margin-bottom: 8px; /* Reduced margin */
+  height: 185px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const TabList = styled.div`
@@ -303,13 +308,54 @@ export const Tab = styled.button<{ active: boolean }>`
 export const TabContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Decreased from 18px for tighter sections within panel */
+  flex: 1; /* Take remaining space after TabList */
+  min-height: 0; /* Allow content to shrink */
+  position: relative; /* For absolute positioning of button */
+`;
+
+export const FormArea = styled.div`
+  height: 80px; /* Fixed height for form content area - increased to accommodate two horizontal inputs */
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between form elements */
+  overflow: hidden; /* Hide any overflow */
+`;
+
+export const ButtonArea = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px; /* Fixed height for button area */
+  display: flex;
+  align-items: center;
 `;
 
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px; /* Increased from 2px to add more vertical padding between labels and inputs */
+`;
+
+export const FormRow = styled.div`
+  display: flex !important; /* Important to override TabContent column direction */
+  flex-direction: row;
+  gap: 8px; /* Space between form groups when side by side */
+  align-items: center; /* Center align for inline layout */
+  width: 100%;
+`;
+
+export const FormGroupInline = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between label and input */
+  width: 100%; /* Take full width */
+  
+  /* Make the input take remaining space */
+  input {
+    flex: 1;
+    min-width: 0; /* Allow input to shrink if needed */
+  }
 `;
 
 export const Label = styled.label`
@@ -526,10 +572,12 @@ export const ResultsArea = styled.div`
   font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
   font-size: 9px; /* Reduced from 13px */
   white-space: pre-wrap;
-  max-height: 300px; /* Reduced from 400px */
   overflow-y: auto;
   line-height: 1.3; /* Reduced from 1.5 */
   color: #333;
+  flex: 1; /* Take remaining space in flex container */
+  min-height: 0; /* Allow shrinking below content size */
+  max-height: 305px; /* Maximum height before scrolling */
 
   /* Custom scrollbar for results */
   &::-webkit-scrollbar {
@@ -614,4 +662,12 @@ export const PlotContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const HintText = styled.p`
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 8px 0;
+  font-style: italic;
+  text-align: center;
 `;
