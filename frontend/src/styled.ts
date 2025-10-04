@@ -27,6 +27,8 @@ export const AppContainer = styled.div`
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Header = styled.div`
@@ -37,6 +39,101 @@ export const Header = styled.div`
   padding: 15px 20px 15px 20px; /* Added more bottom padding (25px) */
   text-align: center;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const HeaderLinks = styled.div`
+  position: absolute;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+export const HeaderLink = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+`;
+
+export const Footer = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+`;
+
+export const FooterContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+export const FooterText = styled.div`
+  font-size: 0.9rem;
+  
+  a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const FooterLinks = styled.div`
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  
+  @media (min-width: 768px) {
+    justify-content: flex-end;
+  }
+  
+  a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    
+    &:hover {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const Title = styled.h1`
@@ -71,7 +168,7 @@ export const MainContent = styled.div`
 `;
 
 export const LeftPanel = styled.div`
-  flex: 0 0 240px; /* Increased from 200px by 1.2x (200 × 1.2 = 240) */
+  flex: 0 0 240px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -134,7 +231,7 @@ export const SectionTitle = styled.h2`
 export const MarchesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  gap: 10px;
 `;
 
 export const MarchCard = styled.div`
@@ -146,10 +243,10 @@ export const MarchCard = styled.div`
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 
   &:hover {
-    transform: translateY(-1px); /* Reduced from -2px */
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Reduced shadow */
   }
 `;
@@ -387,10 +484,10 @@ export const ErrorMessage = styled.div`
 // Additional styled components needed by App.tsx and App_clean.tsx
 export const MarchesContainer = styled.div`
   display: flex; /* Changed back from grid to flex for side scrolling */
-  gap: 4px; /* Reduced from 8px to half */
-  margin-bottom: 15px; /* Reduced from 25px */
+  gap: 8px; /* Reduced from 8px to half */
+  margin-bottom: 0px;
   overflow-x: auto;
-  padding: 5px 0 8px 0; /* Reduced padding */
+  padding: 1px 0 8px 0;
   width: 100%; /* Constrain to parent width */
   
   /* Custom scrollbar styling */

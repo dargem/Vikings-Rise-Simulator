@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -32,9 +31,5 @@ public class RootController {
         return ResponseEntity.ok(Map.of("status", "UP"));
     }
 
-    // Fallback for React Router - serve index.html for all non-API routes
-    @RequestMapping(value = {"/"})
-    public String index() {
-        return "forward:/index.html";
-    }
+    // Removed conflicting root mapping - ReactController handles React routing
 }
