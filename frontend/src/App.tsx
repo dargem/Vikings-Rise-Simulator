@@ -138,13 +138,29 @@ const App: React.FC = () => {
       
       if (config.type === 'trades') {
         const tradesResult = result as SimulationResult;
+        
+        // Format the combatRecords to round all numbers to 3 decimal places
+        const formattedCombatRecords = tradesResult.combatRecords.replace(
+          /\d+\.?\d*E?[+-]?\d*/g, 
+          (match) => {
+            const num = parseFloat(match);
+            if (num >= 1e6 || num <= -1e6) {
+              // For very large numbers, use scientific notation with 3 decimal places
+              return num.toExponential(3);
+            } else {
+              // For normal numbers, use 3 decimal places
+              return num.toFixed(3);
+            }
+          }
+        );
+        
         setResults(`Simulation complete! 
-Trades Pre-Heal: ${tradesResult.tradesPreHeal}
-Trades Post-Heal: ${tradesResult.tradesPostHeal}
-Enemy Lost Per Round Pre Heal: ${tradesResult.enemyLostPreHeal}
+Trades Pre-Heal: ${parseFloat(tradesResult.tradesPreHeal.toString()).toFixed(3)}
+Trades Post-Heal: ${parseFloat(tradesResult.tradesPostHeal.toString()).toFixed(3)}
+Enemy Lost Per Round Pre Heal: ${parseFloat(tradesResult.enemyLostPreHeal.toString()).toFixed(3)}
 
 Per Combatant Rundown: 
-${tradesResult.combatRecords}`);
+${formattedCombatRecords}`);
       } else if (config.type === 'groupRoundSim') {
         const groupResults = result as GroupRoundResult[];
         
@@ -157,7 +173,7 @@ ${tradesResult.combatRecords}`);
         const troopResults = result as number[];
         
         // Calculate statistics for display
-        const avgTroops = (troopResults.reduce((sum, val) => sum + val, 0) / troopResults.length).toFixed(0);
+        const avgTroops = (troopResults.reduce((sum, val) => sum + val, 0) / troopResults.length).toFixed(3);
         const minTroops = Math.min(...troopResults);
         const maxTroops = Math.max(...troopResults);
         const friendlyWins = troopResults.filter(troops => troops > 0).length;
@@ -169,9 +185,9 @@ ${tradesResult.combatRecords}`);
         
         setResults(`Fight simulation complete! Click "View Histogram" to see detailed results.
 Total Fights: ${troopResults.length.toLocaleString()}
-Friendly Wins: ${friendlyWins.toLocaleString()} (${(friendlyWins/troopResults.length*100).toFixed(1)}%)
-Enemy Wins: ${enemyWins.toLocaleString()} (${(enemyWins/troopResults.length*100).toFixed(1)}%)
-Draws: ${draws.toLocaleString()} (${(draws/troopResults.length*100).toFixed(1)}%)
+Friendly Wins: ${friendlyWins.toLocaleString()} (${(friendlyWins/troopResults.length*100).toFixed(3)}%)
+Enemy Wins: ${enemyWins.toLocaleString()} (${(enemyWins/troopResults.length*100).toFixed(3)}%)
+Draws: ${draws.toLocaleString()} (${(draws/troopResults.length*100).toFixed(3)}%)
 
 Average Troops: ${avgTroops}
 Min Troops: ${minTroops}
