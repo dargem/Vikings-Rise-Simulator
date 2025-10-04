@@ -89,8 +89,9 @@ public class SkillDatabase {
             "Charlton",
             "Hilda",
             "Greta",
-            "Sigrid"
-
+            "Sigrid",
+            "Margit",
+            "Olena"
         ));
 
         baseTypeSet = new HashSet<>(List.of(

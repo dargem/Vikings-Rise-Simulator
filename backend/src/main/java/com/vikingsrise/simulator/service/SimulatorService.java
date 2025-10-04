@@ -20,6 +20,12 @@ import test.combatrecords.CombatRecordOverview;
 @Service
 public class SimulatorService {
     private static final Logger log = LoggerFactory.getLogger(SimulatorService.class);
+    
+    // Default values for simulation configurations
+    private static final int DEFAULT_ROUNDS = 150000;
+    private static final int DEFAULT_FIGHTS = 10000;
+    private static final int DEFAULT_FIGHT_LENGTH = 20;
+    private static final int DEFAULT_FIGHTS_PER_LENGTH = 50000;
 
     public Object runSimulation(SimulationConfigDTO config, List<MarchDTO> marches) {
         System.out.println("=== SIMULATION SERVICE DEBUG ===");
@@ -82,7 +88,7 @@ public class SimulatorService {
 
         switch (config.getType()) {
             case "trades":
-                int rounds = config.getRounds() != null ? config.getRounds() : 1000000;
+                int rounds = config.getRounds() != null ? config.getRounds() : DEFAULT_ROUNDS;
                 CombatRecordOverview record = simulator.findTrades(rounds, false);
                 Map<String, Object> tradesResult = new HashMap<>();
                 tradesResult.put("tradesPreHeal", record.getTradesPreHeal());
@@ -114,7 +120,7 @@ public class SimulatorService {
                 log.info("==========================");
                 
                 System.out.println("=== PLOT FIGHTS DEBUG ===");
-                int fights = config.getFights() != null ? config.getFights() : 30000;
+                int fights = config.getFights() != null ? config.getFights() : DEFAULT_FIGHTS;
                 System.out.println("Number of fights to run: " + fights);
                 System.out.println("About to call simulator.runFights()...");
                 List<Integer> fightResults = simulator.runFights(fights);
@@ -123,8 +129,8 @@ public class SimulatorService {
                 return fightResults;
 
             case "groupRoundSim":
-                int fightLength = config.getFightLength() != null ? config.getFightLength() : 20;
-                int fightsPerLength = config.getFightsPerLength() != null ? config.getFightsPerLength() : 100000;
+                int fightLength = config.getFightLength() != null ? config.getFightLength() : DEFAULT_FIGHT_LENGTH;
+                int fightsPerLength = config.getFightsPerLength() != null ? config.getFightsPerLength() : DEFAULT_FIGHTS_PER_LENGTH;
                 List<CombatRecordOverview> groupResults = simulator.groupRoundSimulator(fightsPerLength, fightLength);
                 List<Map<String, Object>> formattedResults = new ArrayList<>();
                 for (int i = 0; i < groupResults.size(); i++) {

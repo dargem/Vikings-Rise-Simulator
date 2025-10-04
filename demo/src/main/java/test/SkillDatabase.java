@@ -66,8 +66,6 @@ public class SkillDatabase {
             "Pain N Fury",
             "Impenetrable Scales",
             "Beastly Rage"
-            
-
         ));
 
         secondSlotMountSkillNamesSet = new HashSet<>(List.of(
@@ -141,8 +139,6 @@ public class SkillDatabase {
             "brokenBlade",
             "disarm"
         ));
-
-
 
         ObjectMapper objectMapper = new ObjectMapper();
 

@@ -50,7 +50,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
     <MarchCard>
       <MarchHeader>
         <MarchTitle isFriendly={localMarch.isFriendly}>
-          {localMarch.isFriendly ? 'Friendly March' : 'Enemy March'}
+          {localMarch.isFriendly ? 'Friendly' : 'Enemy'}
         </MarchTitle>
         <div style={{ display: 'flex', gap: '5px' }}>
           <Button variant="secondary" onClick={onClone}>Clone</Button>
@@ -59,7 +59,25 @@ export const MarchComponent: React.FC<MarchProps> = ({
       </MarchHeader>
 
       <FormGroup>
-        <Label>Primary Commander</Label>
+        <Label>Classification</Label>
+        <Select
+          value={localMarch.isFriendly ? 'Friendly' : 'Enemy'}
+          onChange={(e) => handleChange('isFriendly', e.target.value === 'Friendly')}
+        >
+          <option value="Friendly">Friendly</option>
+          <option value="Enemy">Enemy</option>
+        </Select>
+        <Select
+          value={localMarch.isRally ? 'Rally' : 'Field'}
+          onChange={(e) => handleChange('isRally', e.target.value === 'Rally')}
+        >
+          <option value="Field">Field</option>
+          <option value="Rally">Rally</option>
+        </Select>
+      </FormGroup>
+
+      <FormGroup>
+        <Label>Commanders</Label>
         <Select
           value={localMarch.primaryCommander}
           onChange={(e) => handleChange('primaryCommander', e.target.value)}
@@ -69,10 +87,6 @@ export const MarchComponent: React.FC<MarchProps> = ({
             <option key={cmd.name} value={cmd.name}>{cmd.name}</option>
           ))}
         </Select>
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Secondary Commander</Label>
         <Select
           value={localMarch.secondaryCommander}
           onChange={(e) => handleChange('secondaryCommander', e.target.value)}
@@ -84,66 +98,7 @@ export const MarchComponent: React.FC<MarchProps> = ({
         </Select>
       </FormGroup>
 
-      <FormGroup>
-        <Label>Attack</Label>
-        <Input
-          type="number"
-          value={localMarch.attack}
-          onChange={(e) => handleChange('attack', parseInt(e.target.value) || 0)}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Defense</Label>
-        <Input
-          type="number"
-          value={localMarch.defense}
-          onChange={(e) => handleChange('defense', parseInt(e.target.value) || 0)}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Health</Label>
-        <Input
-          type="number"
-          value={localMarch.health}
-          onChange={(e) => handleChange('health', parseInt(e.target.value) || 0)}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Troops</Label>
-        <Input
-          type="number"
-          value={localMarch.troopSize}
-          onChange={(e) => handleChange('troopSize', parseInt(e.target.value) || 0)}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Team</Label>
-        <Select
-          value={localMarch.isFriendly ? 'Friendly' : 'Enemy'}
-          onChange={(e) => handleChange('isFriendly', e.target.value === 'Friendly')}
-        >
-          <option value="Friendly">Friendly</option>
-          <option value="Enemy">Enemy</option>
-        </Select>
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Type</Label>
-        <Select
-          value={localMarch.isRally ? 'Rally' : 'Field'}
-          onChange={(e) => handleChange('isRally', e.target.value === 'Rally')}
-        >
-          <option value="Field">Field</option>
-          <option value="Rally">Rally</option>
-        </Select>
-      </FormGroup>
-
-      <div style={{ marginTop: '15px' }}>
-        <Label>Skills (4)</Label>
+        <Label>Skills</Label>
         {[0, 1, 2, 3].map(index => (
           <FormGroup key={index}>
             <Select
@@ -157,10 +112,8 @@ export const MarchComponent: React.FC<MarchProps> = ({
             </Select>
           </FormGroup>
         ))}
-      </div>
 
-      <div style={{ marginTop: '15px' }}>
-        <Label>Mount Slot 1 Skills (2)</Label>
+        <Label>Slot 1 Mount Skills</Label>
         {[4, 5].map(index => (
           <FormGroup key={index}>
             <Select
@@ -174,10 +127,8 @@ export const MarchComponent: React.FC<MarchProps> = ({
             </Select>
           </FormGroup>
         ))}
-      </div>
 
-      <div style={{ marginTop: '15px' }}>
-        <Label>Mount Slot 2 Skills (2)</Label>
+        <Label>Slot 2 Mount Skills</Label>
         {[6, 7].map(index => (
           <FormGroup key={index}>
             <Select
@@ -191,7 +142,48 @@ export const MarchComponent: React.FC<MarchProps> = ({
             </Select>
           </FormGroup>
         ))}
+
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <FormGroup style={{ flex: 1 }}>
+          <Label>ATK</Label>
+          <Input
+            inputSize="small"
+            type="number"
+            value={localMarch.attack}
+            onChange={(e) => handleChange('attack', parseInt(e.target.value) || 0)}
+          />
+        </FormGroup>
+
+        <FormGroup style={{ flex: 1 }}>
+          <Label>DEF</Label>
+          <Input
+            inputSize="small"
+            type="number"
+            value={localMarch.defense}
+            onChange={(e) => handleChange('defense', parseInt(e.target.value) || 0)}
+          />
+        </FormGroup>
+
+        <FormGroup style={{ flex: 1 }}>
+          <Label>HLTH</Label>
+          <Input 
+            inputSize="small"
+            type="number"
+            value={localMarch.health}
+            onChange={(e) => handleChange('health', parseInt(e.target.value) || 0)}
+          />
+        </FormGroup>
       </div>
+
+      <FormGroup>
+        <Label>Troops</Label>
+        <Input
+          type="number"
+          value={localMarch.troopSize}
+          onChange={(e) => handleChange('troopSize', parseInt(e.target.value) || 0)}
+        />
+      </FormGroup>
+
     </MarchCard>
   );
 };

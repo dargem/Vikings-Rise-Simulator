@@ -12,6 +12,12 @@ import {
   LoadingSpinner
 } from '../styled';
 
+// Default values for simulation config
+const DEFAULT_ROUNDS = 150000;
+const DEFAULT_FIGHTS = 10000;
+const DEFAULT_FIGHT_LENGTH = 20;
+const DEFAULT_FIGHTS_PER_LENGTH = 50000;
+
 interface SimulationPanelProps {
   onRunSimulation: (config: SimulationConfig) => void;
   isLoading: boolean;
@@ -24,18 +30,18 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
   const [activeTab, setActiveTab] = useState<'trades' | 'plotFights' | 'groupRoundSim'>('trades');
   const [config, setConfig] = useState<SimulationConfig>({
     type: 'trades',
-    rounds: 1000000,
-    fights: 30000,
-    fightLength: 20,
-    fightsPerLength: 100000
+    rounds: DEFAULT_ROUNDS,
+    fights: DEFAULT_FIGHTS,
+    fightLength: DEFAULT_FIGHT_LENGTH,
+    fightsPerLength: DEFAULT_FIGHTS_PER_LENGTH
   });
-  
+
   // Store display values separately from numeric values
   const [displayValues, setDisplayValues] = useState({
-    rounds: '1000000',
-    fights: '30000',
-    fightLength: '20',
-    fightsPerLength: '100000'
+    rounds: DEFAULT_ROUNDS.toString(),
+    fights: DEFAULT_FIGHTS.toString(),
+    fightLength: DEFAULT_FIGHT_LENGTH.toString(),
+    fightsPerLength: DEFAULT_FIGHTS_PER_LENGTH.toString()
   });
 
   const handleConfigChange = (field: keyof SimulationConfig, value: string) => {
@@ -52,10 +58,10 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
     const finalConfig = {
       ...config,
       type: activeTab,
-      rounds: config.rounds || 1000000,
-      fights: config.fights || 30000,
-      fightLength: config.fightLength || 20,
-      fightsPerLength: config.fightsPerLength || 100000
+      rounds: config.rounds || DEFAULT_ROUNDS,
+      fights: config.fights || DEFAULT_FIGHTS,
+      fightLength: config.fightLength || DEFAULT_FIGHT_LENGTH,
+      fightsPerLength: config.fightsPerLength || DEFAULT_FIGHTS_PER_LENGTH
     };
     onRunSimulation(finalConfig);
   };
@@ -82,7 +88,7 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
               <Input
                 type="number"
                 value={displayValues.rounds}
-                placeholder="1000000"
+                placeholder={DEFAULT_ROUNDS.toString()}
                 onChange={(e) => handleConfigChange('rounds', e.target.value)}
               />
             </FormGroup>
@@ -112,7 +118,7 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
         {activeTab === 'groupRoundSim' && (
           <>
             <FormGroup>
-              <Label>Fight Length (intervals for 1-n rounds ran):</Label>
+              <Label>Fight Length:<br></br>(Intervals for 1-n rounds ran)</Label>
               <Input
                 type="number"
                 value={displayValues.fightLength}

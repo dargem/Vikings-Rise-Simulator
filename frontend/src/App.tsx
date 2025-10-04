@@ -3,8 +3,9 @@ import { March as MarchType, Commander, Skill, SimulationConfig, SimulationResul
 import { simulatorAPI } from './api';
 import { MarchComponent } from './components/March';
 import { SimulationPanel } from './components/SimulationPanel';
-import Plot from 'react-plotly.js';
+import { PlotModal } from './components/PlotModal';
 import {
+  GlobalStyle,
   AppContainer,
   Header,
   Title,
@@ -15,62 +16,11 @@ import {
   ButtonGroup,
   Button,
   ResultsArea,
-  ResultsSection
+  ResultsSection,
+  ResultsTitle
 } from './styled';
 
-// Plotly histogram component - exact copy of original GUI
-const PlotlyHistogram: React.FC<{ 
-  fightResults: number[];
-}> = ({ fightResults }) => {
-  const data = [{
-    x: fightResults,
-    type: 'histogram' as const,
-    marker: {
-      color: 'rgba(100, 149, 237, 0.7)'
-    }
-  }];
-
-  const layout = {
-    title: 'Troop Survival Distribution',
-    xaxis: { 
-      title: 'Troops Alive After Fight' 
-    },
-    yaxis: { 
-      title: 'Frequency' 
-    },
-    bargap: 0.05,
-    width: undefined,
-    height: 400,
-    margin: { t: 50, r: 30, b: 50, l: 60 }
-  };
-
-  const config = {
-    responsive: true,
-    displayModeBar: true,
-    displaylogo: false,
-    modeBarButtonsToRemove: ['pan2d' as const, 'lasso2d' as const, 'select2d' as const]
-  };
-
-  return (
-    <div style={{ 
-      background: 'white',
-      borderRadius: '8px',
-      padding: '20px',
-      margin: '20px 0',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-    }}>
-      <Plot
-        data={data}
-        layout={layout}
-        config={config}
-        style={{ width: '100%', height: '400px' }}
-        useResizeHandler={true}
-      />
-    </div>
-  );
-};
-
-function App() {
+const App: React.FC = () => {
   const [marches, setMarches] = useState<MarchType[]>([
     {
       id: '1',
@@ -92,6 +42,7 @@ function App() {
   const [dataLoading, setDataLoading] = useState(true);
   const [results, setResults] = useState<string>('Results will appear here...');
   const [fightResults, setFightResults] = useState<number[] | null>(null);
+  const [isPlotModalOpen, setIsPlotModalOpen] = useState<boolean>(false);
 
   // Load commanders and skills from backend on component mount
   useEffect(() => {
@@ -168,6 +119,15 @@ function App() {
   };
 
   const runSimulation = async (config: SimulationConfig) => {
+    // Validate that we have at least 1 friendly and 1 enemy march
+    const friendlyMarches = marches.filter(march => march.isFriendly);
+    const enemyMarches = marches.filter(march => !march.isFriendly);
+    
+    if (friendlyMarches.length === 0 || enemyMarches.length === 0) {
+      setResults('Needs 1 enemy and 1 friendly march to run simulation');
+      return;
+    }
+    
     setIsLoading(true);
     setFightResults(null); // Clear previous histogram data
     setResults('Running simulation, please wait...');
@@ -207,13 +167,15 @@ ${tradesResult.combatRecords}`);
         // Set raw data for Plotly histogram
         setFightResults(troopResults);
         
-        setResults(`Fight simulation complete! View troop survival histogram below.
+        setResults(`Fight simulation complete! Click "View Histogram" to see detailed results.
 Total Fights: ${troopResults.length.toLocaleString()}
 Friendly Wins: ${friendlyWins.toLocaleString()} (${(friendlyWins/troopResults.length*100).toFixed(1)}%)
 Enemy Wins: ${enemyWins.toLocaleString()} (${(enemyWins/troopResults.length*100).toFixed(1)}%)
 Draws: ${draws.toLocaleString()} (${(draws/troopResults.length*100).toFixed(1)}%)
-Average Troops Alive: ${avgTroops}
-Range: ${minTroops} to ${maxTroops} troops`);
+
+Average Troops: ${avgTroops}
+Min Troops: ${minTroops}
+Max Troops: ${maxTroops}`);
       }
     } catch (error) {
       setResults(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -223,10 +185,12 @@ Range: ${minTroops} to ${maxTroops} troops`);
   };
 
   return (
-    <AppContainer>
-      <Header>
-        <Title>Vikings Rise Simulator</Title>
-      </Header>
+    <>
+      <GlobalStyle />
+      <AppContainer>
+        <Header>
+          <Title>Vikings Rise Simulator</Title>
+        </Header>
       
       {dataLoading ? (
         <div style={{ padding: '50px', textAlign: 'center' }}>
@@ -238,11 +202,15 @@ Range: ${minTroops} to ${maxTroops} troops`);
           <LeftPanel>
             <SimulationPanel onRunSimulation={runSimulation} isLoading={isLoading} />
             <ResultsSection>
-              <h3>Results</h3>
+              <ResultsTitle>Results</ResultsTitle>
               <ResultsArea>
                 {results}
                 {fightResults && (
-                  <PlotlyHistogram fightResults={fightResults} />
+                  <div style={{ marginTop: '10px' }}>
+                    <Button variant="primary" onClick={() => setIsPlotModalOpen(true)}>
+                      View Histogram
+                    </Button>
+                  </div>
                 )}
               </ResultsArea>
             </ResultsSection>
@@ -275,6 +243,15 @@ Range: ${minTroops} to ${maxTroops} troops`);
         </MainContent>
       )}
     </AppContainer>
+    
+    {fightResults && (
+      <PlotModal 
+        isOpen={isPlotModalOpen}
+        onClose={() => setIsPlotModalOpen(false)}
+        fightResults={fightResults}
+      />
+    )}
+    </>
   );
 }
 
