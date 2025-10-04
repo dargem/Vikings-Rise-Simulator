@@ -242,7 +242,6 @@ Max Troops: ${maxTroops}`);
       {dataLoading ? (
         <div style={{ padding: '50px', textAlign: 'center' }}>
           <h2>Loading commanders and skills...</h2>
-          <p>Please wait while we load the data from your skill database.</p>
         </div>
       ) : (
         <MainContent>
