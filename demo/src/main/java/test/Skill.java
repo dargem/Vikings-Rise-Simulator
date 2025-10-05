@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,18 @@ public class Skill {
     public int delay;
     @JsonIgnore
     private Random random = new Random();
+    
+    // Performance optimization fields - cached computations
+    @JsonIgnore
+    private boolean hasDependent = false;
+    @JsonIgnore
+    private boolean hasTriggerRequirement = false;
+    @JsonIgnore
+    private Boolean cachedTriggerResult = null;
+    @JsonIgnore
+    private int lastCheckedRound = -1;
+    @JsonIgnore
+    private boolean isInitialized = false;
     //default constructor for Jackson
     public Skill() {}
     // Getters and Setters, needed for Jackson
@@ -109,21 +122,68 @@ public class Skill {
         //if (name.contains("Devastating Charge")) { delay = -1; } // to account for a bug ingame, makes devastating charge trigger r1, r7 etc
         //else { delay = 0; }
     }
+    
+    /**
+     * Initialize cached performance optimization fields.
+     * Call this after all fields are set via Jackson or constructors.
+     */
+    public void initializeOptimizations() {
+        if (!isInitialized) {
+            hasDependent = dependent != null && !"N/A".equalsIgnoreCase(dependent);
+            hasTriggerRequirement = triggerRequirement != null && !"N/A".equals(triggerRequirement);
+            isInitialized = true;
+        }
+    }
 
     public boolean shouldTrigger(int round, HashMap<String, Boolean> uptimeDic, Set<String> triggeredSet) {
-        if (currentCooldown>0) { currentCooldown--; }
-        if (!dependent.equalsIgnoreCase("N/A") && !triggeredSet.contains(dependent)) {return false;} //for skills triggering on other skills
-        if (triggerRequirement.equals("N/A")) { return checkTrigger(round + delay); }
-        try { 
-            if (!triggerOpposite && uptimeDic.get(triggerRequirement)) { return checkTrigger(round + delay); } 
-            if (triggerOpposite && !uptimeDic.get(triggerRequirement)) { return checkTrigger(round + delay); } 
-            else { return false; }
-
+        // Ensure optimizations are initialized
+        if (!isInitialized) {
+            initializeOptimizations();
+        }
+        
+        // Handle cooldown
+        if (currentCooldown > 0) { 
+            currentCooldown--; 
+        }
+        
+        // Fast path: Check cached result for same round
+        if (lastCheckedRound == round && cachedTriggerResult != null) {
+            return cachedTriggerResult;
+        }
+        
+        // Check dependency using cached boolean instead of string comparison
+        if (hasDependent && !triggeredSet.contains(dependent)) {
+            cachedTriggerResult = false;
+            lastCheckedRound = round;
+            return false;
+        }
+        
+        // Check trigger requirement using cached boolean
+        if (!hasTriggerRequirement) {
+            cachedTriggerResult = checkTrigger(round + delay);
+            lastCheckedRound = round;
+            return cachedTriggerResult;
+        }
+        
+        try {
+            Boolean triggerReqValue = uptimeDic.get(triggerRequirement);
+            if (triggerReqValue == null) {
+                System.out.println("Unknown trigger requirement: " + triggerRequirement);
+                System.out.println("check for error");
+                cachedTriggerResult = false;
+            } else {
+                boolean shouldCheck = (!triggerOpposite && triggerReqValue) || 
+                                    (triggerOpposite && !triggerReqValue);
+                cachedTriggerResult = shouldCheck ? checkTrigger(round + delay) : false;
+            }
         } catch (Exception e) {
             System.out.println("Unknown trigger requirement: " + triggerRequirement);
             System.out.println("check for error");
-            return false;
+            cachedTriggerResult = false;
         }
+        
+        lastCheckedRound = round;
+        return cachedTriggerResult;
     }
 
     private boolean checkTrigger(int round) {
@@ -132,7 +192,8 @@ public class Skill {
             //System.out.println("The skill " + name + " just triggered on round " + round);
             return true;
         }
-                if (random.nextDouble() < triggerChance && currentCooldown == 0) {
+        // Use ThreadLocalRandom for better performance in concurrent scenarios
+        if (ThreadLocalRandom.current().nextDouble() < triggerChance && currentCooldown == 0) {
             currentCooldown = cooldown;
             //System.out.println("The skill " + name + " just triggered on round " + round);
             return true;

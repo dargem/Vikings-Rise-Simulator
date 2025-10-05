@@ -15,8 +15,11 @@ yarn-error.log*
 
 # Backend build files
 backend/target/
+demo/target/
 *.jar
-!demo/Vikings\ Rise\ Simulator.jar
+
+# Maven build artifacts
+**/target/
 
 # Environment files
 .env

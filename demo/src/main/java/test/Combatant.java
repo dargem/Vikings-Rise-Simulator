@@ -2,6 +2,7 @@ package test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -19,7 +20,7 @@ public class Combatant {
     HashMap<String, Boolean> uptimeDic = new HashMap<>();
     // friendly vars
     private TotalCounter totalCounter = new TotalCounter();
-    private List<StatusEffect> buffEffects = new ArrayList<>();
+    private List<StatusEffect> buffEffects = new LinkedList<>();
     private double basicAttackDamage;
     private double counterAttackDamage;
     private double dealtIncrease;
@@ -190,6 +191,7 @@ public class Combatant {
                             skill.setDependent("activeSecondary");
                         }
                         allSkills.add(skill);
+                        skill.initializeOptimizations(); // Initialize performance optimizations
                         match = true;
                         //System.out.println("Added skill: " + skill.getName() + " with dependent: " + skill.getDependent());
                     }
@@ -198,6 +200,7 @@ public class Combatant {
             if (!match) {
                 Skill skill = Skill.loadFromJsonByName(targetName);
                 allSkills.add(skill);
+                skill.initializeOptimizations(); // Initialize performance optimizations
             }
         }
     }
@@ -376,7 +379,7 @@ public class Combatant {
         }
 
         for (int i = 0; i < combatantInfo.getBuffClear(); i++) {
-            List<StatusEffect> removableList = new ArrayList<>();
+            List<StatusEffect> removableList = new LinkedList<>();
             for (StatusEffect buff : buffEffects) {
                 if (buff.getRemovable()) { removableList.add(buff); }
             }
@@ -392,7 +395,7 @@ public class Combatant {
             }
         }
 
-        List<StatusEffect> expired = new ArrayList<>();
+        List<StatusEffect> expired = new LinkedList<>();
         for (StatusEffect buffEffect : buffEffects) {
             buffEffect.tick(); // decrease duration
             if (buffEffect.isExpired()) {

@@ -1,5 +1,5 @@
 package test;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +20,8 @@ public class CombatantInfo {
     private double attack;
     private double defense;
     private double health;
-    private List<StatusEffect> absorptionList = new ArrayList<>();
-    private List<StatusEffect> holderAbsorptionList = new ArrayList<>();
+    private List<StatusEffect> absorptionList = new LinkedList<>();
+    private List<StatusEffect> holderAbsorptionList = new LinkedList<>();
     // properties of the combatant
     private DebuffEffectCollection debuffEffectCollection = new DebuffEffectCollection();
     private double nullification;
@@ -96,7 +96,7 @@ public class CombatantInfo {
         immunityControl = false;
         round++;
         troopCount+=troopChange;
-        List<StatusEffect> expired = new ArrayList<>();
+        List<StatusEffect> expired = new LinkedList<>();
         // transfer shields over
         for (StatusEffect newEffect : holderAbsorptionList) {
             boolean replaced = false;
