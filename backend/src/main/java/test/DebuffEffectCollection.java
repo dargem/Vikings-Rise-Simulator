@@ -1,8 +1,8 @@
 package test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -11,6 +11,7 @@ public class DebuffEffectCollection {
     private HashMap<Integer, List<StatusEffect>> effectsById = new HashMap<>();
     private HashMap<String, Boolean> activeEffectTypes = new HashMap<>();
     private HashMap<Integer, Double> damageById = new HashMap<>();
+    private Random random = new Random();
 
     double attackDamp;
     double defenseDamp;
@@ -32,6 +33,10 @@ public class DebuffEffectCollection {
     public double getDamageReceivedIncrease() { return damageReceivedIncrease; }
     public boolean isEffectActive(String type) { return activeEffectTypes.getOrDefault(type, false); }
 
+    public void resetRandom() {
+        random = new Random(System.nanoTime() + hashCode());
+    }
+
     public void clear() {
         Iterator<Integer> mapIterator = effectsById.keySet().iterator();
         while (mapIterator.hasNext()) {
@@ -47,7 +52,7 @@ public class DebuffEffectCollection {
 
     public void removeEffectRandom() {
 
-        List<StatusEffect> allEffects = new ArrayList<>();
+        List<StatusEffect> allEffects = new LinkedList<>();
         for (List<StatusEffect> effectList : effectsById.values()) {
             for (StatusEffect effect : effectList) {
                 if (effect.getRemovable()) {
@@ -62,8 +67,7 @@ public class DebuffEffectCollection {
         }
 
         // Select a random effect
-        Random rand = new Random();
-        StatusEffect effectToRemove = allEffects.get(rand.nextInt(allEffects.size()));
+        StatusEffect effectToRemove = allEffects.get(random.nextInt(allEffects.size()));
 
         // Now, iterate through effectsById to find and remove the chosen effect
         // We need to iterate through the entries to modify the original lists
@@ -87,7 +91,7 @@ public class DebuffEffectCollection {
 
 
     public void addEffect(int id, StatusEffect newEffect) {
-        List<StatusEffect> effectList = effectsById.computeIfAbsent(id, k -> new ArrayList<>());
+        List<StatusEffect> effectList = effectsById.computeIfAbsent(id, k -> new LinkedList<>());
 
         // Remove any effect with the same name
         effectList.removeIf(effect -> effect.getName().equals(newEffect.getName()));

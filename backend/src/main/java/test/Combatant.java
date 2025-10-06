@@ -2,6 +2,7 @@ package test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -19,7 +20,7 @@ public class Combatant {
     HashMap<String, Boolean> uptimeDic = new HashMap<>();
     // friendly vars
     private TotalCounter totalCounter = new TotalCounter();
-    private List<StatusEffect> buffEffects = new ArrayList<>();
+    private List<StatusEffect> buffEffects = new LinkedList<>();
     private double basicAttackDamage;
     private double counterAttackDamage;
     private double dealtIncrease;
@@ -83,7 +84,17 @@ public class Combatant {
     }
 
     public void reset() {
+        // Re-seed the random number generator with a truly random seed
+        random = new Random(System.nanoTime() + hashCode());
+        
         combatantInfo = combatantInfoHolder.generateNewCombatantInfo();
+        combatantInfo.resetRandom(); // Reset debuff collection random
+        
+        // Reset all skill random instances
+        for (Skill skill : allSkills) {
+            skill.resetRandom();
+        }
+        
         startPhase(SkillDatabase.dummy.getCombatantInfo()); // lazy way to keep base effects for r1
         clearTempBuffs();
         internalReset();
@@ -180,6 +191,7 @@ public class Combatant {
                             skill.setDependent("activeSecondary");
                         }
                         allSkills.add(skill);
+                        skill.initializeOptimizations(); // Initialize performance optimizations
                         match = true;
                         //System.out.println("Added skill: " + skill.getName() + " with dependent: " + skill.getDependent());
                     }
@@ -188,6 +200,7 @@ public class Combatant {
             if (!match) {
                 Skill skill = Skill.loadFromJsonByName(targetName);
                 allSkills.add(skill);
+                skill.initializeOptimizations(); // Initialize performance optimizations
             }
         }
     }
@@ -261,7 +274,7 @@ public class Combatant {
         uptimeDic.put("moreUnits",combatantInfo.getTroopCount()>enemyCombatant.getTroopCount());
         uptimeDic.put("lessUnits",combatantInfo.getTroopCount()<enemyCombatant.getTroopCount());
         if (combatantInfo.getTroopCount() == enemyCombatant.getTroopCount()) {
-            if (Math.random() < 0.5) { uptimeDic.put("moreUnits",true); }
+            if (random.nextDouble() < 0.5) { uptimeDic.put("moreUnits",true); }
             else { uptimeDic.put("lessUnits",true); } // troop sizes equal in rally sims so make it random to account for reinforce variation
         }
 
@@ -277,14 +290,14 @@ public class Combatant {
         //if (combatantId == 1) { System.out.println(combatantInfo.getActiveCounter()); }
 
         double enemyEvasion = enemyCombatant.getEvasion(); // evasion prevents damage but not triggers
-        if (Math.random() > enemyEvasion) {
+        if (random.nextDouble() > enemyEvasion) {
             totalCounter.addDamageFactor((1+basicAttackDamage+enemyCombatant.getDamageReceivedIncrease()-enemyCombatant.getNullification())*200);
             enemyCombatant.addDamageTaken(combatantInfo.getCombatantId(), Scaler.scale((1+basicAttackDamage+enemyCombatant.getDamageReceivedIncrease()-enemyCombatant.getNullification())*200,combatantInfo.getAttack(),combatantInfo.getTroopCount()));
         }
         if (combatantInfo.getBasicAttackCheck()) { triggeredSet.add("basicAttack"); }
         if (combatantInfo.getCounterAttackCheck()) { triggeredSet.add("counterAttack"); }
         if (enemyCombatant.getBasicAttackCheck()) { triggeredSet.add("basicReceived"); }
-        if (Math.random()<0.5) { triggeredSet.add("chance1"); }
+        if (random.nextDouble()<0.5) { triggeredSet.add("chance1"); }
         else { triggeredSet.add("chance2"); }
 
         for (Skill skill : allSkills){
@@ -295,7 +308,7 @@ public class Combatant {
 
                 // break early if evasion, still needs triggered set to be added to though and it doesn't break not self buffs
                 if (enemyEvasion != 0) {
-                    if (Math.random() < enemyEvasion && !SkillDatabase.baseTypeSet.contains(skill.getEffectType())) { continue; }
+                    if (random.nextDouble() < enemyEvasion && !SkillDatabase.baseTypeSet.contains(skill.getEffectType())) { continue; }
                 }
 
                 if (SkillDatabase.localKeptSet.contains(skill.getEffectType())) {
@@ -345,7 +358,7 @@ public class Combatant {
         //if (combatantId == 0) {System.out.println(damage);}
         double enemyEvasion = enemyCombatant.getEvasion();
         if (enemyEvasion != 0) {
-            if (Math.random() < enemyEvasion) { return; }
+            if (random.nextDouble() < enemyEvasion) { return; }
         }
         if (damage > 0) {
             totalCounter.addDamageFactor(damage);
@@ -366,7 +379,7 @@ public class Combatant {
         }
 
         for (int i = 0; i < combatantInfo.getBuffClear(); i++) {
-            List<StatusEffect> removableList = new ArrayList<>();
+            List<StatusEffect> removableList = new LinkedList<>();
             for (StatusEffect buff : buffEffects) {
                 if (buff.getRemovable()) { removableList.add(buff); }
             }
@@ -382,7 +395,7 @@ public class Combatant {
             }
         }
 
-        List<StatusEffect> expired = new ArrayList<>();
+        List<StatusEffect> expired = new LinkedList<>();
         for (StatusEffect buffEffect : buffEffects) {
             buffEffect.tick(); // decrease duration
             if (buffEffect.isExpired()) {

@@ -3,15 +3,6 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.statistics.HistogramDataset;
-
 import test.combatrecords.CombatRecordOverview;
 public class Simulator {
     private List<Combatant> combatantList = new ArrayList<>();
@@ -142,10 +133,60 @@ public class Simulator {
             List<Combatant> currentFriendlyCombatants = new ArrayList<>(combatantList);
             List<Combatant> currentEnemyCombatants = new ArrayList<>(enemyCombatantList);
 
-            int val = singleFight(currentFriendlyCombatants, currentEnemyCombatants);
+            int val = singleFightRounds(currentFriendlyCombatants, currentEnemyCombatants, i < 5); // Debug first 5 fights
             results.add(val);
         }
+        System.out.println("Sample results: " + results.subList(0, Math.min(10, results.size())));
         return results;
+    }
+
+    private int singleFightRounds(List<Combatant> currentFriendlyCombatants, List<Combatant> currentEnemyCombatants, boolean debug) {
+        int rounds = 0;
+        
+        // Debug: Print initial troop counts
+        if (debug && rounds == 0) {
+            System.out.println("Fight start - Friendly troops: " + 
+                currentFriendlyCombatants.stream().mapToInt(c -> c.getCombatantInfo().getTroopCount()).sum() +
+                ", Enemy troops: " + 
+                currentEnemyCombatants.stream().mapToInt(c -> c.getCombatantInfo().getTroopCount()).sum());
+        }
+        
+        while (true) {
+            // Perform one round of combat using the current friendly and enemy combatants.
+            roundCombat(currentFriendlyCombatants, currentEnemyCombatants);
+            rounds++;
+            
+            // Debug: Print troop counts after combat
+            if (debug) {
+                int friendlyTotal = currentFriendlyCombatants.stream().mapToInt(c -> c.getCombatantInfo().getTroopCount()).sum();
+                int enemyTotal = currentEnemyCombatants.stream().mapToInt(c -> c.getCombatantInfo().getTroopCount()).sum();
+                System.out.println("Round " + rounds + " - Friendly: " + friendlyTotal + ", Enemy: " + enemyTotal);
+            }
+            
+            // Remove defeated friendly combatants from the *current* fight's list.
+            // Iterate backwards to avoid ConcurrentModificationException when removing elements.
+            for (int iter = currentFriendlyCombatants.size() - 1; iter >= 0; iter--) {
+                Combatant combatant = currentFriendlyCombatants.get(iter);
+                if (combatant.getCombatantInfo().getTroopCount() <= 0) {
+                    currentFriendlyCombatants.remove(iter);
+                }
+            }
+
+            // Remove defeated enemy combatants from the *current* fight's list.
+            for (int iter = currentEnemyCombatants.size() - 1; iter >= 0; iter--) {
+                Combatant combatant = currentEnemyCombatants.get(iter);
+                if (combatant.getCombatantInfo().getTroopCount() <= 0) {
+                    currentEnemyCombatants.remove(iter);
+                }
+            }
+
+            if (currentEnemyCombatants.isEmpty() || currentFriendlyCombatants.isEmpty()) {
+                if (debug) {
+                    System.out.println("Fight ended after " + rounds + " rounds");
+                }
+                return rounds; // Return the number of rounds it took
+            }
+        }
     }
 
     private int singleFight(List<Combatant> currentFriendlyCombatants, List<Combatant> currentEnemyCombatants) {

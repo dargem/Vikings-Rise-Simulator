@@ -52,7 +52,8 @@ public class SkillDatabase {
             "Furious Hack and Slash",
             "Divine Blessing",
             "Battle Role Shift",
-            "Divine Shield"
+            "Divine Shield",
+            "Blood Eagle Punishment"
 
         ));
 
@@ -66,8 +67,6 @@ public class SkillDatabase {
             "Pain N Fury",
             "Impenetrable Scales",
             "Beastly Rage"
-            
-
         ));
 
         secondSlotMountSkillNamesSet = new HashSet<>(List.of(
@@ -89,9 +88,8 @@ public class SkillDatabase {
             "Charlton",
             "Hilda",
             "Greta",
-            "Sigrid",
-            "Margit",
-            "Olena"
+            "Sigrid"
+
         ));
 
         baseTypeSet = new HashSet<>(List.of(
@@ -142,8 +140,6 @@ public class SkillDatabase {
             "brokenBlade",
             "disarm"
         ));
-
-
 
         ObjectMapper objectMapper = new ObjectMapper();
 
