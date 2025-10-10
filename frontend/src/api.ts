@@ -49,3 +49,20 @@ export const simulatorAPI = {
     return response;
   }
 };
+
+// Track visitor counter when the site loads
+export const trackVisitor = async (): Promise<void> => {
+  try {
+    const response = await fetch('https://api.counterapi.dev/v2/vr-sim/p1ewv1gs/up', {
+      method: 'GET',
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Visitor tracked:', data);
+    }
+  } catch (error) {
+    // Silently fail - don't break the app if counter API is down
+    console.log('Counter API unavailable:', error);
+  }
+};

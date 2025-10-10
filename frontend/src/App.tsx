@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { March as MarchType, Commander, Skill, SimulationConfig, SimulationResult, GroupRoundResult } from './types';
-import { simulatorAPI } from './api';
+import { simulatorAPI, trackVisitor } from './api';
 import { MarchComponent } from './components/March';
 import { SimulationPanel } from './components/SimulationPanel';
 import { PlotModal } from './components/PlotModal';
@@ -68,6 +68,10 @@ const App: React.FC = () => {
     const loadData = async () => {
       try {
         setDataLoading(true);
+        
+        // Track visitor when the site loads
+        trackVisitor();
+        
         const [commandersData, skillsData] = await Promise.all([
           simulatorAPI.getCommanders(),
           simulatorAPI.getSkills()
