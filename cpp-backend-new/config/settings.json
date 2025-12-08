@@ -1,0 +1,6 @@
+{
+  "port": 8080,
+  "logLevel": "info",
+  "maxConnections": 100,
+  "timeout": 30
+}
