@@ -1,0 +1,52 @@
+{
+    "Commanders": {
+        "Sigrid": {
+            "AwakenedActive": [
+                {
+                    "id": "sigrid_primary_hit",
+                    "trigger": { 
+                        "type": "round_repeating", 
+                        "value": 3,
+                        "triggerRequirement": [
+                            "poison",
+                            "basicAttack"
+                        ]
+                    },
+                    "effects": [
+                        { 
+                            "type": "heal", 
+                            "magnitude": 50,
+                            "skillDuration": 2,
+                            "removable": false,
+                            "chance": 1.0
+                        }
+                    ],
+                    "skillType": {
+                        "category": "command"
+                    }
+                },
+                {
+                    "id": "sigrid_reaction_proc",
+                    "trigger": { 
+                        "type": "reaction",
+                        "targetId": "sigrid_primary_hit",
+                        "chance": 0.5
+                    },
+                    "effects": [
+                        { "type": "poison", "magnitude": 100 }
+                    ],
+                    "metaType": {
+                        "category": "command",
+                        "override": false
+                    }
+                }
+            ],
+            "Secondary" : [
+
+            ]
+        }
+    },
+    "Skills": {
+
+    }
+}
