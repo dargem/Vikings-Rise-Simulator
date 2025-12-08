@@ -1,17 +1,4 @@
-#include "effect_types.hpp"
-
-class TimedEffect
-{
-    public:
-        TimedEffect(short duration, EffectType effect_type);
-        // member functions
-        bool checkAndDeincrementDuration();
-        EffectType getEffectType();
-    protected:
-        private:
-            short duration;
-            EffectType effect_type;
-};
+#include "timed_effect.hpp"
 
 bool TimedEffect::checkAndDeincrementDuration()
 {
