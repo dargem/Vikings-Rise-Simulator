@@ -5,7 +5,9 @@
 #include <map>
 #include "CombatEvents.hpp"
 #include "../skills/Skill.hpp"
-#include "../combatants/Combatant.hpp"
+
+// forward declaration for combatant to avoid circular dependency
+class Combatant;
 
 class CombatPublisher
 {

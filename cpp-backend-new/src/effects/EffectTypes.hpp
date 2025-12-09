@@ -8,7 +8,8 @@ enum class EffectType
     POISON, 
     ABSORPTION, 
     HEALING,
-    RETRIBUTION
+    RETRIBUTION,
+    DIRECT_DAMAGE
 };
 
 #endif

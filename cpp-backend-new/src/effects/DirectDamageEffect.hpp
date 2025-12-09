@@ -1,0 +1,4 @@
+struct DirectDamageEffect
+{
+    double magnitude;
+};

@@ -4,7 +4,9 @@
 #include "SkillTypes.hpp"
 #include <vector>
 #include "../orchestration/CombatEvents.hpp"
-#include "../combatants/Combatant.hpp"
+
+// forward declaration for combatant to prevent a circular dependency
+class Combatant;
 
 class Skill
 {

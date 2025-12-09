@@ -32,12 +32,9 @@ void Combatant::addBuffEffect(StatusEffect buff_effect)
     buff_effects.push_back(buff_effect);
 }
 
-void Combatant::addSkill(Skill skill)
+void Combatant::addSkill(Skill skill, CombatEvent combat_event)
 {
-    skills.push_back(skill);
-    for (const auto& event : skill.getTriggerEvents()) {
-        combat_publisher.subToEvent(skill, event);
-    }
+    combat_publisher.subToEvent(skill, combat_event);
 }
 
 void Combatant::setTroops(int troops) 
