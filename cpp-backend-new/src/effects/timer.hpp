@@ -5,9 +5,7 @@ class Timer
 {
     public:
         Timer(short duration);
-        // member functions
-        bool checkAndDeincrementDuration();
-    
+        bool checkAndDeincrementDuration();   
     private:
         short duration;
 };

@@ -1,10 +1,10 @@
 #include "timer.hpp"
 #include "effect_types.hpp"
 
-class TimedEffect: public Timer
+class StatusEffect: public Timer
 {
     public:
-        TimedEffect(short duration, double magnitude, EffectType effect_type);
+        StatusEffect(short duration, double magnitude, EffectType effect_type);
         double getMagnitude();
         EffectType getEffectType();
     private:

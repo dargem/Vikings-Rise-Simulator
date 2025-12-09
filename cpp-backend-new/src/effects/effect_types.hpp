@@ -1,7 +1,8 @@
 #ifndef EFFECT_TYPES_HPP
 #define EFFECT_TYPES_HPP
 
-enum class EffectType { 
+enum class EffectType 
+{ 
     BURN, 
     BLEED, 
     POISON, 

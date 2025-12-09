@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../src/effects/timed_effect.hpp"
+#include "../src/effects/status_effect.hpp"
 #include "../src/effects/effect_types.hpp"
 
 TEST(TimedEffectTest, ConstructorInitializesProperly)
