@@ -1,3 +1,6 @@
+#ifndef COMBAT_PUBLISHER_HPP
+#define COMBAT_PUBLISHER_HPP
+
 #include <vector>
 #include <map>
 #include "combat_events.hpp"
@@ -6,9 +9,11 @@
 class CombatPublisher
 {
     public:
-        bool subToEvent(Skill& skill, CombatEvent combat_event);
-        bool unsubToEvent(Skill& skill, CombatEvent combat_event);
+        bool subToEvent(Skill skill, CombatEvent combat_event);
+        bool unsubToEvent(Skill skill, CombatEvent combat_event);
         void publishEvent(CombatEvent event);
     private:
-        std::map<CombatEvent, std::vector<Skill&>> combat_event_subscribers;
+        std::map<CombatEvent, std::vector<Skill>> combat_event_subscribers;
 };
+
+#endif

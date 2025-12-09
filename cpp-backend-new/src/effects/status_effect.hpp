@@ -1,3 +1,6 @@
+#ifndef STATUS_EFFECT_HPP
+#define STATUS_EFFECT_HPP
+
 #include "timer.hpp"
 #include "effect_types.hpp"
 
@@ -11,3 +14,5 @@ class StatusEffect: public Timer
         double magnitude;
         EffectType effect_type;
 };
+
+#endif

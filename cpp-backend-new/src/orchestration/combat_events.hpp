@@ -1,5 +1,9 @@
+#ifndef COMBAT_EVENT_HPP
+#define COMBAT_EVENT_HPP
+
 enum class CombatEvent
 {
+    START,
     ACTIVE,
     ACTIVE_RECEIVED,
     BASIC_ATTACK,
@@ -12,3 +16,5 @@ enum class CombatEvent
     // hacky way to do mod rounds
     // can change later
 };
+
+#endif
