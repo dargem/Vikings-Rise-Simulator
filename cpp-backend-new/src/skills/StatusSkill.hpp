@@ -4,15 +4,15 @@
 #include "SkillTypes.hpp"
 #include <vector>
 #include "../orchestration/CombatEvents.hpp"
-
+#include "ISkill.hpp"
 // forward declaration for combatant to prevent a circular dependency
 class Combatant;
 
-class Skill
+class StatusSkill: public ISkill
 {
     public:
         void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const;
-        friend bool operator==(const Skill& skill_1, const Skill& skill_2);
+        bool operator==(const StatusSkill& other) const;
         std::vector<CombatEvent> getTriggerEvents() const;
     private:
         SkillType skill_type;
