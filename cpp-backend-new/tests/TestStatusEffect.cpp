@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../src/effects/status_effect.hpp"
-#include "../src/effects/effect_types.hpp"
+#include "../src/effects/StatusEffect.hpp"
+#include "../src/effects/EffectTypes.hpp"
 
 TEST(StatusEffectTest, ConstructorInitializesProperly)
 {

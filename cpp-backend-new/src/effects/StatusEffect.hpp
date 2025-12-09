@@ -1,8 +1,8 @@
 #ifndef STATUS_EFFECT_HPP
 #define STATUS_EFFECT_HPP
 
-#include "timer.hpp"
-#include "effect_types.hpp"
+#include "Timer.hpp"
+#include "EffectTypes.hpp"
 
 class StatusEffect: public Timer
 {

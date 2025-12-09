@@ -1,4 +1,4 @@
-#include "combatant.hpp"
+#include "Combatant.hpp"
 
 /**
  * @brief Construct a new Combatant:: Combatant object
@@ -22,6 +22,11 @@ void Combatant::addStatusEffect(StatusEffect status_effect)
     status_effects.push_back(status_effect);
 }
 
+/**
+ * @brief adds a buff effect to the combatant
+ * 
+ * @param buff_effect value passed buff effect
+ */
 void Combatant::addBuffEffect(StatusEffect buff_effect) 
 {
     buff_effects.push_back(buff_effect);

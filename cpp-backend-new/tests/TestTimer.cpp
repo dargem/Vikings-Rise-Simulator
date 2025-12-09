@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../src/effects/timer.hpp"
-#include "../src/effects/effect_types.hpp"
+#include "../src/effects/Timer.hpp"
+#include "../src/effects/EffectTypes.hpp"
 
 // Test the duration logic
 TEST(TimerTest, DurationDecrementsCorrectly) {

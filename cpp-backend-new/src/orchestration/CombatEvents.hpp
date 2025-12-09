@@ -12,7 +12,8 @@ enum class CombatEvent
     COUNTER_ATTACK,
     SHIELD_GRANTED,
     ROUND_MOD_6,
-    ROUND_MOD_9
+    ROUND_MOD_9,
+    COUNT
     // hacky way to do mod rounds
     // can change later
 };

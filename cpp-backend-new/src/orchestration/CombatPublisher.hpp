@@ -3,15 +3,17 @@
 
 #include <vector>
 #include <map>
-#include "combat_events.hpp"
-#include "../skills/skill.hpp"
+#include "CombatEvents.hpp"
+#include "../skills/Skill.hpp"
+#include "../combatants/Combatant.hpp"
 
 class CombatPublisher
 {
     public:
+        CombatPublisher();
         bool subToEvent(Skill skill, CombatEvent combat_event);
         bool unsubToEvent(Skill skill, CombatEvent combat_event);
-        void publishEvent(CombatEvent event);
+        void publishEvent(CombatEvent event, Combatant& friendly_combatant, Combatant& enemy_combatant) const;
     private:
         std::map<CombatEvent, std::vector<Skill>> combat_event_subscribers;
 };

@@ -1,4 +1,4 @@
-#include "status_effect.hpp"
+#include "StatusEffect.hpp"
 
 StatusEffect::StatusEffect(short duration, double magnitude, EffectType effect_type)
     : Timer(duration),
