@@ -1,19 +1,13 @@
-#ifndef TIMED_EFFECT_HPP
-#define TIMED_EFFECT_HPP
-
+#include "timer.hpp"
 #include "effect_types.hpp"
 
-class TimedEffect
+class TimedEffect: public Timer
 {
     public:
-        TimedEffect(short duration, EffectType effect_type);
-        // member functions
-        bool checkAndDeincrementDuration();
+        TimedEffect(short duration, double magnitude, EffectType effect_type);
+        double getMagnitude();
         EffectType getEffectType();
-    
     private:
-        short duration;
+        double magnitude;
         EffectType effect_type;
 };
-
-#endif

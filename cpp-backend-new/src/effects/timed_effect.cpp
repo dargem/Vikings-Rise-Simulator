@@ -1,18 +1,17 @@
 #include "timed_effect.hpp"
 
-bool TimedEffect::checkAndDeincrementDuration()
-{
-    --duration;
+TimedEffect::TimedEffect(short duration, double magnitude, EffectType effect_type)
+    : Timer(duration),
+    magnitude{magnitude},
+    effect_type{effect_type}
+{}
 
-    return duration >= 0;
+double TimedEffect::getMagnitude()
+{
+    return magnitude;
 }
 
 EffectType TimedEffect::getEffectType()
 {
     return effect_type;
 }
-
-TimedEffect::TimedEffect(short duration, EffectType effect_type) 
-    : duration{duration}, 
-    effect_type{effect_type} 
-{}
