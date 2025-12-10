@@ -1,0 +1,44 @@
+name: C++ Backend Tests
+
+on:
+  push:
+    paths:
+      - 'cpp-backend-new/**'
+      - '.github/workflows/cpp-tests.yml'
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - 'cpp-backend-new/**'
+      - '.github/workflows/cpp-tests.yml'
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: cpp-backend-new
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install CMake and GTest
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake libgtest-dev
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp lib/*.a /usr/lib
+
+    - name: Configure CMake
+      run: cmake -B build -S .
+
+    - name: Build
+      run: cmake --build build
+
+    - name: Run Tests
+      run: |
+        cd build
+        ctest --output-on-failure
