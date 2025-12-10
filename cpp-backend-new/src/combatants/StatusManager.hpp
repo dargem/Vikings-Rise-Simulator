@@ -2,7 +2,7 @@
 #define STATUS_MANAGER_HPP
 
 #include "../effects/StatusEffect.hpp"
-#include "../effects/EffectTypes.hpp"
+#include "../effects/EffectType.hpp"
 #include <vector>
 #include <map>
 

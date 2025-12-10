@@ -2,7 +2,7 @@
 #define STATUS_EFFECT_HPP
 
 #include "Timer.hpp"
-#include "EffectTypes.hpp"
+#include "EffectType.hpp"
 
 class StatusEffect: public Timer
 {
