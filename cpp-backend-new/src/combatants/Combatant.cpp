@@ -32,7 +32,7 @@ void Combatant::addBuffEffect(StatusEffect buff_effect)
     buff_effects.push_back(buff_effect);
 }
 
-void Combatant::addSkill(ISkill& skill, CombatEvent combat_event)
+void Combatant::addSkill(ISkill& skill, CombatantEvent combat_event)
 {
     combat_publisher.subToEvent(skill, combat_event);
 }

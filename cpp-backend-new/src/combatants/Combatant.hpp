@@ -3,7 +3,7 @@
 
 #include "../effects/StatusEffect.hpp"
 #include "../orchestration/CombatPublisher.hpp"
-#include "../orchestration/CombatEvents.hpp"
+#include "../orchestration/CombatantEvents.hpp"
 #include "../skills/ISkill.hpp"
 #include "Stats.hpp"
 #include <vector>
@@ -13,7 +13,7 @@ class Combatant
 public:
     Combatant(int troops, Stats stats);
 
-    void addSkill(ISkill& skill, CombatEvent combat_event);
+    void addSkill(ISkill& skill, CombatantEvent combat_event);
     void addStatusEffect(StatusEffect status_effect);
     void addBuffEffect(StatusEffect buff_effect);
 

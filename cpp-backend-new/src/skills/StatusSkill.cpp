@@ -5,7 +5,7 @@ void StatusSkill::onDependent(Combatant& combatant_friendly, Combatant& combatan
 
 }
 
-std::vector<CombatEvent> StatusSkill::getTriggerEvents() const
+std::vector<CombatantEvent> StatusSkill::getTriggerEvents() const
 {
     return {};
 }

@@ -9,9 +9,10 @@
 class StatusManager
 {
 public:
-    void addDebuffStatusEffect(StatusEffect status_effect);
-    void removeRandomStatusEffects(int num_removals);
-    void removeAllEffects();
+    StatusManager();
+    void addStatusEffect(StatusEffect status_effect);
+    void removeRandomBuffEffect(int num_removals);
+    void removeAllDebuffEffects();
     bool checkEffectActive(EffectType status_effect) const;
 
 private:

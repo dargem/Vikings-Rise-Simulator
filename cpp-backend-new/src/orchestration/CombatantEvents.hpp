@@ -4,7 +4,8 @@
 enum class CombatantEvent
 {
     START,
-    ACTIVE,
+    ACTIVE_PRIMARY,
+    ACTIVE_SECONDARY,
     ACTIVE_RECEIVED,
     BASIC_ATTACK,
     BASIC_RECEIVED,
