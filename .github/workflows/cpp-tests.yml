@@ -33,7 +33,7 @@ jobs:
         sudo cp lib/*.a /usr/lib
 
     - name: Configure CMake
-      run: cmake -B build -S .
+      run: cmake -B build -S . -DCMAKE_CXX_STANDARD=20
 
     - name: Build
       run: cmake --build build
