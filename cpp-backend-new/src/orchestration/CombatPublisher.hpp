@@ -17,7 +17,7 @@ class CombatPublisher
         bool unsubToEvent(const ISkill& skill, CombatEvent combat_event);
         void publishEvent(CombatEvent event, Combatant& friendly_combatant, Combatant& enemy_combatant) const;
     private:
-        std::map<CombatEvent, std::vector<ISkill>> combat_event_subscribers;
+        std::map<CombatEvent, std::vector<const ISkill*>> combat_event_subscribers;
 };
 
 #endif

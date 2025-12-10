@@ -10,7 +10,12 @@ std::vector<CombatEvent> StatusSkill::getTriggerEvents() const
     return {};
 }
 
-bool operator==(const StatusSkill& other) 
+bool StatusSkill::operator==(const ISkill& other) const
 {
+    const StatusSkill* other_skill = dynamic_cast<const StatusSkill*>(&other);
+    if (other_skill)
+    {
+        return skill_type == other_skill->skill_type;
+    }
     return false;
 }

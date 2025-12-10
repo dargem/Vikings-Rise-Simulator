@@ -11,8 +11,8 @@ class Combatant;
 class StatusSkill: public ISkill
 {
     public:
-        void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const;
-        bool operator==(const StatusSkill& other) const;
+        void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const override;
+        bool operator==(const ISkill& other) const override;
         std::vector<CombatEvent> getTriggerEvents() const;
     private:
         SkillType skill_type;
