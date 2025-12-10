@@ -1,5 +1,6 @@
 #include "CombatPublisher.hpp"
 #include <vector>
+#include <algorithm>
 
 CombatPublisher::CombatPublisher() 
 {
