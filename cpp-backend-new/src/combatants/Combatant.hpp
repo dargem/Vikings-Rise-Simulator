@@ -1,10 +1,10 @@
 #ifndef COMBATANT_HPP
 #define COMBATANT_HPP
 
-#include "../effects/StatusEffect.hpp"
+#include "../effects/TimedEffect.hpp"
 #include "../orchestration/CombatPublisher.hpp"
 #include "../orchestration/CombatantEvents.hpp"
-#include "../skills/ISkill.hpp"
+#include "../skills/Skill.hpp"
 #include "Stats.hpp"
 #include <vector>
 
@@ -13,9 +13,9 @@ class Combatant
 public:
     Combatant(int troops, Stats stats);
 
-    void addSkill(ISkill& skill, CombatantEvent combat_event);
-    void addStatusEffect(StatusEffect status_effect);
-    void addBuffEffect(StatusEffect buff_effect);
+    void addSkill(Skill& skill, CombatantEvent combat_event);
+    void addStatusEffect(TimedEffect status_effect);
+    void addBuffEffect(TimedEffect buff_effect);
 
     void setTroops(int troops);
     int getTroops();
@@ -29,8 +29,9 @@ private:
     Stats stats;
     CombatPublisher combat_publisher;
     
-    std::vector<StatusEffect> status_effects;
-    std::vector<StatusEffect> buff_effects;
+    std::vector<TimedEffect> status_effects;
+    std::vector<TimedEffect> buff_effects;
+    std::vector<const Skill*> skills;
 };
 
 #endif

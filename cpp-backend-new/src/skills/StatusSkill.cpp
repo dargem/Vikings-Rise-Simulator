@@ -1,5 +1,9 @@
 #include "StatusSkill.hpp"
 
+StatusSkill::StatusSkill(const TimedEffect status_effect, const SkillType skill_type, const EffectType effect_type)
+    : Skill(skill_type, effect_type), status_effect(status_effect)
+{}
+
 void StatusSkill::onDependent(Combatant& combatant_friendly, Combatant& combatant_enemy) const
 {
 
@@ -10,12 +14,12 @@ std::vector<CombatantEvent> StatusSkill::getTriggerEvents() const
     return {};
 }
 
-bool StatusSkill::operator==(const ISkill& other) const
+bool StatusSkill::operator==(const Skill& other) const
 {
     const StatusSkill* other_skill = dynamic_cast<const StatusSkill*>(&other);
     if (other_skill)
     {
-        return skill_type == other_skill->skill_type;
+        return getSkillType() == other_skill->getSkillType();
     }
     return false;
 }

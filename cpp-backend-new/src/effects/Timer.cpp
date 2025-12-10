@@ -2,9 +2,7 @@
 
 bool Timer::checkAndDeincrementDuration()
 {
-    --duration;
-
-    return duration >= 0;
+    return --duration >= 0;
 }
 
 Timer::Timer(short duration) 

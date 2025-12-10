@@ -17,7 +17,7 @@ Combatant::Combatant(int troops, Stats stats)
  * 
  * @param status_effect value passed status effect
  */
-void Combatant::addStatusEffect(StatusEffect status_effect) 
+void Combatant::addStatusEffect(TimedEffect status_effect) 
 {
     status_effects.push_back(status_effect);
 }
@@ -27,12 +27,12 @@ void Combatant::addStatusEffect(StatusEffect status_effect)
  * 
  * @param buff_effect value passed buff effect
  */
-void Combatant::addBuffEffect(StatusEffect buff_effect) 
+void Combatant::addBuffEffect(TimedEffect buff_effect) 
 {
     buff_effects.push_back(buff_effect);
 }
 
-void Combatant::addSkill(ISkill& skill, CombatantEvent combat_event)
+void Combatant::addSkill(Skill& skill, CombatantEvent combat_event)
 {
     combat_publisher.subToEvent(skill, combat_event);
 }

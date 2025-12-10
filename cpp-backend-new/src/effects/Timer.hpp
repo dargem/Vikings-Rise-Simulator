@@ -1,5 +1,5 @@
-#ifndef TIMED_EFFECT_HPP
-#define TIMED_EFFECT_HPP
+#ifndef TIMER
+#define TIMER
 
 class Timer
 {

@@ -1,24 +1,24 @@
-#ifndef SKILL_HPP
-#define SKILL_HPP
+#ifndef STATUS_SKILL_HPP
+#define STATUS_SKILL_HPP
 
-#include "SkillTypes.hpp"
+#include "SkillType.hpp"
 #include <vector>
 #include "../orchestration/CombatantEvents.hpp"
-#include "../effects/StatusEffect.hpp"
-#include "ISkill.hpp"
+#include "../effects/TimedEffect.hpp"
+#include "../effects/EffectType.hpp"
+#include "Skill.hpp"
 // forward declaration for combatant to prevent a circular dependency
 class Combatant;
 
-class StatusSkill: public ISkill
+class StatusSkill: public Skill
 {
     public:
-        StatusSkill(const StatusEffect status_effect, const SkillType skill_type);
+        StatusSkill(const TimedEffect status_effect, const SkillType skill_type, const EffectType effect_type);
         void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const override;
-        bool operator==(const ISkill& other) const override;
+        bool operator==(const Skill& other) const override;
         std::vector<CombatantEvent> getTriggerEvents() const;
     private:
-        const SkillType skill_type;
-        const StatusEffect status_effect;
+        const TimedEffect status_effect;
 };
 
 #endif

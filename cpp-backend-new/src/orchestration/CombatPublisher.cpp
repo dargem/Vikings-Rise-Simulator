@@ -6,13 +6,13 @@ CombatPublisher::CombatPublisher()
 {
     for (int i = 0; i < static_cast<int>(CombatantEvent::COUNT); ++i) 
     {
-        combat_event_subscribers[static_cast<CombatantEvent>(i)] = std::vector<const ISkill*>();
+        combat_event_subscribers[static_cast<CombatantEvent>(i)] = std::vector<const Skill*>();
     }
 }
 
-bool CombatPublisher::subToEvent(const ISkill& skill, const CombatantEvent event) 
+bool CombatPublisher::subToEvent(const Skill& skill, const CombatantEvent event) 
 {
-    std::vector<const ISkill*>& skills = combat_event_subscribers[event];
+    std::vector<const Skill*>& skills = combat_event_subscribers[event];
 
     if (std::find(skills.begin(), skills.end(), &skill) != skills.end())
     {
@@ -24,9 +24,9 @@ bool CombatPublisher::subToEvent(const ISkill& skill, const CombatantEvent event
     return true;
 }
 
-bool CombatPublisher::unsubToEvent(const ISkill& skill, const CombatantEvent event)
+bool CombatPublisher::unsubToEvent(const Skill& skill, const CombatantEvent event)
 {
-    std::vector<const ISkill*>& skills = combat_event_subscribers[event];
+    std::vector<const Skill*>& skills = combat_event_subscribers[event];
     
     auto it = std::find(skills.begin(), skills.end(), &skill);
     if (it == skills.end())
@@ -41,8 +41,8 @@ bool CombatPublisher::unsubToEvent(const ISkill& skill, const CombatantEvent eve
 
 void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& friendly_combatant, Combatant& enemy_combatant) const
 {
-    const std::vector<const ISkill*>& skills = combat_event_subscribers.at(event);
-    for (const ISkill* skill : skills)
+    const std::vector<const Skill*>& skills = combat_event_subscribers.at(event);
+    for (const Skill* skill : skills)
     {
         skill->onDependent(friendly_combatant, enemy_combatant);
     }

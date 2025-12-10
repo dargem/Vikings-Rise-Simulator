@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 #include "CombatantEvents.hpp"
-#include "../skills/ISkill.hpp"
+#include "../skills/Skill.hpp"
 
 // forward declaration for combatant to avoid circular dependency
 class Combatant;
@@ -13,11 +13,11 @@ class CombatPublisher
 {
     public:
         CombatPublisher();
-        bool subToEvent(const ISkill& skill, CombatantEvent combat_event);
-        bool unsubToEvent(const ISkill& skill, CombatantEvent combat_event);
+        bool subToEvent(const Skill& skill, CombatantEvent combat_event);
+        bool unsubToEvent(const Skill& skill, CombatantEvent combat_event);
         void publishEvent(CombatantEvent event, Combatant& friendly_combatant, Combatant& enemy_combatant) const;
     private:
-        std::map<CombatantEvent, std::vector<const ISkill*>> combat_event_subscribers;
+        std::map<CombatantEvent, std::vector<const Skill*>> combat_event_subscribers;
 };
 
 #endif
