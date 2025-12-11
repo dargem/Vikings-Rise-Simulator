@@ -18,8 +18,6 @@ public:
 private:
     // Collection of active debuffs grouped by type
     std::map<EffectType, std::vector<TimedEffect>> debuff_collection;
-    // List of general status effects
-    std::vector<TimedEffect> status_effects;
 };
 
 #endif
