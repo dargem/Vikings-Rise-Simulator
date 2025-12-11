@@ -4,7 +4,7 @@
 #include "../effects/TimedEffect.hpp"
 #include "../effects/EffectType.hpp"
 #include "../orchestration/CombatPublisher.hpp"
-#include "../orchestration/CombatantEvents.hpp"
+#include "../orchestration/CombatantEvent.hpp"
 #include "StatusController.hpp"
 #include "../skills/Skill.hpp"
 #include "Stats.hpp"
@@ -15,12 +15,12 @@ class Combatant
 public:
     Combatant(int troops, Stats stats);
 
-    bool checkEffectActive(EffectType effect_type);
-    void addSkill(Skill& skill, CombatantEvent combat_event);
-    void addStatusEffect(TimedEffect timed_effect, EffectType type);
+    bool checkEffectActive(const EffectType effect_type) const;
+    void addSkill(const Skill& skill, const CombatantEvent combat_event);
+    void addStatusEffect(const TimedEffect timed_effect, const EffectType type);
 
     void setTroops(int troops);
-    int getTroops();
+    int getTroops() const;
     void setStats(Stats stats);
     double getAttack();
     double getDefense();
@@ -30,7 +30,7 @@ private:
     int troops;
     Stats stats;
     CombatPublisher combat_publisher;
-    StatusController status_manager;
+    StatusController status_controller;
 
     std::vector<TimedEffect> status_effects;
     std::vector<TimedEffect> buff_effects;

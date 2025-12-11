@@ -27,7 +27,7 @@ namespace ScalarUtils
 
     constexpr double scaleDamage(double magnitude, double attack)
     {
-        // fairly trivial but gets inlined so should help clarity wo cost
+        // fairly trivial but gets inlined so should help clarity w/o cost
         return magnitude * attack;
     }
 

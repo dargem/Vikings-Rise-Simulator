@@ -9,10 +9,10 @@
 struct SkillCondition
 {
 public:
-    bool isMet(Combatant self, Combatant target);
+    bool isMet(const Combatant self, const Combatant target) const;
 private:
-    ConditionType condition_type;
-    std::optional<EffectType> effect_condition;
+    const ConditionType condition_type;
+    const EffectType effect_type;
 };
 
 #endif

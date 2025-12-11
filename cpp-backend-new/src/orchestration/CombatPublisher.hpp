@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <map>
-#include "CombatantEvents.hpp"
+#include "CombatantEvent.hpp"
 #include "../skills/Skill.hpp"
 
 // forward declaration for combatant to avoid circular dependency

@@ -1,15 +1,16 @@
 #include "SkillCondition.hpp"
 
-bool SkillCondition::isMet(Combatant self, Combatant target)
+bool SkillCondition::isMet(const Combatant self, const Combatant target) const
 {
     switch(condition_type)
     {
     case ConditionType::HAS_EFFECT_SELF:
-        break;
+        return self.checkEffectActive(effect_type);
     case ConditionType::HAS_EFFECT_TARGET:
-        break;
+        return target.checkEffectActive(effect_type);
     case ConditionType::TROOP_COUNT_GREATER_THAN_TARGET:
-        break;
+        return self.getTroops() > target.getTroops();
     }
+
     return true;
 }

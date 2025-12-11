@@ -3,7 +3,7 @@
 
 #include "SkillType.hpp"
 #include <vector>
-#include "../orchestration/CombatantEvents.hpp"
+#include "../orchestration/CombatantEvent.hpp"
 #include "../effects/TimedEffect.hpp"
 #include "../effects/EffectType.hpp"
 #include "Skill.hpp"

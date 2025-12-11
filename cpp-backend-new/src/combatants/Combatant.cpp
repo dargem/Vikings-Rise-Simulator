@@ -19,15 +19,15 @@ Combatant::Combatant(int troops, Stats stats)
  */
 void Combatant::addStatusEffect(TimedEffect timed_effect, EffectType type)
 {
-    status_manager.addStatusEffect(timed_effect, type);
+    status_controller.addStatusEffect(timed_effect, type);
 }
 
-bool Combatant::checkEffectActive(EffectType effect_type)
+bool Combatant::checkEffectActive(const EffectType effect_type) const
 {
-    return status_manager.checkEffectActive(effect_type);
+    return status_controller.checkEffectActive(effect_type);
 }
 
-void Combatant::addSkill(Skill& skill, CombatantEvent combat_event)
+void Combatant::addSkill(const Skill& skill, const CombatantEvent combat_event)
 {
     combat_publisher.subToEvent(skill, combat_event);
 }
@@ -37,7 +37,7 @@ void Combatant::setTroops(int troops)
     this->troops = troops;
 }
 
-int Combatant::getTroops()
+int Combatant::getTroops() const
 {
     return troops;
 }
