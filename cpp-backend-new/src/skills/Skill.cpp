@@ -1,9 +1,10 @@
 #include "Skill.hpp"
 
-Skill::Skill(const SkillType skill_type, const EffectType effect_type, const SkillCondition skill_condition)
+Skill::Skill(SkillType skill_type, EffectType effect_type, SkillCondition skill_condition, SkillTarget target)
     : skill_type { skill_type },
     effect_type { effect_type },
-    skill_condition { skill_condition }
+    skill_condition { skill_condition },
+    target { target }
 {}
 
 SkillType Skill::getSkillType() const 
@@ -19,4 +20,9 @@ EffectType Skill::getEffectType() const
 bool Skill::checkCondition(const Combatant& friendly, const Combatant& target) const
 {
     return skill_condition.isMet(friendly, target);
+}
+
+SkillTarget Skill::getSkillTarget() const
+{
+    return target;
 }

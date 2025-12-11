@@ -4,6 +4,7 @@
 #include "SkillType.hpp"
 #include "../effects/EffectType.hpp"
 #include "SkillCondition.hpp"
+#include "SkillTarget.hpp"
 
 // forward declaration to avoid circular dependency
 class Combatant;
@@ -11,7 +12,7 @@ class Combatant;
 class Skill
 {
 public:
-    Skill(const SkillType skill_type, const EffectType effect_type, const SkillCondition skill_condition);
+    Skill(SkillType skill_type, EffectType effect_type, SkillCondition skill_condition, SkillTarget target);
     virtual ~Skill() {}
     virtual void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const = 0;
     virtual bool operator==(const Skill& other) const = 0;
@@ -20,10 +21,12 @@ public:
 
     SkillType getSkillType() const;
     EffectType getEffectType() const;
+    SkillTarget getSkillTarget() const;
 private:
-    const SkillType skill_type;
-    const EffectType effect_type;
-    const SkillCondition skill_condition;
+    SkillType skill_type;
+    EffectType effect_type;
+    SkillCondition skill_condition;
+    SkillTarget target;
 };
 
 #endif
