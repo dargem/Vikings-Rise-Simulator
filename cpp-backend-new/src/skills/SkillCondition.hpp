@@ -4,15 +4,17 @@
 #include <optional>
 #include "ConditionType.hpp"
 #include "../effects/EffectType.hpp"
-#include "../combatants/Combatant.hpp"
+
+class Combatant; // Forward declaration
 
 struct SkillCondition
 {
 public:
-    bool isMet(const Combatant self, const Combatant target) const;
+    SkillCondition(ConditionType condition_type, EffectType trigger_requirement);
+    bool isMet(const Combatant& self, const Combatant& target) const;
 private:
-    const ConditionType condition_type;
-    const EffectType effect_type;
+    ConditionType condition_type;
+    EffectType trigger_requirement;
 };
 
 #endif

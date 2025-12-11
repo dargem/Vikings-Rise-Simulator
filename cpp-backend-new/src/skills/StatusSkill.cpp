@@ -1,7 +1,8 @@
 #include "StatusSkill.hpp"
 
-StatusSkill::StatusSkill(const TimedEffect status_effect, const SkillType skill_type, const EffectType effect_type)
-    : Skill(skill_type, effect_type), status_effect(status_effect)
+StatusSkill::StatusSkill(const TimedEffect status_effect, const SkillType skill_type, const EffectType effect_type, const SkillCondition skill_condition)
+    : Skill(skill_type, effect_type, skill_condition), 
+    status_effect(status_effect)
 {}
 
 void StatusSkill::onDependent(Combatant& combatant_friendly, Combatant& combatant_enemy) const
