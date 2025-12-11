@@ -1,0 +1,11 @@
+#ifndef CONDITION_TYPE_HPP
+#define CONDITION_TYPE_HPP
+
+enum class ConditionType
+{
+    HAS_EFFECT_SELF,
+    HAS_EFFECT_TARGET,
+    TROOP_COUNT_GREATER_THAN_TARGET
+};
+
+#endif

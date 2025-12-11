@@ -1,5 +1,5 @@
-#ifndef TIMER
-#define TIMER
+#ifndef TIMER_HPP
+#define TIMER_HPP
 
 class Timer
 {
@@ -10,4 +10,4 @@ class Timer
         short duration;
 };
 
-#endif
+#endif // TIMER_HPP

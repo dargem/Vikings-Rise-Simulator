@@ -1,15 +1,16 @@
-#ifndef EFFECT_TYPES_HPP
-#define EFFECT_TYPES_HPP
+#ifndef EFFECT_TYPE_HPP
+#define EFFECT_TYPE_HPP
 
 enum class EffectType 
 { 
+    START,
     BURN, 
     BLEED, 
     POISON, 
     ABSORPTION, 
     HEALING,
     RETRIBUTION,
-    DIRECT_DAMAGE
+    COUNT
 };
 
 #endif
