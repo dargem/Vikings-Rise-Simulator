@@ -5,7 +5,7 @@ TimedEffect::TimedEffect(short duration, double magnitude)
     magnitude { magnitude }
 {}
 
-TimedEffect::TimedEffect(TimedEffect& copied_effect, double scalars) 
+TimedEffect::TimedEffect(const TimedEffect& copied_effect, double scalars) 
     : timer { copied_effect.cloneTimer() },
     magnitude { copied_effect.getMagnitude() * scalars }
 {}

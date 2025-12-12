@@ -15,9 +15,9 @@ class Combatant
 public:
     Combatant(int troops, Stats stats);
 
-    bool checkEffectActive(const EffectType effect_type) const;
-    void addSkill(const Skill& skill, const CombatantEvent combat_event);
-    void addStatusEffect(const TimedEffect timed_effect, const EffectType type);
+    bool checkEffectActive(EffectType effect_type) const;
+    void addSkill(const Skill& skill, CombatantEvent combat_event);
+    void addStatusEffect(const TimedEffect timed_effect, EffectType type);
 
     void setTroops(int troops);
     int getTroops() const;

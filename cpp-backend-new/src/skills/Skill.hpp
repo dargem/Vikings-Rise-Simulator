@@ -12,7 +12,7 @@ class Combatant;
 class Skill
 {
 public:
-    Skill(SkillType skill_type, EffectType effect_type, SkillCondition skill_condition, SkillTarget target);
+    Skill(SkillType skill_type, EffectType effect_type, const SkillCondition skill_condition, SkillTarget target);
     virtual ~Skill() {}
     virtual void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const = 0;
     virtual bool operator==(const Skill& other) const = 0;
