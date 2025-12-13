@@ -1,8 +1,0 @@
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/CMakeFiles/cpp-backend-project.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/CMakeFiles/test.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/CMakeFiles/edit_cache.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/CMakeFiles/rebuild_cache.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests/CMakeFiles/unit_tests.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests/CMakeFiles/test.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests/CMakeFiles/edit_cache.dir
-/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests/CMakeFiles/rebuild_cache.dir
