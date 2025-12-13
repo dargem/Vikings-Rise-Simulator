@@ -1,0 +1,104 @@
+[
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/Controller.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/Controller.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/Controller.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/Controller.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/combatants/Combatant.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/combatants/Combatant.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/combatants/Combatant.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/combatants/Combatant.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/combatants/StatusController.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/combatants/StatusController.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/combatants/StatusController.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/combatants/StatusController.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/effects/TimedEffect.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/TimedEffect.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/TimedEffect.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/effects/TimedEffect.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/effects/Timer.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/Timer.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/Timer.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/effects/Timer.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/main.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/main.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/main.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/orchestration/CombatPublisher.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/orchestration/CombatPublisher.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/orchestration/CombatPublisher.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/orchestration/CombatPublisher.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/skills/DamageSkill.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/DamageSkill.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/DamageSkill.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/skills/DamageSkill.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/skills/Skill.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/Skill.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/Skill.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/skills/Skill.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/skills/SkillCondition.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/SkillCondition.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/SkillCondition.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/skills/SkillCondition.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/skills/StatusSkill.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/StatusSkill.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/skills/StatusSkill.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/skills/StatusSkill.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/utils/ScalarUtils.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/utils/ScalarUtils.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/utils/ScalarUtils.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/utils/ScalarUtils.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts",
+  "command": "/usr/bin/c++  -I/opt/homebrew/include -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -std=gnu++20 -arch arm64 -o CMakeFiles/cpp-backend-project.dir/src/utils/SkillParser.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/utils/SkillParser.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/utils/SkillParser.cpp",
+  "output": "CMakeFiles/cpp-backend-project.dir/src/utils/SkillParser.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests",
+  "command": "/usr/bin/c++  -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/unit_tests.dir/TestTimedEffect.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/tests/TestTimedEffect.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/tests/TestTimedEffect.cpp",
+  "output": "tests/CMakeFiles/unit_tests.dir/TestTimedEffect.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests",
+  "command": "/usr/bin/c++  -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/unit_tests.dir/TestTimer.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/tests/TestTimer.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/tests/TestTimer.cpp",
+  "output": "tests/CMakeFiles/unit_tests.dir/TestTimer.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests",
+  "command": "/usr/bin/c++  -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/unit_tests.dir/__/src/effects/TimedEffect.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/TimedEffect.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/TimedEffect.cpp",
+  "output": "tests/CMakeFiles/unit_tests.dir/__/src/effects/TimedEffect.cpp.o"
+},
+{
+  "directory": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests",
+  "command": "/usr/bin/c++  -I\"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/include\" -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/unit_tests.dir/__/src/effects/Timer.cpp.o -c \"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/Timer.cpp\"",
+  "file": "/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/src/effects/Timer.cpp",
+  "output": "tests/CMakeFiles/unit_tests.dir/__/src/effects/Timer.cpp.o"
+}
+]

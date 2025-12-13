@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/cmake_install.cmake",
+		"/Users/td/Desktop/Vikings Rise Simulator/cpp-backend-new/scripts/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

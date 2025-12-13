@@ -1,6 +1,7 @@
-#include "utils/CommanderName.hpp"
+#include "utils/CombatantSetup.hpp"
 #include "orchestration/CombatPublisher.hpp"
-#include <vector>
+#include "utils/SkillParser.hpp"
+#include <string>
 
 /**
  * @brief loads a combat publisher with skills
@@ -8,7 +9,13 @@
 class SetupPublisherLoader
 {
 public:
-    void load_publisher(CombatPublisher combat_publisher, std::vector<CommanderName> commanders);
+    /**
+     * @brief Loads a combat_publisher with 
+     * 
+     * @param combat_publisher 
+     * @param commanders 
+     */
+    void load_publisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup) const;
 private:
-
+    static constexpr char* skills_path { "cpp-backend-new/resources/skills.json" };
 };
