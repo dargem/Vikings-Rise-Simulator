@@ -1,13 +1,13 @@
 #ifndef COMBATANT_HPP
 #define COMBATANT_HPP
 
-#include "../effects/TimedEffect.hpp"
-#include "../effects/EffectType.hpp"
-#include "../orchestration/CombatPublisher.hpp"
-#include "../orchestration/CombatantEvent.hpp"
-#include "StatusController.hpp"
-#include "../skills/Skill.hpp"
-#include "Stats.hpp"
+#include "effects/TimedEffect.hpp"
+#include "effects/EffectType.hpp"
+#include "orchestration/CombatPublisher.hpp"
+#include "orchestration/CombatantEvent.hpp"
+#include "combatants/StatusController.hpp"
+#include "skills/Skill.hpp"
+#include "combatants/Stats.hpp"
 #include <vector>
 
 class Combatant

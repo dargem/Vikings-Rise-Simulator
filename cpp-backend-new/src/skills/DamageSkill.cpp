@@ -1,4 +1,4 @@
-#include "DamageSkill.hpp"
+#include "skills/DamageSkill.hpp"
 
 DamageSkill::DamageSkill(const double damage_magnitude, const SkillType skill_type, const EffectType effect_type,
                          SkillCondition skill_condition, SkillTarget skill_target) 

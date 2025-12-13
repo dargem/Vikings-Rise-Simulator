@@ -6,14 +6,14 @@
 #include <optional>
 #include <memory>
 #include <nlohmann/json.hpp>
-#include "../src/skills/Skill.hpp"
-#include "../src/skills/StatusSkill.hpp"
-#include "../src/skills/DamageSkill.hpp"
-#include "../src/skills/SkillType.hpp"
-#include "../src/skills/SkillTarget.hpp"
-#include "../src/skills/ConditionType.hpp"
-#include "../src/effects/EffectType.hpp"
-#include "../src/effects/TimedEffect.hpp"
+#include "skills/Skill.hpp"
+#include "skills/StatusSkill.hpp"
+#include "skills/DamageSkill.hpp"
+#include "skills/SkillType.hpp"
+#include "skills/SkillTarget.hpp"
+#include "skills/ConditionType.hpp"
+#include "effects/EffectType.hpp"
+#include "effects/TimedEffect.hpp"
 
 using json = nlohmann::json;
 
@@ -27,8 +27,8 @@ public:
     // Search for a specific skill by ID and convert to Skill object
     std::unique_ptr<Skill> getSkillById(const std::string& skill_id) const;
     
-    // Gets skills from the "Skills" section
-    std::vector<std::unique_ptr<Skill>> getGenericSkill(const std::string& generic_skill) const;
+    // Get all skills from the "Skills" section
+    std::vector<std::unique_ptr<Skill>> getGenericSkills() const;
     
     // Load and parse the JSON file
     bool loadJson();
@@ -41,11 +41,10 @@ private:
     std::unique_ptr<Skill> jsonToSkill(const json& skill_json) const;
     
     // Helper functions to convert strings to enums
-    SkillType stringToSkillType(std::string_view& type_str) const;
-    EffectType stringToEffectType(std::string_view& effect_str) const;
-    SkillTarget stringToSkillTarget(std::string_view& target_str) const;
-    ConditionType stringToConditionType(std::string_view& condition_str) const;
-    SkillTarget stringToTargetType(std::string_view& target_str) const;
+    SkillType stringToSkillType(const std::string& type_str) const;
+    EffectType stringToEffectType(const std::string& effect_str) const;
+    SkillTarget stringToSkillTarget(const std::string& target_str) const;
+    ConditionType stringToConditionType(const std::string& condition_str) const;
     
     // Build SkillCondition from trigger requirements
     SkillCondition buildSkillCondition(const json& trigger_json) const;

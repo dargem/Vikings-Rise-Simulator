@@ -1,12 +1,12 @@
 #ifndef STATUS_SKILL_HPP
 #define STATUS_SKILL_HPP
 
-#include "SkillType.hpp"
+#include "skills/SkillType.hpp"
 #include <vector>
-#include "../orchestration/CombatantEvent.hpp"
-#include "../effects/TimedEffect.hpp"
-#include "../effects/EffectType.hpp"
-#include "Skill.hpp"
+#include "orchestration/CombatantEvent.hpp"
+#include "effects/TimedEffect.hpp"
+#include "effects/EffectType.hpp"
+#include "skills/Skill.hpp"
 // forward declaration for combatant to prevent a circular dependency
 class Combatant;
 

@@ -1,4 +1,4 @@
-#include "StatusController.hpp"
+#include "combatants/StatusController.hpp"
 #include "effects/EffectType.hpp"
 
 StatusController::StatusController()

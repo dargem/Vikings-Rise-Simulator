@@ -1,4 +1,4 @@
-#include "Skill.hpp"
+#include "skills/Skill.hpp"
 
 Skill::Skill(SkillType skill_type, EffectType effect_type, const SkillCondition skill_condition, SkillTarget target)
     : skill_type { skill_type },

@@ -1,10 +1,10 @@
 #ifndef SKILL_HPP
 #define SKILL_HPP
 
-#include "SkillType.hpp"
-#include "../effects/EffectType.hpp"
-#include "SkillCondition.hpp"
-#include "SkillTarget.hpp"
+#include "skills/SkillType.hpp"
+#include "effects/EffectType.hpp"
+#include "skills/SkillCondition.hpp"
+#include "skills/SkillTarget.hpp"
 
 // forward declaration to avoid circular dependency
 class Combatant;

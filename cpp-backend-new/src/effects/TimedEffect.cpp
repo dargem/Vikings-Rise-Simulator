@@ -1,4 +1,4 @@
-#include "TimedEffect.hpp"
+#include "effects/TimedEffect.hpp"
 
 TimedEffect::TimedEffect(short duration, double magnitude)
     : timer { Timer(duration) },

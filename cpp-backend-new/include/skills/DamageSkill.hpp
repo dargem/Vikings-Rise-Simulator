@@ -1,5 +1,5 @@
-#include "Skill.hpp"
-#include "../effects/TimedEffect.hpp"
+#include "skills/Skill.hpp"
+#include "effects/TimedEffect.hpp"
 
 class DamageSkill: public Skill
 {

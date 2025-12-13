@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <map>
-#include "CombatantEvent.hpp"
-#include "../skills/Skill.hpp"
+#include "orchestration/CombatantEvent.hpp"
+#include "skills/Skill.hpp"
 
 // forward declaration for combatant to avoid circular dependency
 class Combatant;

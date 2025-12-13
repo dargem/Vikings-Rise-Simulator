@@ -1,4 +1,4 @@
-#include "Timer.hpp"
+#include "effects/Timer.hpp"
 
 bool Timer::checkAndDeincrementDuration()
 {

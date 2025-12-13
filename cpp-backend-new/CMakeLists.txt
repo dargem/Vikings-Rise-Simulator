@@ -16,7 +16,7 @@ if(APPLE)
     include_directories(${BREW_PREFIX}/include)
 endif()
 
-include_directories(include src)
+include_directories(include)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 

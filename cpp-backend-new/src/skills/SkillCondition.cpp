@@ -1,5 +1,5 @@
-#include "SkillCondition.hpp"
-#include "../combatants/Combatant.hpp"
+#include "skills/SkillCondition.hpp"
+#include "combatants/Combatant.hpp"
 
 SkillCondition::SkillCondition(ConditionType condition_type, EffectType trigger_requirement)
     : condition_type {condition_type},

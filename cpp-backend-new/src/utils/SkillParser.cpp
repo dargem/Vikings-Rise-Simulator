@@ -1,4 +1,4 @@
-#include "../../include/SkillParser.hpp"
+#include "SkillParser.hpp"
 #include <fstream>
 #include <iostream>
 

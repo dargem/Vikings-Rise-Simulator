@@ -2,8 +2,8 @@
 #define SKILL_CONDITION_HPP
 
 #include <optional>
-#include "ConditionType.hpp"
-#include "../effects/EffectType.hpp"
+#include "skills/ConditionType.hpp"
+#include "effects/EffectType.hpp"
 
 class Combatant; // Forward declaration
 

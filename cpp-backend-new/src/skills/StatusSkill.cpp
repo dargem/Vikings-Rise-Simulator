@@ -1,5 +1,5 @@
-#include "StatusSkill.hpp"
-#include "../combatants/Combatant.hpp"
+#include "skills/StatusSkill.hpp"
+#include "combatants/Combatant.hpp"
 
 StatusSkill::StatusSkill(const TimedEffect status_effect, SkillType skill_type, EffectType effect_type, const SkillCondition skill_condition, SkillTarget skill_target)
     : Skill(skill_type, effect_type, skill_condition, skill_target), 

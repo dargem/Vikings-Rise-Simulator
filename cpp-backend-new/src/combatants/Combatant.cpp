@@ -1,4 +1,4 @@
-#include "Combatant.hpp"
+#include "combatants/Combatant.hpp"
 
 /**
  * @brief Construct a new Combatant:: Combatant object
