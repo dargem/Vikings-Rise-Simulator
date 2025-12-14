@@ -24,14 +24,8 @@ public:
     // Search for all skills belonging to a commander and convert to Skill objects
     std::vector<std::unique_ptr<Skill>> getCommanderSkills(const std::string& commander_name) const;
     
-    // Search for a specific skill by ID and convert to Skill object
-    std::unique_ptr<Skill> getSkillById(const std::string& skill_id) const;
-    
     // Get all skills from the "Skills" section
     std::vector<std::unique_ptr<Skill>> getGenericSkills() const;
-    
-    // Load and parse the JSON file
-    bool loadJson();
     
 private:
     std::string file_path;
