@@ -1,3 +1,6 @@
+#ifndef DAMAGE_SKILL_HPP
+#define DAMAGE_SKILL_HPP
+
 #include "skills/Skill.hpp"
 #include "effects/TimedEffect.hpp"
 
@@ -10,3 +13,5 @@ public:
 private:
     const double damage_magnitude; 
 };
+
+#endif

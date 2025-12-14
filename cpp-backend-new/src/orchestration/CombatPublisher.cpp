@@ -47,3 +47,7 @@ void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& friend
         skill->onDependent(friendly_combatant, enemy_combatant);
     }
 }
+
+void CombatPublisher::addSkill(std::unique_ptr<Skill> skill) {
+    owned_skills.push_back(std::move(skill));
+}

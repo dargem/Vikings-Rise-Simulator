@@ -15,11 +15,13 @@ bool SetupPublisherLoader::loadJson()
     try 
     {
         std::ifstream file(std::string(skills_path).c_str());
-        if (!file.is_open()) {
+        if (!file.is_open()) 
+        {
             std::cerr << "Failed to open file: " << skills_path << std::endl;
             return false;
         }
         
+
         file >> skill_data;
         return true;
     } 
@@ -32,6 +34,16 @@ bool SetupPublisherLoader::loadJson()
 
 void SetupPublisherLoader::loadPublisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup) const
 {
+    SkillParser parser;
 
+    // Load skills for each commander
+    for (int i = 0; i < CombatantSetup::NUM_COMMANDERS; ++i) {
+        auto skills = parser.loadSkills(skill_data, combatant_setup.commanders[i]);
+        for (auto& skill : skills) {
+            combat_publisher.addSkill(std::move(skill));
+        }
+    }
+    
+    // TODO: Load other skills (skills array, mount skills) when implemented in parser
 }
 

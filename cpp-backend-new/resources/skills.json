@@ -10,7 +10,7 @@
                         "triggerRequirement": "poison",
                         "dependentRequirement": "basicAttack"
                     },
-                    "sub_skills": [
+                    "status_skills": [
                         { 
                             "type": "heal", 
                             "magnitude": 50,
@@ -18,7 +18,9 @@
                             "removable": false,
                             "chance": 1.0,
                             "target": "friendly"
-                        },
+                        }
+                    ],
+                    "direct_damage_skills": [
                         { 
                             "type": "damage", 
                             "magnitude": 50,
@@ -32,18 +34,34 @@
                     }
                 },
                 {
-                    "id": "sigrid_reaction_proc",
+                    "id": "sigrid_secondary_hit",
                     "trigger": { 
-                        "type": "reaction",
-                        "targetId": "sigrid_primary_hit",
-                        "chance": 0.5
+                        "type": "round_repeating", 
+                        "modulo": 6,
+                        "triggerRequirement": "poison",
+                        "dependentRequirement": "basicAttack"
                     },
-                    "effects": [
-                        { "type": "poison", "magnitude": 100 }
+                    "status_skills": [
+                        { 
+                            "type": "heal", 
+                            "magnitude": 50,
+                            "skillDuration": 2,
+                            "removable": false,
+                            "chance": 1.0,
+                            "target": "friendly"
+                        }
                     ],
-                    "metaType": {
-                        "category": "command",
-                        "override": false
+                    "direct_damage_skills": [
+                        { 
+                            "type": "damage", 
+                            "magnitude": 50,
+                            "removable": false,
+                            "chance": 0.5,
+                            "target": "enemy"
+                        }
+                    ],
+                    "skillType": {
+                        "category": "command"
                     }
                 }
             ],
@@ -54,5 +72,12 @@
     },
     "Skills": {
 
+    },
+    "Slot1MountSkills": {
+
+    },
+    "Slot2MountSkills": {
+
     }
+
 }

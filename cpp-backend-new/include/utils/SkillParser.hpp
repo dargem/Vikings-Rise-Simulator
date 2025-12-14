@@ -14,25 +14,24 @@
 #include "skills/ConditionType.hpp"
 #include "effects/EffectType.hpp"
 #include "effects/TimedEffect.hpp"
+#include "utils/CommanderName.hpp"
+#include "utils/SkillName.hpp"
+#include "utils/MountSlot1Names.hpp"
+#include "utils/MountSlot2Names.hpp"
 
 using json = nlohmann::json;
 
-class SkillParser {
+class SkillParser 
+{
 public:
-    SkillParser(const std::string& json_file_path);
     
-    // Search for all skills belonging to a commander and convert to Skill objects
-    std::vector<std::unique_ptr<Skill>> getCommanderSkills(const std::string& commander_name) const;
+    // turns a skill name into a vector of actual skill objects
+    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, CommanderName commander_name) const;
+    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, SkillName skill_name) const;
+    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot1Names mount_slot_1_names) const;
+    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const;
     
-    // Get all skills from the "Skills" section
-    std::vector<std::unique_ptr<Skill>> getGenericSkills() const;
-    
-private:
-    std::string file_path;
-    json skill_data;
-    
-    // Convert JSON skill to actual Skill object (StatusSkill, DamageSkill, etc.)
-    std::unique_ptr<Skill> jsonToSkill(const json& skill_json) const;
+private:    
     
     // Helper functions to convert strings to enums
     SkillType stringToSkillType(const std::string& type_str) const;
@@ -45,6 +44,8 @@ private:
     
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     SkillTarget determineSkillTarget(const json& skill_json) const;
+
+    std::unique_ptr<Skill> jsonToSkill(const json& skill_json) const;
 };
 
 #endif

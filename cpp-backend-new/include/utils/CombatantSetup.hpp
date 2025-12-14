@@ -17,7 +17,6 @@ struct CombatantSetup
     SkillName skills[NUM_SKILLS];
     MountSlot1Names slot_1_skills[NUM_SLOT_1_MOUNT_SKILLS];
     MountSlot2Names slot_2_skills[NUM_SLOT_2_MOUNT_SKILLS];
-
 };
 
 #endif
