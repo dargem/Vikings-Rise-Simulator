@@ -58,13 +58,9 @@ TEST(SkillParserTest, LoadSkillsThrowsOnInvalidSkill) {
     EXPECT_THROW(parser.loadSkills(skillJson, CommanderName::Sigrid), std::runtime_error);
 }
 
-TEST(SkillParserTest, LoadSkillsIgnoresUnknownCommander) {
+TEST(SkillParserTest, LoadSkillsThrowsOnUnknownCommander) {
     SkillParser parser;
     json skillJson = R"({"Commanders": {}})"_json;
     
-    // Assuming there is a CommanderName::Ivar or similar, but let's use a cast if we don't know others
-    // Or just check Sigrid when not present
-    
-    auto skills = parser.loadSkills(skillJson, CommanderName::Sigrid);
-    EXPECT_TRUE(skills.empty());
+    EXPECT_THROW(parser.loadSkills(skillJson, CommanderName::Sigrid), std::runtime_error);
 }

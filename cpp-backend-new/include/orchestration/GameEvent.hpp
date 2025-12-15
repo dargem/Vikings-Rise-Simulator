@@ -1,3 +1,6 @@
+#ifndef GAME_EVENT_HPP
+#define GAME_EVENT_HPP
+
 enum class GameEvent
 {
     BATTLE_START,
@@ -5,3 +8,5 @@ enum class GameEvent
     ROUND_END,
     BATTLE_RESET
 };
+
+#endif

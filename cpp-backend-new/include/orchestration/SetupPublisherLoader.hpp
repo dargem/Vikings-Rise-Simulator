@@ -1,3 +1,6 @@
+#ifndef SETUP_PUBLISHER_LOADER_HPP
+#define SETUP_PUBLISHER_LOADER_HPP
+
 #include "utils/CombatantSetup.hpp"
 #include "orchestration/CombatPublisher.hpp"
 #include "utils/SkillParser.hpp"
@@ -50,3 +53,5 @@ private:
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     SkillTarget determineSkillTarget(const json& skill_json) const;
 };
+
+#endif

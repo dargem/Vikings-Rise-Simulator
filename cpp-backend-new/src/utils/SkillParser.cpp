@@ -1,17 +1,19 @@
 #include "utils/SkillParser.hpp"
 #include <iostream>
 
-std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name) const {
+std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name) const 
+{
     std::string name_str;
-    switch (commander_name) {
+    switch (commander_name) 
+    {
         case CommanderName::Sigrid: name_str = "Sigrid"; break;
-        default: return {};
+        default: throw std::runtime_error("No matching commander string");
     }
 
     std::vector<std::unique_ptr<Skill>> skills;
     
     if (!skill_data.contains("Commanders") || !skill_data["Commanders"].contains(name_str)) {
-        return skills;
+        throw std::runtime_error("JSON does not contain commander " + name_str);
     }
     
     const json& commander = skill_data["Commanders"][name_str];
