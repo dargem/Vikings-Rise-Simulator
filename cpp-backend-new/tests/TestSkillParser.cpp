@@ -13,14 +13,28 @@ TEST(SkillParserTest, LoadSkillsForSigrid) {
     {
         "Commanders": {
             "Sigrid": {
-                "Active": [
+                "AwakenedActive": [
                     {
                         "skillType": { "category": "command" },
-                        "trigger": { "triggerRequirement": ["poison"] },
-                        "effects": [
+                        "trigger": { 
+                            "triggerRequirement": "poison",
+                            "conditionType": "HAS_EFFECT_SELF",
+                            "dependentRequirement": "BASIC_DEALT"
+                        },
+                        "direct_damage_skills": [
                             {
-                                "type": "directDamage",
-                                "magnitude": 100.0
+                                "magnitude": 100.0,
+                                "target": "enemy"
+                            }
+                        ],
+                        "status_skills": [
+                            { 
+                                "type": "heal", 
+                                "magnitude": 50,
+                                "skillDuration": 2,
+                                "removable": false,
+                                "chance": 1.0,
+                                "target": "friendly"
                             }
                         ]
                     }
@@ -33,9 +47,9 @@ TEST(SkillParserTest, LoadSkillsForSigrid) {
     bool isPrimary { true };
     auto skills = parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary);
     
-    ASSERT_EQ(skills.size(), 1);
+    ASSERT_EQ(skills.size(), 2);
     
-    auto* damageSkill = dynamic_cast<DamageSkill*>(skills[0].get());
+    auto* damageSkill = skills[0].get();
     ASSERT_NE(damageSkill, nullptr);
 }
 
@@ -46,7 +60,7 @@ TEST(SkillParserTest, LoadSkillsThrowsOnInvalidSkill) {
     {
         "Commanders": {
             "Sigrid": {
-                "Active": [
+                "AwakenedActive": [
                     {
                         "skillType": { "category": "command" }
                     }

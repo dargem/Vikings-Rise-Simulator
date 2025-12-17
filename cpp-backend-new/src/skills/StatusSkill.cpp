@@ -1,9 +1,19 @@
 #include "skills/StatusSkill.hpp"
 #include "combatants/Combatant.hpp"
 
-StatusSkill::StatusSkill(const TimedEffect status_effect, SkillType skill_type, EffectType effect_type, const SkillCondition skill_condition, CombatantEvent skill_dependent, SkillTarget skill_target)
-    : Skill(skill_type, effect_type, skill_condition, skill_dependent, skill_target),
-    status_effect(status_effect)
+StatusSkill::StatusSkill(
+    const TimedEffect status_effect, 
+    const SkillType skill_type, 
+    const EffectType effect_type, 
+    const SkillCondition skill_condition, 
+    const CombatantEvent skill_dependent, 
+    const SkillTarget skill_target,
+    const bool is_removable
+)
+    : Skill(skill_type, skill_condition, skill_dependent, skill_target),
+    status_effect(status_effect),
+    effect_type { effect_type },
+    is_removable { is_removable }
 {}
 
 void StatusSkill::onDependent(Combatant& combatant_friendly, Combatant& combatant_enemy) const
@@ -15,10 +25,10 @@ void StatusSkill::onDependent(Combatant& combatant_friendly, Combatant& combatan
         switch (Skill::getSkillTarget())
         {
         case SkillTarget::FRIENDLY:
-            combatant_friendly.addStatusEffect(sent_effect, Skill::getEffectType());
+            combatant_friendly.addStatusEffect(sent_effect, effect_type);
             break;
         case SkillTarget::ENEMY:
-            combatant_enemy.addStatusEffect(sent_effect, Skill::getEffectType());
+            combatant_enemy.addStatusEffect(sent_effect, effect_type);
         };
     }
 }

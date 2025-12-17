@@ -29,37 +29,6 @@
                     "skillType": {
                         "category": "command"
                     }
-                },
-                {
-                    "id": "sigrid_secondary_hit",
-                    "trigger": { 
-                        "type": "round_repeating", 
-                        "modulo": 6,
-                        "triggerRequirement": "poison",
-                        "dependentRequirement": "basic_attack"
-                    },
-                    "status_skills": [
-                        { 
-                            "type": "heal", 
-                            "magnitude": 50,
-                            "skillDuration": 2,
-                            "removable": false,
-                            "chance": 1.0,
-                            "target": "friendly"
-                        }
-                    ],
-                    "direct_damage_skills": [
-                        { 
-                            "type": "damage", 
-                            "magnitude": 50,
-                            "removable": false,
-                            "chance": 0.5,
-                            "target": "enemy"
-                        }
-                    ],
-                    "skillType": {
-                        "category": "command"
-                    }
                 }
             ],
             "Secondary" : [
