@@ -15,16 +15,16 @@ class Combatant
 public:
     Combatant(int troops, Stats stats);
 
-    bool checkEffectActive(EffectType effect_type) const;
+    [[nodiscard]] bool checkEffectActive(EffectType effect_type) const;
     void addSkill(const Skill& skill, CombatantEvent combat_event);
-    void addStatusEffect(const TimedEffect timed_effect, EffectType type);
+    void addStatusEffect(TimedEffect timed_effect, EffectType type);
 
     void setTroops(int troops);
-    int getTroops() const;
+    [[nodiscard]] int getTroops() const;
     void setStats(Stats stats);
-    double getAttack();
-    double getDefense();
-    double getHealth();
+    [[nodiscard]] double getAttack() const;
+    [[nodiscard]] double getDefense() const;
+    [[nodiscard]] double getHealth() const;
 
 private:
     int troops;

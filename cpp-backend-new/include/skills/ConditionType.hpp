@@ -1,7 +1,9 @@
 #ifndef CONDITION_TYPE_HPP
 #define CONDITION_TYPE_HPP
 
-enum class ConditionType
+#include <cstdint>
+
+enum class ConditionType : std::uint8_t
 {
     HAS_EFFECT_SELF,
     HAS_EFFECT_TARGET,

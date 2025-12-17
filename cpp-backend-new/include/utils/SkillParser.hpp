@@ -27,27 +27,27 @@ class SkillParser
 public:
     
     // turns a skill name into a vector of actual skill objects
-    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, CommanderName commander_name, const bool isPrimary) const;
-    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, SkillName skill_name) const;
-    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot1Names mount_slot_1_names) const;
-    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const;
+    [[nodiscard]] std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, CommanderName commander_name, bool isPrimary) const;
+    [[nodiscard]] std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, SkillName skill_name) const;
+    [[nodiscard]] std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot1Names mount_slot_1_names) const;
+    [[nodiscard]] std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const;
     
 private:    
     
     // Helper functions to convert strings to enums
-    SkillType stringToSkillType(const std::string& type_str) const;
-    EffectType stringToEffectType(const std::string& effect_str) const;
-    SkillTarget stringToSkillTarget(const std::string& target_str) const;
-    ConditionType stringToConditionType(const std::string& condition_str) const;
-    CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str) const;
+    [[nodiscard]] static SkillType stringToSkillType(const std::string& type_str);
+    [[nodiscard]] static EffectType stringToEffectType(const std::string& effect_str);
+    [[nodiscard]] static SkillTarget stringToSkillTarget(const std::string& target_str);
+    [[nodiscard]] static ConditionType stringToConditionType(const std::string& condition_str);
+    [[nodiscard]] static CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str);
 
     // Build SkillCondition from trigger requirements
-    SkillCondition buildSkillCondition(const json& trigger_json) const;
+    [[nodiscard]] static SkillCondition buildSkillCondition(const json& skill_json);
     
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
-    SkillTarget determineSkillTarget(const json& skill_json) const;
+    [[nodiscard]] static SkillTarget determineSkillTarget(const json& skill_json);
 
-    std::vector<std::unique_ptr<Skill>> jsonToSkill(const json& skill_json) const;
+    [[nodiscard]] std::vector<std::unique_ptr<Skill>> jsonToSkill(const json& skill_json) const;
 };
 
 #endif

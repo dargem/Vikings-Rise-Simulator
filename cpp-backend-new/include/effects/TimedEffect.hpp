@@ -8,13 +8,13 @@
 class TimedEffect
 {
     public:
-        TimedEffect(const short duration, const double magnitude);
+        TimedEffect(double duration, double effectMagnitude);
 
         // A special copy constructor to make damaging effects from the skill's stored one
-        TimedEffect(const TimedEffect& copied_effect, const double scalars);
-        std::optional<double> tickAndGetMagnitude();
-        double getMagnitude() const;
-        Timer cloneTimer() const; 
+        TimedEffect(const TimedEffect& copied_effect, double scalars);
+        [[nodiscard]] std::optional<double> tickAndGetMagnitude();
+        [[nodiscard]] double getMagnitude() const;
+        [[nodiscard]] Timer cloneTimer() const; 
     private:
         const double magnitude;
         Timer timer;

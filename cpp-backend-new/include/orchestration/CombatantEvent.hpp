@@ -1,7 +1,9 @@
 #ifndef COMBATANT_EVENT_HPP
 #define COMBATANT_EVENT_HPP
 
-enum class CombatantEvent
+#include <cstdint>
+
+enum class CombatantEvent : std::uint8_t
 {
     START,
     ACTIVE_PRIMARY_SENT,

@@ -16,32 +16,33 @@ StatusSkill::StatusSkill(
     is_removable { is_removable }
 {}
 
-void StatusSkill::onDependent(Combatant& combatant_friendly, Combatant& combatant_enemy) const
+void StatusSkill::onDependent(Combatant& self, Combatant& target) const
 {
-    if (Skill::checkCondition(combatant_friendly, combatant_enemy))
+    if (Skill::checkCondition(self, target))
     {
         const double scalars = 1;
         TimedEffect sent_effect(status_effect, scalars);
         switch (Skill::getSkillTarget())
         {
         case SkillTarget::FRIENDLY:
-            combatant_friendly.addStatusEffect(sent_effect, effect_type);
+            self.addStatusEffect(sent_effect, effect_type);
             break;
         case SkillTarget::ENEMY:
-            combatant_enemy.addStatusEffect(sent_effect, effect_type);
+            target.addStatusEffect(sent_effect, effect_type);
+            break;
         };
     }
 }
 
-std::vector<CombatantEvent> StatusSkill::getTriggerEvents() const
+std::vector<CombatantEvent> StatusSkill::getTriggerEvents()
 {
     return {};
 }
 
 bool StatusSkill::operator==(const Skill& other) const
 {
-    const StatusSkill* other_skill = dynamic_cast<const StatusSkill*>(&other);
-    if (other_skill)
+    const auto* other_skill = dynamic_cast<const StatusSkill*>(&other);
+    if (other_skill != nullptr)
     {
         return getSkillType() == other_skill->getSkillType();
     }

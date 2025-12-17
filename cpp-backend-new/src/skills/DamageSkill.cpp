@@ -11,13 +11,13 @@ DamageSkill::DamageSkill(
     damage_magnitude { damage_magnitude }
 {}
 
-void DamageSkill::onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const
+void DamageSkill::onDependent(Combatant& self, Combatant& target) const
 {}
 
 bool DamageSkill::operator==(const Skill& other) const
 {
-    const DamageSkill* other_skill = dynamic_cast<const DamageSkill*>(&other);
-    if (other_skill)
+    const auto* other_skill = dynamic_cast<const DamageSkill*>(&other);
+    if (other_skill != nullptr)
     {
         return getSkillType() == other_skill->getSkillType();
     }

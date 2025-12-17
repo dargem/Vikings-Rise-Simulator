@@ -2,7 +2,9 @@
 #define SKILL_TARGET_HPP
 
 
-enum class SkillTarget
+#include <cstdint>
+
+enum class SkillTarget : std::uint8_t
 {
     FRIENDLY,
     ENEMY

@@ -14,7 +14,7 @@ bool CombatPublisher::subToEvent(const Skill& skill, const CombatantEvent event)
 {
     std::vector<const Skill*>& skills = combat_event_subscribers[event];
 
-    if (std::find(skills.begin(), skills.end(), &skill) != skills.end())
+    if (std::ranges::find(skills, &skill) != skills.end())
     {
         // skill already inside the vector
         return false;
@@ -28,23 +28,23 @@ bool CombatPublisher::unsubToEvent(const Skill& skill, const CombatantEvent even
 {
     std::vector<const Skill*>& skills = combat_event_subscribers[event];
     
-    auto it = std::find(skills.begin(), skills.end(), &skill);
-    if (it == skills.end())
+    auto iterator = std::ranges::find(skills, &skill);
+    if (iterator == skills.end())
     {
         // skill not inside the vector
         return false;
     }
 
-    skills.erase(it);
+    skills.erase(iterator);
     return true;
 }
 
-void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& friendly_combatant, Combatant& enemy_combatant) const
+void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& self, Combatant& target) const
 {
     const std::vector<const Skill*>& skills = combat_event_subscribers.at(event);
     for (const Skill* skill : skills)
     {
-        skill->onDependent(friendly_combatant, enemy_combatant);
+        skill->onDependent(self, target);
     }
 }
 

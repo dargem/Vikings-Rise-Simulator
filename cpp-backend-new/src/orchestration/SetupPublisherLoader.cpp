@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <nlohmann/json.hpp>
 
 SetupPublisherLoader::SetupPublisherLoader() 
 {
@@ -17,7 +18,7 @@ bool SetupPublisherLoader::loadJson()
         std::ifstream file(std::string(skills_path).c_str());
         if (!file.is_open()) 
         {
-            std::cerr << "Failed to open file: " << skills_path << std::endl;
+            std::cerr << "Failed to open file: " << skills_path << "\n";
             return false;
         }
         
@@ -27,7 +28,7 @@ bool SetupPublisherLoader::loadJson()
     } 
     catch (const json::exception& e) 
     {
-        std::cerr << "JSON parsing error: " << e.what() << std::endl;
+        std::cerr << "JSON parsing error: " << e.what() << "\n";
         return false;
     }
 }

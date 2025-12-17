@@ -11,7 +11,7 @@ struct SkillCondition
 {
 public:
     SkillCondition(ConditionType condition_type, EffectType trigger_requirement);
-    bool isMet(const Combatant& self, const Combatant& target) const;
+    [[nodiscard]] bool isMet(const Combatant& self, const Combatant& target) const;
 private:
     ConditionType condition_type;
     EffectType trigger_requirement;

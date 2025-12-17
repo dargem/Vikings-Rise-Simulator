@@ -14,18 +14,18 @@ class StatusSkill: public Skill
 {
 public:
     StatusSkill(
-        const TimedEffect status_effect, 
-        const SkillType skill_type, 
-        const EffectType effect_type, 
-        const SkillCondition skill_condition, 
-        const CombatantEvent skill_dependent, 
-        const SkillTarget skill_target, 
-        const bool is_removable
+        TimedEffect status_effect, 
+        SkillType skill_type, 
+        EffectType effect_type, 
+        SkillCondition skill_condition, 
+        CombatantEvent skill_dependent, 
+        SkillTarget skill_target, 
+        bool is_removable
     );
 
-    void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const override;
+    void onDependent(Combatant& self, Combatant& target) const override;
     bool operator==(const Skill& other) const override;
-    std::vector<CombatantEvent> getTriggerEvents() const;
+    [[nodiscard]] static std::vector<CombatantEvent> getTriggerEvents();
 private:
     const TimedEffect status_effect;
     const bool is_removable;

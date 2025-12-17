@@ -13,15 +13,20 @@ class Combatant;
 class Skill
 {
 public:
-    Skill(SkillType skill_type, const SkillCondition skill_condition, CombatantEvent skill_dependent, SkillTarget target);
-    virtual ~Skill() {}
-    virtual void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const = 0;
+    Skill(
+        SkillType skill_type, 
+        SkillCondition skill_condition, 
+        CombatantEvent skill_dependent, 
+        SkillTarget target
+    );
+    virtual ~Skill() = default;
+    virtual void onDependent(Combatant& self, Combatant& target) const = 0;
     virtual bool operator==(const Skill& other) const = 0;
 
-    bool checkCondition(const Combatant& friendly, const Combatant& target) const;
+    [[nodiscard]] bool checkCondition(const Combatant& friendly, const Combatant& target) const;
 
-    SkillType getSkillType() const;
-    SkillTarget getSkillTarget() const;
+    [[nodiscard]] SkillType getSkillType() const;
+    [[nodiscard]] SkillTarget getSkillTarget() const;
 private:
     SkillType skill_type;
     // e.g. a skill dependent on a basic attack will that needs a conditional bleed effect type to proc

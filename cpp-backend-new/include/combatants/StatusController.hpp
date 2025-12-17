@@ -11,10 +11,10 @@ class StatusController
 {
 public:
     StatusController();
-    void addStatusEffect(const TimedEffect effect, EffectType type);
+    void addStatusEffect(TimedEffect effect, EffectType type);
     void removeRandomBuffEffect(int num_removals);
     void removeAllDebuffEffects();
-    bool checkEffectActive(EffectType type) const;
+    [[nodiscard]] bool checkEffectActive(EffectType type) const;
 private:
     // Collection of active debuffs grouped by type
     std::map<EffectType, std::vector<TimedEffect>> debuff_collection;

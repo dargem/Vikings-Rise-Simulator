@@ -1,8 +1,8 @@
 #include "effects/TimedEffect.hpp"
 
-TimedEffect::TimedEffect(short duration, double magnitude)
+TimedEffect::TimedEffect(double duration, double effectMagnitude)
     : timer { Timer(duration) },
-    magnitude { magnitude }
+    magnitude { effectMagnitude }
 {}
 
 TimedEffect::TimedEffect(const TimedEffect& copied_effect, double scalars) 
@@ -19,7 +19,7 @@ Timer TimedEffect::cloneTimer() const
 {
     // use the default copy constructor
     // effectively a deep copy seeing it just contains primitives
-    return Timer(timer);
+    return {timer};
 }
 
 std::optional<double> TimedEffect::tickAndGetMagnitude()

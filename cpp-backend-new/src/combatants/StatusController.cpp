@@ -29,5 +29,5 @@ void StatusController::removeAllDebuffEffects()
 bool StatusController::checkEffectActive(EffectType type) const
 {
     const std::vector<TimedEffect>& timed_effects = debuff_collection.at(type);
-    return (timed_effects.size() > 0);
+    return !timed_effects.empty();
 }

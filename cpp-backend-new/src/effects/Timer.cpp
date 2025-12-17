@@ -5,6 +5,6 @@ bool Timer::checkAndDeincrementDuration()
     return --duration >= 0;
 }
 
-Timer::Timer(short duration) 
+Timer::Timer(double duration) 
     : duration{duration}
 {}

@@ -9,14 +9,14 @@ class DamageSkill: public Skill
 {
 public:
     DamageSkill(
-        const double damage_magnitude, 
-        const SkillType skill_type, 
+        double damage_magnitude, 
+        SkillType skill_type, 
         SkillCondition skill_condition, 
         CombatantEvent skill_dependent, 
         SkillTarget skill_target
     );
-    
-    void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const override;
+
+    void onDependent(Combatant& self, Combatant& target) const override;
     bool operator==(const Skill& other) const override;
 private:
     const double damage_magnitude; 

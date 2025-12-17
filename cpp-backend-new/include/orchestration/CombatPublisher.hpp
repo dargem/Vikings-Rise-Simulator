@@ -16,7 +16,7 @@ class CombatPublisher
         CombatPublisher();
         bool subToEvent(const Skill& skill, CombatantEvent combat_event);
         bool unsubToEvent(const Skill& skill, CombatantEvent combat_event);
-        void publishEvent(CombatantEvent event, Combatant& friendly_combatant, Combatant& enemy_combatant) const;
+        void publishEvent(CombatantEvent event, Combatant& self, Combatant& target) const;
         
         // Takes ownership of the skill
         void addSkill(std::unique_ptr<Skill> skill);

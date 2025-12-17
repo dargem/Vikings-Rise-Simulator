@@ -47,17 +47,17 @@ void Combatant::setStats(Stats stats)
     this->stats = stats;
 }
 
-double Combatant::getAttack()
+double Combatant::getAttack() const
 {
     return stats.attack;
 }
 
-double Combatant::getDefense()
+double Combatant::getDefense() const
 {
     return stats.defense;
 }
 
-double Combatant::getHealth()
+double Combatant::getHealth() const
 {
     return stats.health;
 }

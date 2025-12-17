@@ -4,10 +4,10 @@
 class Timer
 {
     public:
-        Timer(short duration);
+        Timer(double duration);
         bool checkAndDeincrementDuration();   
     private:
-        short duration;
+        double duration;
 };
 
 #endif // TIMER_HPP
