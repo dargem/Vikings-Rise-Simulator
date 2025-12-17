@@ -12,7 +12,8 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
 
     std::vector<std::unique_ptr<Skill>> skills;
     
-    if (!skill_data.contains("Commanders") || !skill_data["Commanders"].contains(name_str)) {
+    if (!skill_data.contains("Commanders") || !skill_data["Commanders"].contains(name_str)) 
+    {   
         throw std::runtime_error("JSON does not contain commander " + name_str);
     }
     
@@ -22,8 +23,8 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
     for (auto& [category, skill_array] : commander.items()) {
         if (skill_array.is_array()) {
             for (const auto& skill_json : skill_array) {
-                auto skill = jsonToSkill(skill_json);
-                if (skill) {
+                auto json_skills = jsonToSkill(skill_json);
+                for (auto& skill : json_skills) {
                     skills.push_back(std::move(skill));
                 }
             }
@@ -48,70 +49,66 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
     return {};
 }
 
-std::unique_ptr<Skill> SkillParser::jsonToSkill(const json& skill_json) const {
-    if (!skill_json.contains("effects") || !skill_json["effects"].is_array()) {
-        throw std::runtime_error("Skill missing effects array");
+std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_json) const 
+{
+    if (!skill_json.contains("skillType") || !skill_json["skillType"].contains("category")) 
+    {
+        throw std::runtime_error("Skill JSON missing 'skillType' or 'skillType' with 'category'");
     }
+
+    std::vector<std::unique_ptr<Skill>> skills;
     
     // Get the skill type from skillType or metaType
-    SkillType skill_type;
-    if (skill_json.contains("skillType") && skill_json["skillType"].contains("category")) {
-        skill_type = stringToSkillType(skill_json["skillType"]["category"].get<std::string>());
-    } else if (skill_json.contains("metaType") && skill_json["metaType"].contains("category")) {
-        skill_type = stringToSkillType(skill_json["metaType"]["category"].get<std::string>());
-    } else {
-        throw std::runtime_error("Skill JSON missing 'skillType' or 'metaType' with 'category'");
-    }
+    SkillType skill_type = stringToSkillType(skill_json["skillType"]["category"].get<std::string>());
     
     // Build skill condition from trigger requirements
     SkillCondition condition = buildSkillCondition(skill_json);
     
-    // Determine skill target
-    SkillTarget target = determineSkillTarget(skill_json);
-    
-    // Process effects - create appropriate skill type based on first effect
-    const json& effects = skill_json["effects"];
-    if (effects.empty()) {
-        throw std::runtime_error("Skill has no effects");
-    }
-    
-    const json& first_effect = effects[0];
-    if (!first_effect.contains("type") || !first_effect.contains("magnitude")) {
-        throw std::runtime_error("Effect missing type or magnitude");
-    }
-    
-    std::string effect_type_str = first_effect["type"].get<std::string>();
-    EffectType effect_type = stringToEffectType(effect_type_str);
-    double magnitude = first_effect["magnitude"].get<double>();
-    
-    // Determine if this is a status effect (heal, poison, burn, shield, etc.) or direct damage
-    if (effect_type_str == "directDamage" || effect_type_str == "damage") {
-        // Create DamageSkill
-        return std::make_unique<DamageSkill>(
-            magnitude,
-            skill_type,
-            effect_type,
-            condition,
-            target
-        );
-    } else {
-        // Create StatusSkill (heal, poison, burn, shield, etc.)
-        // Need duration for TimedEffect
-        if (!first_effect.contains("skillDuration")) {
-            throw std::runtime_error("Status effect missing skillDuration");
+    // Process status effects, if it has them
+    if (skill_json.contains("status_skills"))
+    {
+        const json& status_skills = skill_json["status_skills"];
+        if (!status_skills.is_array()) throw std::runtime_error("status_skills must be an array");
+        if (status_skills.empty()) throw std::runtime_error("Skill has empty status_skills");
+
+        for (const json& skill : status_skills)
+        {
+            SkillTarget target = determineSkillTarget(skill_json);
+
+            if (!skill.contains("skillDuration") || !skill.contains("magnitude") || !skill.contains("type")) {
+                 throw std::runtime_error("Status skill missing required fields");
+            }
+
+            const TimedEffect timed_effect(skill["skillDuration"].get<double>(), skill["magnitude"].get<double>());
+            EffectType effect_type = stringToEffectType(skill["type"].get<std::string>());
+
+            skills.push_back(std::make_unique<StatusSkill>(timed_effect, skill_type, effect_type, condition, target));
         }
-        int duration = first_effect["skillDuration"].get<int>();
-        
-        TimedEffect timed_effect(duration, magnitude);
-        
-        return std::make_unique<StatusSkill>(
-            timed_effect,
-            skill_type,
-            effect_type,
-            condition,
-            target
-        );
     }
+
+    // Process damage effects, if it has them
+    if (skill_json.contains("direct_damage_skills"))
+    {
+        const json& damage_skills = skill_json["direct_damage_skills"];
+        if (!damage_skills.is_array()) throw std::runtime_error("direct_damage_skills must be an array");
+        if (damage_skills.empty()) throw std::runtime_error("Skill has empty direct_damage_skills");
+
+        for (const json& skill : damage_skills)
+        {
+            SkillTarget target = determineSkillTarget(skill_json);
+
+            if (!skill.contains("magnitude") || !skill.contains("type")) {
+                throw std::runtime_error("Damage skill missing required fields");
+            }
+
+            double magnitude = skill["magnitude"].get<double>();
+            EffectType effect_type = stringToEffectType(skill["type"].get<std::string>());
+
+            skills.push_back(std::make_unique<DamageSkill>(magnitude, skill_type, effect_type, condition, target));
+        }
+    }
+    
+    return skills;
 }
 
 SkillCondition SkillParser::buildSkillCondition(const json& skill_json) const {
@@ -132,13 +129,11 @@ SkillCondition SkillParser::buildSkillCondition(const json& skill_json) const {
 }
 
 SkillTarget SkillParser::determineSkillTarget(const json& skill_json) const {
-    if (skill_json.contains("effects") && skill_json["effects"].is_array() && !skill_json["effects"].empty()) {
-        std::string effect_type = skill_json["effects"][0]["type"].get<std::string>();
-        if (effect_type == "heal" || effect_type == "shield" || effect_type == "buff") {
-            return SkillTarget::FRIENDLY;
-        } else if (effect_type == "damage" || effect_type == "directDamage" || effect_type == "poison" || effect_type == "burn") {
-            return SkillTarget::ENEMY;
-        }
+    if (skill_json.contains("target"))
+    {
+        std::string target = skill_json["target"];
+        if (target == "enemy") return SkillTarget::ENEMY;
+        if (target == "friendly") return SkillTarget::FRIENDLY;
     }
     
     throw std::runtime_error("Unable to determine skill target from effects");
