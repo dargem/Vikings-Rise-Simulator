@@ -1,7 +1,7 @@
 #include "utils/SkillParser.hpp"
 #include <iostream>
 
-std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name) const 
+std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name, const bool isPrimary) const 
 {
     std::string name_str;
     switch (commander_name) 
@@ -20,6 +20,11 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
     const json& commander = skill_data["Commanders"][name_str];
     
     // Parse all skill categories (AwakenedActive, Secondary, etc.)
+    if (!commander.contains("AwakenedActive"))
+    {
+        throw std::runtime_error("Commander does not have an active: " + name_str);
+    }
+
     for (auto& [category, skill_array] : commander.items()) 
     {
         if (skill_array.is_array()) 
@@ -38,17 +43,20 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
     return skills;
 }
 
-std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, SkillName skill_name) const {
+std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, SkillName skill_name) const 
+{
     // TODO: Implement mapping for SkillName enum to string ID
     return {};
 }
 
-std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, MountSlot1Names mount_slot_1_names) const {
+std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, MountSlot1Names mount_slot_1_names) const 
+{
     // TODO: Implement mapping
     return {};
 }
 
-std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const {
+std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const 
+{
     // TODO: Implement mapping
     return {};
 }

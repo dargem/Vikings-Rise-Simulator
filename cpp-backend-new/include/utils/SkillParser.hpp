@@ -27,7 +27,7 @@ class SkillParser
 public:
     
     // turns a skill name into a vector of actual skill objects
-    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, CommanderName commander_name) const;
+    std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, CommanderName commander_name, const bool isPrimary) const;
     std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, SkillName skill_name) const;
     std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot1Names mount_slot_1_names) const;
     std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const;
