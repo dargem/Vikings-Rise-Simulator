@@ -20,11 +20,15 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
     const json& commander = skill_data["Commanders"][name_str];
     
     // Parse all skill categories (AwakenedActive, Secondary, etc.)
-    for (auto& [category, skill_array] : commander.items()) {
-        if (skill_array.is_array()) {
-            for (const auto& skill_json : skill_array) {
+    for (auto& [category, skill_array] : commander.items()) 
+    {
+        if (skill_array.is_array()) 
+        {
+            for (const auto& skill_json : skill_array) 
+            {
                 auto json_skills = jsonToSkill(skill_json);
-                for (auto& skill : json_skills) {
+                for (auto& skill : json_skills) 
+                {
                     skills.push_back(std::move(skill));
                 }
             }
@@ -63,7 +67,8 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     
     // Build skill condition from trigger requirements
     SkillCondition condition = buildSkillCondition(skill_json);
-    
+    CombatantEvent dependent = stringToCombatantEvent(skill_json["trigger"]["dependentRequirement"].get<std::string>());
+
     // Process status effects, if it has them
     if (skill_json.contains("status_skills"))
     {
@@ -82,7 +87,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
             const TimedEffect timed_effect(skill["skillDuration"].get<double>(), skill["magnitude"].get<double>());
             EffectType effect_type = stringToEffectType(skill["type"].get<std::string>());
 
-            skills.push_back(std::make_unique<StatusSkill>(timed_effect, skill_type, effect_type, condition, target));
+            skills.push_back(std::make_unique<StatusSkill>(timed_effect, skill_type, effect_type, condition, dependent, target));
         }
     }
 
@@ -104,7 +109,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
             double magnitude = skill["magnitude"].get<double>();
             EffectType effect_type = stringToEffectType(skill["type"].get<std::string>());
 
-            skills.push_back(std::make_unique<DamageSkill>(magnitude, skill_type, effect_type, condition, target));
+            skills.push_back(std::make_unique<DamageSkill>(magnitude, skill_type, effect_type, condition, dependent, target));
         }
     }
     
@@ -124,7 +129,8 @@ SkillCondition SkillParser::buildSkillCondition(const json& skill_json) const
     throw std::runtime_error("Skill JSON missing 'trigger' with 'triggerRequirement'");
 }
 
-SkillTarget SkillParser::determineSkillTarget(const json& skill_json) const {
+SkillTarget SkillParser::determineSkillTarget(const json& skill_json) const 
+{
     if (skill_json.contains("target"))
     {
         std::string target = skill_json["target"];
@@ -135,7 +141,8 @@ SkillTarget SkillParser::determineSkillTarget(const json& skill_json) const {
     throw std::runtime_error("Unable to determine skill target from effects");
 }
 
-SkillType SkillParser::stringToSkillType(const std::string& type_str) const {
+SkillType SkillParser::stringToSkillType(const std::string& type_str) const 
+{
     if (type_str == "command") return SkillType::COMMAND;
     if (type_str == "passive") return SkillType::PASSIVE;
     if (type_str == "cooperation") return SkillType::COOPERATION;
@@ -143,7 +150,8 @@ SkillType SkillParser::stringToSkillType(const std::string& type_str) const {
     throw std::runtime_error("Unknown SkillType: " + type_str);
 }
 
-EffectType SkillParser::stringToEffectType(const std::string& effect_str) const {
+EffectType SkillParser::stringToEffectType(const std::string& effect_str) const 
+{
     if (effect_str == "poison") return EffectType::POISON;
     if (effect_str == "heal") return EffectType::HEALING;
     if (effect_str == "burn") return EffectType::BURN;
@@ -160,9 +168,27 @@ SkillTarget SkillParser::stringToSkillTarget(const std::string& target_str) cons
     throw std::runtime_error("Unknown SkillTarget: " + target_str);
 }
 
-ConditionType SkillParser::stringToConditionType(const std::string& condition_str) const {
+ConditionType SkillParser::stringToConditionType(const std::string& condition_str) const 
+{
     if (condition_str == "HAS_EFFECT_SELF") return ConditionType::HAS_EFFECT_SELF;
     if (condition_str == "HAS_EFFECT_TARGET") return ConditionType::HAS_EFFECT_TARGET;
     if (condition_str == "TROOP_COUNT_GREATER_THAN_TARGET") return ConditionType::TROOP_COUNT_GREATER_THAN_TARGET;
     throw std::runtime_error("Unknown ConditionType: " + condition_str);
+}
+
+CombatantEvent SkillParser::stringToCombatantEvent(const std::string& combatant_event_str) const
+{
+    if (combatant_event_str == "START") return CombatantEvent::START;
+    // active primary skipped, both should be handled elsewhere to differentiate primary/secondary
+    // active secondary skipped
+    if (combatant_event_str == "ACTIVE_RECEIVED") return CombatantEvent::ACTIVE_RECEIVED;
+    if (combatant_event_str == "BASIC_DEALT") return CombatantEvent::BASIC_DEALT;
+    if (combatant_event_str == "BASIC_RECEIVED") return CombatantEvent::BASIC_RECEIVED;
+    if (combatant_event_str == "CONTINUOUS_DAMAGE_RECEIVED") return CombatantEvent::CONTINUOUS_DAMAGE_RECEIVED;
+    if (combatant_event_str == "COUNTER_ATTACK_DEALT") return CombatantEvent::COUNTER_ATTACK_DEALT;
+    if (combatant_event_str == "SHIELD_GRANTED") return CombatantEvent::SHIELD_GRANTED;
+    if (combatant_event_str == "ROUND_MOD_6") return CombatantEvent::ROUND_MOD_6;
+    if (combatant_event_str == "ROUND_MOD_9") return CombatantEvent::ROUND_MOD_9;
+
+    throw std::runtime_error("Unknown CombatantEvent: " + combatant_event_str);
 }

@@ -18,6 +18,7 @@
 #include "utils/SkillName.hpp"
 #include "utils/MountSlot1Names.hpp"
 #include "utils/MountSlot2Names.hpp"
+#include "orchestration/CombatantEvent.hpp"
 
 using json = nlohmann::json;
 
@@ -38,7 +39,8 @@ private:
     EffectType stringToEffectType(const std::string& effect_str) const;
     SkillTarget stringToSkillTarget(const std::string& target_str) const;
     ConditionType stringToConditionType(const std::string& condition_str) const;
-    
+    CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str) const;
+
     // Build SkillCondition from trigger requirements
     SkillCondition buildSkillCondition(const json& trigger_json) const;
     

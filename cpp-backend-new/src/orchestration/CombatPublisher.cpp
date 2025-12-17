@@ -48,6 +48,7 @@ void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& friend
     }
 }
 
-void CombatPublisher::addSkill(std::unique_ptr<Skill> skill) {
+void CombatPublisher::addSkill(std::unique_ptr<Skill> skill) 
+{
     owned_skills.push_back(std::move(skill));
 }

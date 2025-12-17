@@ -13,7 +13,7 @@ class Combatant;
 class StatusSkill: public Skill
 {
     public:
-        StatusSkill(const TimedEffect status_effect, const SkillType skill_type, const EffectType effect_type, SkillCondition skill_condition, SkillTarget skill_target);
+        StatusSkill(const TimedEffect status_effect, const SkillType skill_type, const EffectType effect_type, SkillCondition skill_condition, CombatantEvent skill_dependent, SkillTarget skill_target);
         void onDependent(Combatant& friendly_combatant, Combatant& enemy_combatant) const override;
         bool operator==(const Skill& other) const override;
         std::vector<CombatantEvent> getTriggerEvents() const;
