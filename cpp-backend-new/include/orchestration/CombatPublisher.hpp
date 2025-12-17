@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <memory>
 #include "orchestration/CombatantEvent.hpp"
 #include "skills/Skill.hpp"
 
