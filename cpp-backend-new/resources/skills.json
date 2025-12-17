@@ -5,10 +5,9 @@
                 {
                     "id": "sigrid_primary_hit",
                     "trigger": { 
-                        "type": "round_repeating", 
-                        "modulo": 6,
+                        "conditionType": "has_effect_self",
                         "triggerRequirement": "poison",
-                        "dependentRequirement": "basicAttack"
+                        "dependentRequirement": "basic_attack"
                     },
                     "status_skills": [
                         { 
@@ -22,9 +21,7 @@
                     ],
                     "direct_damage_skills": [
                         { 
-                            "type": "damage", 
                             "magnitude": 50,
-                            "removable": false,
                             "chance": 0.5,
                             "target": "enemy"
                         }
@@ -39,7 +36,7 @@
                         "type": "round_repeating", 
                         "modulo": 6,
                         "triggerRequirement": "poison",
-                        "dependentRequirement": "basicAttack"
+                        "dependentRequirement": "basic_attack"
                     },
                     "status_skills": [
                         { 

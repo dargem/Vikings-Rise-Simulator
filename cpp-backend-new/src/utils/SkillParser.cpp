@@ -111,18 +111,14 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     return skills;
 }
 
-SkillCondition SkillParser::buildSkillCondition(const json& skill_json) const {
-    if (skill_json.contains("trigger") && skill_json["trigger"].contains("triggerRequirement")) {
-        const json& requirements = skill_json["trigger"]["triggerRequirement"];
-        if (requirements.is_array() && !requirements.empty()) {
-            std::string first_req = requirements[0].get<std::string>();
-            
-            if (first_req == "poison") {
-                return SkillCondition(ConditionType::HAS_EFFECT_SELF, EffectType::POISON);
-            }
-            
-            throw std::runtime_error("Unknown trigger requirement: " + first_req);
-        }
+SkillCondition SkillParser::buildSkillCondition(const json& skill_json) const 
+{
+    if (skill_json.contains("trigger") && skill_json["trigger"].contains("triggerRequirement") && skill_json["trigger"].contains("conditionType"))
+    {
+        const ConditionType condition_type = stringToConditionType(skill_json["trigger"]["conditionType"].get<std::string>());
+        const EffectType effect_requirement = stringToEffectType(skill_json["trigger"]["triggerRequirement"].get<std::string>());
+
+        return SkillCondition(condition_type, effect_requirement);
     }
     
     throw std::runtime_error("Skill JSON missing 'trigger' with 'triggerRequirement'");
@@ -149,12 +145,11 @@ SkillType SkillParser::stringToSkillType(const std::string& type_str) const {
 
 EffectType SkillParser::stringToEffectType(const std::string& effect_str) const {
     if (effect_str == "poison") return EffectType::POISON;
-    if (effect_str == "heal" || effect_str == "healing") return EffectType::HEALING;
+    if (effect_str == "heal") return EffectType::HEALING;
     if (effect_str == "burn") return EffectType::BURN;
     if (effect_str == "bleed") return EffectType::BLEED;
     if (effect_str == "absorption") return EffectType::ABSORPTION;
     if (effect_str == "retribution") return EffectType::RETRIBUTION;
-    if (effect_str == "damage" || effect_str == "directDamage") return EffectType::BURN; // Using BURN as placeholder for damage
     throw std::runtime_error("Unknown EffectType: " + effect_str);
 }
 
