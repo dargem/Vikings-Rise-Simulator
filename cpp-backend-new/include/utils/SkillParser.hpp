@@ -47,7 +47,7 @@ private:
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     [[nodiscard]] static SkillTarget determineSkillTarget(const json& skill_json);
 
-    [[nodiscard]] std::vector<std::unique_ptr<Skill>> jsonToSkill(const json& skill_json) const;
+    [[nodiscard]] static std::vector<std::unique_ptr<Skill>> jsonToSkill(const json& skill_json);
 };
 
 #endif

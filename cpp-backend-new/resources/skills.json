@@ -1,33 +1,43 @@
 {
     "Commanders": {
+        "Sephina": {
+            "AwakenedActive": [
+                {
+                    "trigger": {
+                        "conditionType": "has_effect_target"
+                    }
+                }
+            ]
+        },
+
         "Sigrid": {
             "AwakenedActive": [
                 {
                     "id": "sigrid_primary_hit",
                     "trigger": { 
-                        "conditionType": "has_effect_self",
-                        "triggerRequirement": "poison",
-                        "dependentRequirement": "basic_attack"
+                        "conditionType": "HAS_EFFECT_SELF",
+                        "triggerRequirement": "POISON",
+                        "dependentRequirement": "BASIC_DEALT"
                     },
                     "status_skills": [
                         { 
-                            "type": "heal", 
+                            "type": "HEALING", 
                             "magnitude": 50,
                             "skillDuration": 2,
                             "removable": false,
                             "chance": 1.0,
-                            "target": "friendly"
+                            "target": "FRIENDLY"
                         }
                     ],
                     "direct_damage_skills": [
                         { 
                             "magnitude": 50,
                             "chance": 0.5,
-                            "target": "enemy"
+                            "target": "ENEMY"
                         }
                     ],
                     "skillType": {
-                        "category": "command"
+                        "category": "COMMAND"
                     }
                 }
             ],

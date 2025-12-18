@@ -61,7 +61,7 @@ static std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, Mo
     return {};
 }
 
-std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_json) const 
+std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_json) 
 {
     if (!skill_json.contains("skillType") || !skill_json["skillType"].contains("category")) 
     {
@@ -173,16 +173,16 @@ SkillTarget SkillParser::determineSkillTarget(const json& skill_json)
 
 SkillType SkillParser::stringToSkillType(const std::string& type_str) 
 {
-    if (type_str == "command") {
+    if (type_str == "COMMAND") {
         return SkillType::COMMAND;
     }
-    if (type_str == "passive") {
+    if (type_str == "PASSIVE") {
         return SkillType::PASSIVE;
     }
-    if (type_str == "cooperation") {
+    if (type_str == "COOPERATION") {
         return SkillType::COOPERATION;
     }
-    if (type_str == "counterattack") {
+    if (type_str == "COUNTERATTACK") {
         return SkillType::COUNTERATTACK;
     }
     throw std::runtime_error("Unknown SkillType: " + type_str);
@@ -190,22 +190,22 @@ SkillType SkillParser::stringToSkillType(const std::string& type_str)
 
 EffectType SkillParser::stringToEffectType(const std::string& effect_str) 
 {
-    if (effect_str == "poison") {
+    if (effect_str == "POISON") {
         return EffectType::POISON;
     }
-    if (effect_str == "heal") {
+    if (effect_str == "HEALING") {
         return EffectType::HEALING;
     }
-    if (effect_str == "burn") {
+    if (effect_str == "BURN") {
         return EffectType::BURN;
     }
-    if (effect_str == "bleed") {
+    if (effect_str == "BLEED") {
         return EffectType::BLEED;
     }
-    if (effect_str == "absorption") {
+    if (effect_str == "ABSORPTION") {
         return EffectType::ABSORPTION;
     }
-    if (effect_str == "retribution") {
+    if (effect_str == "RETRIBUTION") {
         return EffectType::RETRIBUTION;
     }
     throw std::runtime_error("Unknown EffectType: " + effect_str);
@@ -213,10 +213,10 @@ EffectType SkillParser::stringToEffectType(const std::string& effect_str)
 
 SkillTarget SkillParser::stringToSkillTarget(const std::string& target_str) 
 {
-    if (target_str == "friendly" || target_str == "FRIENDLY") {
+    if (target_str == "FRIENDLY") {
         return SkillTarget::FRIENDLY;
     }
-    if (target_str == "enemy" || target_str == "ENEMY") {
+    if (target_str == "ENEMY") {
         return SkillTarget::ENEMY;
     }
     throw std::runtime_error("Unknown SkillTarget: " + target_str);
