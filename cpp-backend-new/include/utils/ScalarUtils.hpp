@@ -36,16 +36,15 @@ namespace ScalarUtils
         // troop scalar 
         if (troops >= 100000)
         {
-            return (troops - 100000) * GRADIENT_100K_RISE + GRADIENT_100K_CONSTANT;
+            return ((troops - 100000) * GRADIENT_100K_RISE) + GRADIENT_100K_CONSTANT;
         }
-        else if (troops > 10000)
+        
+        if (troops > 10000)
         {
-            return (troops - 10000) * GRADIENT_10K_100K_RISE + GRADIENT_10K_100K_CONSTANT;
+            return ((troops - 10000) * GRADIENT_10K_100K_RISE) + GRADIENT_10K_100K_CONSTANT;
         }
-        else
-        {
-            return LINEAR_FACTOR_0K_10K * std::pow(troops, POWER_FACTOR_0K_10K);
-        }
+        
+        return LINEAR_FACTOR_0K_10K * std::pow(troops, POWER_FACTOR_0K_10K);
     }
 }
 

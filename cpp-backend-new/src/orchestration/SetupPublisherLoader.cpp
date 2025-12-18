@@ -40,9 +40,9 @@ void SetupPublisherLoader::loadPublisher(CombatPublisher& combat_publisher, cons
     // Load skills for each commander
     for (int i = 0; i < CombatantSetup::NUM_COMMANDERS; ++i) {
 
-        const bool isPrimary { i == 0 };
+        const bool is_primary { i == 0 };
 
-        auto skills = parser.loadSkills(skill_data, combatant_setup.commanders[i], isPrimary);
+        auto skills = parser.loadSkills(skill_data, combatant_setup.commanders[i], is_primary);
         for (auto& skill : skills) 
         {
             combat_publisher.addSkill(std::move(skill));

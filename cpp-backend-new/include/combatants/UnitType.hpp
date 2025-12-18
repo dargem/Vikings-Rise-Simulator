@@ -1,7 +1,9 @@
 #ifndef UNIT_TYPE_HPP
 #define UNIT_TYPE_HPP
 
-enum class UnitType
+#include <cstdint>
+
+enum class UnitType : u_int8_t
 {
     PIKE,
     ARCHER,

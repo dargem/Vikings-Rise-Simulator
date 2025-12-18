@@ -45,8 +45,8 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
     }
     )"_json;
 
-    bool isPrimary { true };
-    auto skills = parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary);
+    bool is_primary { true };
+    auto skills = parser.loadSkills(skillJson, CommanderName::Sigrid, is_primary);
     
     ASSERT_EQ(skills.size(), 2);
     
@@ -71,14 +71,14 @@ TEST(SkillParserTest, LoadSkillsThrowsOnInvalidSkill) {
     }
     )"_json;
 
-    bool isPrimary { true };
-    EXPECT_THROW(static_cast<void>(parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary)), std::runtime_error);
+    bool is_primary { true };
+    EXPECT_THROW(static_cast<void>(parser.loadSkills(skillJson, CommanderName::Sigrid, is_primary)), std::runtime_error);
 }
 
 TEST(SkillParserTest, LoadSkillsThrowsOnUnknownCommander) {
     SkillParser parser;
     json skillJson = R"({"Commanders": {}})"_json;
     
-    bool isPrimary { true };
-    EXPECT_THROW(static_cast<void>(parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary)), std::runtime_error);
+    bool is_primary { true };
+    EXPECT_THROW(static_cast<void>(parser.loadSkills(skillJson, CommanderName::Sigrid, is_primary)), std::runtime_error);
 }

@@ -5,6 +5,7 @@
 #include "orchestration/CombatPublisher.hpp"
 #include "utils/SkillParser.hpp"
 #include <string_view>
+#include <nlohmann/json.hpp>
 
 #ifndef RESOURCE_DIR
 #define RESOURCE_DIR "resources"
@@ -30,11 +31,13 @@ public:
      */
     void loadPublisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup) const;
 private:
+    
     static constexpr std::string_view skills_path = RESOURCE_DIR "/skills.json";
     json commander_data;
     json skill_data;
     json mount_slot_1_data;
     json mount_slot_2_data;
+    /*
 
     std::vector<Skill> loadSkills(const json& skill_data, CommanderName commander_name, CombatPublisher& combat_publisher) const;
     std::vector<Skill> loadSkills(const json& skill_data, SkillName skill_name, CombatPublisher& combat_publisher) const;
@@ -52,6 +55,7 @@ private:
     
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     SkillTarget determineSkillTarget(const json& skill_json) const;
+    */
 };
 
 #endif
