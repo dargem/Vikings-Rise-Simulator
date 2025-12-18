@@ -1,13 +1,14 @@
 #include "skills/DamageSkill.hpp"
 
 DamageSkill::DamageSkill(
-    const double damage_magnitude, 
-    const SkillType skill_type,
-    const SkillCondition skill_condition, 
-    const CombatantEvent skill_dependent, 
-    const SkillTarget skill_target
+    SkillType skill_type,
+    SkillCondition skill_condition, 
+    CombatantEvent skill_dependent, 
+    SkillTarget skill_target,
+    double chance,
+    double damage_magnitude
 ) 
-    : Skill(skill_type, skill_condition, skill_dependent, skill_target),
+    : Skill(skill_type, skill_condition, skill_dependent, skill_target, chance),
     damage_magnitude { damage_magnitude }
 {}
 

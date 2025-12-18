@@ -17,7 +17,8 @@ public:
         SkillType skill_type, 
         SkillCondition skill_condition, 
         CombatantEvent skill_dependent, 
-        SkillTarget target
+        SkillTarget target,
+        double chance
     );
     virtual ~Skill() = default;
     virtual void onDependent(Combatant& self, Combatant& target) const = 0;
@@ -29,6 +30,12 @@ public:
     [[nodiscard]] SkillTarget getSkillTarget() const;
 private:
     SkillType skill_type;
+    const double chance;
+    // a flag used alongside chance for when chance == 1, number generation isn't needed
+    // number generation however is not optimized out by the compiler as the internal state
+    // of the generator is changed with each call 
+    const bool always_triggers;
+
     // e.g. a skill dependent on a basic attack will that needs a conditional bleed effect type to proc
     const SkillCondition skill_condition;
     // e.g. a skill is dependent on a basic attack for it to actually trigger

@@ -33,7 +33,7 @@ public:
     [[nodiscard]] std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, MountSlot2Names mount_slot_2_names) const;
     
 private:    
-    
+
     // Helper functions to convert strings to enums
     [[nodiscard]] static SkillType stringToSkillType(const std::string& type_str);
     [[nodiscard]] static EffectType stringToEffectType(const std::string& effect_str);

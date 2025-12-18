@@ -9,11 +9,12 @@ class DamageSkill: public Skill
 {
 public:
     DamageSkill(
-        double damage_magnitude, 
         SkillType skill_type, 
         SkillCondition skill_condition, 
         CombatantEvent skill_dependent, 
-        SkillTarget skill_target
+        SkillTarget skill_target,
+        double chance,
+        double damage_magnitude
     );
 
     void onDependent(Combatant& self, Combatant& target) const override;

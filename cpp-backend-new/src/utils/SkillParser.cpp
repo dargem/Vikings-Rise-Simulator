@@ -85,6 +85,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     {
         throw std::runtime_error("Commander talent contains no skills");
     }
+    
     // Process status effects, if it has them
     if (skill_json.contains("status_skills"))
     {
@@ -104,15 +105,18 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
                 !skill.contains("skillDuration") ||
                 !skill.contains("magnitude") || 
                 !skill.contains("type") || 
-                !skill.contains("removable")) 
+                !skill.contains("removable") ||
+                !skill.contains("chance")
+            )
             {
                 throw std::runtime_error("Status skill missing required fields");
             }
 
+            const double chance = skill["chance"].get<double>();
             const TimedEffect timed_effect(skill["skillDuration"].get<double>(), skill["magnitude"].get<double>());
             EffectType effect_type = stringToEffectType(skill["type"].get<std::string>());
             const bool is_removable = skill["removable"].get<bool>();
-            skills.push_back(std::make_unique<StatusSkill>(timed_effect, skill_type, effect_type, condition, dependent, target, is_removable));
+            skills.push_back(std::make_unique<StatusSkill>(timed_effect, skill_type, condition, dependent, target, chance, effect_type, is_removable));
         }
     }
 
@@ -131,14 +135,15 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
         {
             SkillTarget target = determineSkillTarget(skill);
 
-            if (!skill.contains("magnitude")) 
+            if (!skill.contains("magnitude") || !skill.contains("chance")) 
             {
                 throw std::runtime_error("Damage skill missing required fields");
             }
 
-            double magnitude = skill["magnitude"].get<double>();
+            const double chance = skill["chance"].get<double>();
+            const double magnitude = skill["magnitude"].get<double>();
 
-            skills.push_back(std::make_unique<DamageSkill>(magnitude, skill_type, condition, dependent, target));
+            skills.push_back(std::make_unique<DamageSkill>(skill_type, condition, dependent, target, chance, magnitude));
         }
     }
     
@@ -186,10 +191,12 @@ SkillType SkillParser::stringToSkillType(const std::string& type_str)
         {"COMMAND", SkillType::COMMAND},
         {"PASSIVE", SkillType::PASSIVE},
         {"COOPERATION", SkillType::COOPERATION},
-        {"COUNTERATTACK", SkillType::COUNTERATTACK}
+        {"COUNTERATTACK", SkillType::COUNTERATTACK},
+        {"AWAKEN", SkillType::AWAKEN}
     };
     auto iterator = skillTypeMap.find(type_str);
-    if (iterator != skillTypeMap.end()) {
+    if (iterator != skillTypeMap.end()) 
+    {
         return iterator->second;
     }
     throw std::runtime_error("Unknown SkillType: " + type_str);
@@ -206,7 +213,8 @@ EffectType SkillParser::stringToEffectType(const std::string& effect_str)
         {"RETRIBUTION", EffectType::RETRIBUTION}
     };
     auto iterator = effectTypeMap.find(effect_str);
-    if (iterator != effectTypeMap.end()) {
+    if (iterator != effectTypeMap.end()) 
+    {
         return iterator->second;
     }
     throw std::runtime_error("Unknown EffectType: " + effect_str);

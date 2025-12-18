@@ -4,13 +4,14 @@
 StatusSkill::StatusSkill(
     const TimedEffect status_effect, 
     const SkillType skill_type, 
-    const EffectType effect_type, 
     const SkillCondition skill_condition, 
     const CombatantEvent skill_dependent, 
     const SkillTarget skill_target,
+    double chance,
+    const EffectType effect_type, 
     const bool is_removable
 )
-    : Skill(skill_type, skill_condition, skill_dependent, skill_target),
+    : Skill(skill_type, skill_condition, skill_dependent, skill_target, chance),
     status_effect(status_effect),
     effect_type { effect_type },
     is_removable { is_removable }

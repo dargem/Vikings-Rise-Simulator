@@ -4,9 +4,17 @@
             "AwakenedActive": [
                 {
                     "trigger": {
-                        "conditionType": "HAS_EFFECT_SELF",
-                        "triggerRequirement": "NONE",
+                        "conditionType": "COMMANDER_ACTIVE_DEALT",
                         "dependentRequirement": "ACTIVE"
+                    },
+                    "direct_damage_skills": [
+                        {
+                            "triggerRequirement": "NONE",
+                            "magnitude": 1700
+                        }
+                    ],
+                    "SkillType": {
+                        "category": "AWAKEN"
                     }
                 }
             ]

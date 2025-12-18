@@ -24,7 +24,8 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
                         "direct_damage_skills": [
                             {
                                 "magnitude": 100.0,
-                                "target": "ENEMY"
+                                "target": "ENEMY",
+                                "chance": 0.5
                             }
                         ],
                         "status_skills": [
@@ -71,7 +72,7 @@ TEST(SkillParserTest, LoadSkillsThrowsOnInvalidSkill) {
     )"_json;
 
     bool isPrimary { true };
-    EXPECT_THROW(parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary), std::runtime_error);
+    EXPECT_THROW(static_cast<void>(parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary)), std::runtime_error);
 }
 
 TEST(SkillParserTest, LoadSkillsThrowsOnUnknownCommander) {
@@ -79,5 +80,5 @@ TEST(SkillParserTest, LoadSkillsThrowsOnUnknownCommander) {
     json skillJson = R"({"Commanders": {}})"_json;
     
     bool isPrimary { true };
-    EXPECT_THROW(parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary), std::runtime_error);
+    EXPECT_THROW(static_cast<void>(parser.loadSkills(skillJson, CommanderName::Sigrid, isPrimary)), std::runtime_error);
 }

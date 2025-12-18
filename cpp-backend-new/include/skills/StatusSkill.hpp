@@ -16,10 +16,11 @@ public:
     StatusSkill(
         TimedEffect status_effect, 
         SkillType skill_type, 
-        EffectType effect_type, 
         SkillCondition skill_condition, 
         CombatantEvent skill_dependent, 
         SkillTarget skill_target, 
+        double chance,
+        EffectType effect_type, 
         bool is_removable
     );
 

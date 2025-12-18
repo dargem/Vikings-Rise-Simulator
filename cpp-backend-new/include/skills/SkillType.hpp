@@ -8,7 +8,8 @@ enum class SkillType : std::uint8_t
     PASSIVE,
     COOPERATION,
     COUNTERATTACK,
-    COMMAND
+    COMMAND,
+    AWAKEN
 };
 
 #endif
