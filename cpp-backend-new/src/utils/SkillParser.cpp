@@ -124,10 +124,13 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     if (skill_json.contains("direct_damage_skills"))
     {
         const json& damage_skills = skill_json["direct_damage_skills"];
-        if (!damage_skills.is_array()) {
+        if (!damage_skills.is_array()) 
+        {
             throw std::runtime_error("direct_damage_skills must be an array");
         }
-        if (damage_skills.empty()) {
+
+        if (damage_skills.empty()) 
+        {
             throw std::runtime_error("Skill has empty direct_damage_skills");
         }
 

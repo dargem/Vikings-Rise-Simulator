@@ -1,6 +1,7 @@
 #include "utils/NumberGenerator.hpp"
 #include <cstdint>
 #include <tuple>
+#include <array>
 
 NumberGenerator::NumberGenerator(uint64_t seed)
 {
@@ -43,7 +44,6 @@ uint64_t NumberGenerator::rotl(uint64_t value, int shift)
 {
 	return (value << shift) | (value >> (64 - shift));
 }
-
 
 /* This is the jump function for the generator. It is equivalent
    to 2^64 calls to next(); it can be used to generate 2^64
