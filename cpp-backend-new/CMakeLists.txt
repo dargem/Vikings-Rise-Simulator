@@ -21,8 +21,13 @@ if(APPLE)
         COMMAND brew --prefix
         OUTPUT_VARIABLE BREW_PREFIX
         OUTPUT_STRIP_TRAILING_WHITESPACE
+
+        COMMAND xcrun --show-sdk-path
+        OUTPUT_VARIABLE MACOS_SDK_PATH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
     )
     include_directories(${BREW_PREFIX}/include)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isysroot ${MACOS_SDK_PATH}")
 endif()
 
 include_directories(include)

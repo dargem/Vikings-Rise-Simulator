@@ -22,7 +22,7 @@ SkillType Skill::getSkillType() const
 
 bool Skill::checkCondition(const Combatant& friendly, const Combatant& target) const
 {
-    return skill_condition.isMet(friendly, target);
+    return skill_condition.isMet(friendly, target) && (always_triggers);
 }
 
 SkillTarget Skill::getSkillTarget() const
