@@ -5,7 +5,8 @@
                 {
                     "trigger": {
                         "conditionType": "HAS_EFFECT_SELF",
-                        "triggerRequirement": null
+                        "triggerRequirement": "NONE",
+                        "dependentRequirement": "ACTIVE"
                     }
                 }
             ]

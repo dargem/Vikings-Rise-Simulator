@@ -2,7 +2,7 @@
 #include <iostream>
 #include <unordered_map>
 
-std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name, const bool isPrimary) const 
+std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name, const bool is_primary) const 
 {
     std::string name_str;
     switch (commander_name) 
@@ -32,7 +32,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
         {
             for (const auto& skill_json : skill_array) 
             {
-                auto json_skills = jsonToSkill(skill_json);
+                auto json_skills = jsonToSkill(skill_json, is_primary);
                 for (auto& skill : json_skills) 
                 {
                     skills.push_back(std::move(skill));
@@ -62,7 +62,7 @@ static std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, Mo
     return {};
 }
 
-std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_json) 
+std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_json, const bool is_primary_commander) 
 {
     if (!skill_json.contains("skillType") || !skill_json["skillType"].contains("category")) 
     {
@@ -76,7 +76,10 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     
     // Build skill condition from trigger requirements
     SkillCondition condition = buildSkillCondition(skill_json);
-    CombatantEvent dependent = stringToCombatantEvent(skill_json["trigger"]["dependentRequirement"].get<std::string>());
+    CombatantEvent dependent = stringToCombatantEvent(
+        skill_json["trigger"]["dependentRequirement"].get<std::string>(), 
+        is_primary_commander
+    );
 
     if (!skill_json.contains("status_skills") || !skill_json.contains("direct_damage_skills"))
     {
@@ -237,10 +240,11 @@ ConditionType SkillParser::stringToConditionType(const std::string& condition_st
     throw std::runtime_error("Unknown ConditionType: " + condition_str);
 }
 
-CombatantEvent SkillParser::stringToCombatantEvent(const std::string& combatant_event_str)
+CombatantEvent SkillParser::stringToCombatantEvent(const std::string& combatant_event_str, const bool is_primary_commander)
 {
     static const std::unordered_map<std::string, CombatantEvent> combatantEventMap = {
         {"START", CombatantEvent::START},
+        {"ACTIVE_DEALT", CombatantEvent::ACTIVE_DEALT},
         {"ACTIVE_RECEIVED", CombatantEvent::ACTIVE_RECEIVED},
         {"BASIC_DEALT", CombatantEvent::BASIC_DEALT},
         {"BASIC_RECEIVED", CombatantEvent::BASIC_RECEIVED},
@@ -250,9 +254,19 @@ CombatantEvent SkillParser::stringToCombatantEvent(const std::string& combatant_
         {"ROUND_MOD_6", CombatantEvent::ROUND_MOD_6},
         {"ROUND_MOD_9", CombatantEvent::ROUND_MOD_9}
     };
+
     auto iterator = combatantEventMap.find(combatant_event_str);
-    if (iterator != combatantEventMap.end()) {
+    if (iterator != combatantEventMap.end()) 
+    {
         return iterator->second;
     }
+
+    if (combatant_event_str == "COMMANDER_ACTIVE_DEALT") 
+    {
+        return is_primary_commander 
+            ? CombatantEvent::PRIMARY_COMMANDER_ACTIVE_DEALT 
+            : CombatantEvent::SECONDARY_COMMANDER_ACTIVE_DEALT;
+    }
+
     throw std::runtime_error("Unknown CombatantEvent: " + combatant_event_str);
 }

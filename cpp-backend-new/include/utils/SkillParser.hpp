@@ -39,7 +39,7 @@ private:
     [[nodiscard]] static EffectType stringToEffectType(const std::string& effect_str);
     [[nodiscard]] static SkillTarget stringToSkillTarget(const std::string& target_str);
     [[nodiscard]] static ConditionType stringToConditionType(const std::string& condition_str);
-    [[nodiscard]] static CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str);
+    [[nodiscard]] static CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str, bool is_primary_commander);
 
     // Build SkillCondition from trigger requirements
     [[nodiscard]] static SkillCondition buildSkillCondition(const json& skill_json);
@@ -47,7 +47,7 @@ private:
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     [[nodiscard]] static SkillTarget determineSkillTarget(const json& skill_json);
 
-    [[nodiscard]] static std::vector<std::unique_ptr<Skill>> jsonToSkill(const json& skill_json);
+    [[nodiscard]] static std::vector<std::unique_ptr<Skill>> jsonToSkill(const json& skill_json, bool is_primary_commander);
 };
 
 #endif
