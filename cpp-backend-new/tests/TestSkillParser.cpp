@@ -6,7 +6,7 @@
 
 using json = nlohmann::json;
 
-TEST(SkillParserTest, LoadSkillsForSigrid) {
+TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
     SkillParser parser;
     
     json skillJson = R"(
@@ -15,26 +15,26 @@ TEST(SkillParserTest, LoadSkillsForSigrid) {
             "Sigrid": {
                 "AwakenedActive": [
                     {
-                        "skillType": { "category": "command" },
+                        "skillType": { "category": "COMMAND" },
                         "trigger": { 
-                            "triggerRequirement": "poison",
+                            "triggerRequirement": "POISON",
                             "conditionType": "HAS_EFFECT_SELF",
                             "dependentRequirement": "BASIC_DEALT"
                         },
                         "direct_damage_skills": [
                             {
                                 "magnitude": 100.0,
-                                "target": "enemy"
+                                "target": "ENEMY"
                             }
                         ],
                         "status_skills": [
                             { 
-                                "type": "heal", 
+                                "type": "HEAL", 
                                 "magnitude": 50,
                                 "skillDuration": 2,
                                 "removable": false,
                                 "chance": 1.0,
-                                "target": "friendly"
+                                "target": "FRIENDLY"
                             }
                         ]
                     }

@@ -30,7 +30,7 @@ public:
 private:
     SkillType skill_type;
     // e.g. a skill dependent on a basic attack will that needs a conditional bleed effect type to proc
-    SkillCondition skill_condition;
+    const SkillCondition skill_condition;
     // e.g. a skill is dependent on a basic attack for it to actually trigger
     CombatantEvent skill_dependent;
     SkillTarget target;

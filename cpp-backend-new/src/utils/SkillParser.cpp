@@ -1,5 +1,6 @@
 #include "utils/SkillParser.hpp"
 #include <iostream>
+#include <unordered_map>
 
 std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_data, CommanderName commander_name, const bool isPrimary) const 
 {
@@ -156,15 +157,20 @@ SkillCondition SkillParser::buildSkillCondition(const json& skill_json)
 
 SkillTarget SkillParser::determineSkillTarget(const json& skill_json) 
 {
-    if (skill_json.contains("target")) {
-        std::string target = skill_json["target"];
-        if (target == "enemy") {
-            return SkillTarget::ENEMY;
-        }
-        if (target == "friendly") {
-            return SkillTarget::FRIENDLY;
-        }
+    static const std::unordered_map<std::string, SkillTarget> skillTargetMap = {
+        {"ENEMY", SkillTarget::ENEMY},
+        {"FRIENDLY", SkillTarget::FRIENDLY}
+    };
+
+    if (skill_json.contains("target")) 
+    {
+        std::string target = skill_json["target"].get<std::string>();
         
+        auto iterator = skillTargetMap.find(target);
+        if (iterator != skillTargetMap.end())
+        {
+            return iterator->second;
+        }
         throw std::runtime_error("Unable to determine skill target from effects: " + target);
     }
     
@@ -173,100 +179,80 @@ SkillTarget SkillParser::determineSkillTarget(const json& skill_json)
 
 SkillType SkillParser::stringToSkillType(const std::string& type_str) 
 {
-    if (type_str == "COMMAND") {
-        return SkillType::COMMAND;
-    }
-    if (type_str == "PASSIVE") {
-        return SkillType::PASSIVE;
-    }
-    if (type_str == "COOPERATION") {
-        return SkillType::COOPERATION;
-    }
-    if (type_str == "COUNTERATTACK") {
-        return SkillType::COUNTERATTACK;
+    static const std::unordered_map<std::string, SkillType> skillTypeMap = {
+        {"COMMAND", SkillType::COMMAND},
+        {"PASSIVE", SkillType::PASSIVE},
+        {"COOPERATION", SkillType::COOPERATION},
+        {"COUNTERATTACK", SkillType::COUNTERATTACK}
+    };
+    auto iterator = skillTypeMap.find(type_str);
+    if (iterator != skillTypeMap.end()) {
+        return iterator->second;
     }
     throw std::runtime_error("Unknown SkillType: " + type_str);
 }
 
 EffectType SkillParser::stringToEffectType(const std::string& effect_str) 
 {
-    if (effect_str == "POISON") {
-        return EffectType::POISON;
-    }
-    if (effect_str == "HEALING") {
-        return EffectType::HEALING;
-    }
-    if (effect_str == "BURN") {
-        return EffectType::BURN;
-    }
-    if (effect_str == "BLEED") {
-        return EffectType::BLEED;
-    }
-    if (effect_str == "ABSORPTION") {
-        return EffectType::ABSORPTION;
-    }
-    if (effect_str == "RETRIBUTION") {
-        return EffectType::RETRIBUTION;
+    static const std::unordered_map<std::string, EffectType> effectTypeMap = {
+        {"POISON", EffectType::POISON},
+        {"HEAL", EffectType::HEAL},
+        {"BURN", EffectType::BURN},
+        {"BLEED", EffectType::BLEED},
+        {"ABSORPTION", EffectType::ABSORPTION},
+        {"RETRIBUTION", EffectType::RETRIBUTION}
+    };
+    auto iterator = effectTypeMap.find(effect_str);
+    if (iterator != effectTypeMap.end()) {
+        return iterator->second;
     }
     throw std::runtime_error("Unknown EffectType: " + effect_str);
 }
 
 SkillTarget SkillParser::stringToSkillTarget(const std::string& target_str) 
 {
-    if (target_str == "FRIENDLY") {
-        return SkillTarget::FRIENDLY;
-    }
-    if (target_str == "ENEMY") {
-        return SkillTarget::ENEMY;
+    static const std::unordered_map<std::string, SkillTarget> skillTargetMap = {
+        {"FRIENDLY", SkillTarget::FRIENDLY},
+        {"ENEMY", SkillTarget::ENEMY}
+    };
+    auto iterator = skillTargetMap.find(target_str);
+    if (iterator != skillTargetMap.end()) {
+        return iterator->second;
     }
     throw std::runtime_error("Unknown SkillTarget: " + target_str);
 }
 
 ConditionType SkillParser::stringToConditionType(const std::string& condition_str) 
 {
-    if (condition_str == "HAS_EFFECT_SELF") {
-        return ConditionType::HAS_EFFECT_SELF;
-    }
-    if (condition_str == "HAS_EFFECT_TARGET") {
-        return ConditionType::HAS_EFFECT_TARGET;
-    }
-    if (condition_str == "TROOP_COUNT_GREATER_THAN_TARGET") {
-        return ConditionType::TROOP_COUNT_GREATER_THAN_TARGET;
+    static const std::unordered_map<std::string, ConditionType> conditionTypeMap = {
+        {"NONE", ConditionType::NONE},
+        {"HAS_EFFECT_SELF", ConditionType::HAS_EFFECT_SELF},
+        {"HAS_EFFECT_TARGET", ConditionType::HAS_EFFECT_TARGET},
+        {"TROOP_COUNT_GREATER_THAN_TARGET", ConditionType::TROOP_COUNT_GREATER_THAN_TARGET}
+    };
+    auto iterator = conditionTypeMap.find(condition_str);
+    if (iterator != conditionTypeMap.end()) {
+        return iterator->second;
     }
     throw std::runtime_error("Unknown ConditionType: " + condition_str);
 }
 
 CombatantEvent SkillParser::stringToCombatantEvent(const std::string& combatant_event_str)
 {
-    if (combatant_event_str == "START") {
-        return CombatantEvent::START;
+    static const std::unordered_map<std::string, CombatantEvent> combatantEventMap = {
+        {"START", CombatantEvent::START},
+        {"ACTIVE_RECEIVED", CombatantEvent::ACTIVE_RECEIVED},
+        {"BASIC_DEALT", CombatantEvent::BASIC_DEALT},
+        {"BASIC_RECEIVED", CombatantEvent::BASIC_RECEIVED},
+        {"CONTINUOUS_DAMAGE_RECEIVED", CombatantEvent::CONTINUOUS_DAMAGE_RECEIVED},
+        {"COUNTER_ATTACK_DEALT", CombatantEvent::COUNTER_ATTACK_DEALT},
+        {"SHIELD_GRANTED", CombatantEvent::SHIELD_GRANTED},
+        {"ROUND_MOD_6", CombatantEvent::ROUND_MOD_6},
+        {"ROUND_MOD_9", CombatantEvent::ROUND_MOD_9}
+    };
+    auto iterator = combatantEventMap.find(combatant_event_str);
+    if (iterator != combatantEventMap.end()) {
+        return iterator->second;
     }
-    // active primary skipped, both should be handled elsewhere to differentiate primary/secondary
-    // active secondary skipped
-    if (combatant_event_str == "ACTIVE_RECEIVED") {
-        return CombatantEvent::ACTIVE_RECEIVED;
-    }
-    if (combatant_event_str == "BASIC_DEALT") {
-        return CombatantEvent::BASIC_DEALT;
-    }
-    if (combatant_event_str == "BASIC_RECEIVED") {
-        return CombatantEvent::BASIC_RECEIVED;
-    }
-    if (combatant_event_str == "CONTINUOUS_DAMAGE_RECEIVED") {
-        return CombatantEvent::CONTINUOUS_DAMAGE_RECEIVED;
-    }
-    if (combatant_event_str == "COUNTER_ATTACK_DEALT") {
-        return CombatantEvent::COUNTER_ATTACK_DEALT;
-    }
-    if (combatant_event_str == "SHIELD_GRANTED") {
-        return CombatantEvent::SHIELD_GRANTED;
-    }
-    if (combatant_event_str == "ROUND_MOD_6") {
-        return CombatantEvent::ROUND_MOD_6;
-    }
-    if (combatant_event_str == "ROUND_MOD_9") {
-        return CombatantEvent::ROUND_MOD_9;
-    }
-
     throw std::runtime_error("Unknown CombatantEvent: " + combatant_event_str);
 }

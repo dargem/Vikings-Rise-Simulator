@@ -2,7 +2,7 @@
 
 Skill::Skill(
     SkillType skill_type, 
-    const SkillCondition skill_condition, 
+    SkillCondition skill_condition, 
     CombatantEvent skill_dependent, 
     SkillTarget target
 )

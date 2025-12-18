@@ -10,7 +10,7 @@ enum class EffectType : std::uint8_t
     BLEED, 
     POISON, 
     ABSORPTION, 
-    HEALING,
+    HEAL,
     RETRIBUTION,
     COUNT
 };

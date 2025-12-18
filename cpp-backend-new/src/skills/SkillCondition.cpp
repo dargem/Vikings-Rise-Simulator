@@ -7,9 +7,11 @@ SkillCondition::SkillCondition(ConditionType condition_type, EffectType trigger_
 {}
 
 bool SkillCondition::isMet(const Combatant& self, const Combatant& target) const
-{
+{   
     switch(condition_type)
     {
+    case ConditionType::NONE:
+        return true;
     case ConditionType::HAS_EFFECT_SELF:
         return self.checkEffectActive(trigger_requirement);
     case ConditionType::HAS_EFFECT_TARGET:

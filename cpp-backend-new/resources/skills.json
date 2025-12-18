@@ -4,7 +4,8 @@
             "AwakenedActive": [
                 {
                     "trigger": {
-                        "conditionType": "has_effect_target"
+                        "conditionType": "HAS_EFFECT_SELF",
+                        "triggerRequirement": null
                     }
                 }
             ]
