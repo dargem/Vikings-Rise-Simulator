@@ -3,19 +3,30 @@
         "Sephina": {
             "AwakenedActive": [
                 {
-                    "trigger": {
-                        "conditionType": "COMMANDER_ACTIVE_DEALT",
-                        "dependentRequirement": "ACTIVE"
-                    },
+                    "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
+                    "category": "AWAKEN",
+
                     "direct_damage_skills": [
                         {
                             "triggerRequirement": "NONE",
                             "magnitude": 1700
+                        },
+                        {
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "SILENCE",
+                            "magnitude": 1200
                         }
                     ],
-                    "SkillType": {
-                        "category": "AWAKEN"
-                    }
+                    "status_skills": [
+                        {
+                            "type": "BLEED",
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "SLOW",
+                            "magnitude": 300,
+                            "skillDuration": 2,
+                            "removable": true
+                        }
+                    ]
                 }
             ]
         },
@@ -27,7 +38,8 @@
                     "trigger": { 
                         "conditionType": "HAS_EFFECT_SELF",
                         "triggerRequirement": "POISON",
-                        "dependentRequirement": "BASIC_DEALT"
+                        "dependentRequirement": "BASIC_DEALT",
+                        "target": "ENEMY"
                     },
                     "status_skills": [
                         { 

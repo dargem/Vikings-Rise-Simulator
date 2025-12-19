@@ -64,20 +64,19 @@ static std::vector<std::unique_ptr<Skill>> loadSkills(const json& skill_data, Mo
 
 std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_json, const bool is_primary_commander) 
 {
-    if (!skill_json.contains("skillType") || !skill_json["skillType"].contains("category")) 
+    if (!skill_json.contains("category")) 
     {
-        throw std::runtime_error("Skill JSON missing 'skillType' or 'skillType' with 'category'");
+        throw std::runtime_error("Skill JSON missing 'category'");
     }
 
     std::vector<std::unique_ptr<Skill>> skills;
     
     // Get the skill type from skillType or metaType
-    SkillType skill_type = stringToSkillType(skill_json["skillType"]["category"].get<std::string>());
+    SkillType skill_type = stringToSkillType(skill_json["category"].get<std::string>());
     
     // Build skill condition from trigger requirements
-    SkillCondition condition = buildSkillCondition(skill_json);
     CombatantEvent dependent = stringToCombatantEvent(
-        skill_json["trigger"]["dependentRequirement"].get<std::string>(), 
+        skill_json["dependentRequirement"].get<std::string>(), 
         is_primary_commander
     );
 
@@ -90,15 +89,18 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     if (skill_json.contains("status_skills"))
     {
         const json& status_skills = skill_json["status_skills"];
-        if (!status_skills.is_array()) {
+        if (!status_skills.is_array()) 
+        {
             throw std::runtime_error("status_skills must be an array");
         }
-        if (status_skills.empty()) {
+        if (status_skills.empty()) 
+        {
             throw std::runtime_error("Skill has empty status_skills");
         }
 
         for (const json& skill : status_skills)
         {
+            SkillCondition condition = buildSkillCondition(skill);
             SkillTarget target = determineSkillTarget(skill);
 
             if (
@@ -136,6 +138,8 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
 
         for (const json& skill : damage_skills)
         {
+            SkillCondition condition = buildSkillCondition(skill);
+
             SkillTarget target = determineSkillTarget(skill);
 
             if (!skill.contains("magnitude") || !skill.contains("chance")) 
@@ -155,10 +159,10 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
 
 SkillCondition SkillParser::buildSkillCondition(const json& skill_json)
 {
-    if (skill_json.contains("trigger") && skill_json["trigger"].contains("triggerRequirement") && skill_json["trigger"].contains("conditionType"))
+    if (skill_json.contains("conditionType") && skill_json.contains("triggerRequirement"))
     {
-        const ConditionType condition_type = SkillParser::stringToConditionType(skill_json["trigger"]["conditionType"].get<std::string>());
-        const EffectType effect_requirement = SkillParser::stringToEffectType(skill_json["trigger"]["triggerRequirement"].get<std::string>());
+        const EffectType effect_requirement = SkillParser::stringToEffectType(skill_json["triggerRequirement"].get<std::string>());
+        const ConditionType condition_type = SkillParser::stringToConditionType(skill_json["conditionType"].get<std::string>());
 
         return {condition_type, effect_requirement};
     }
@@ -213,7 +217,10 @@ EffectType SkillParser::stringToEffectType(const std::string& effect_str)
         {"BURN", EffectType::BURN},
         {"BLEED", EffectType::BLEED},
         {"ABSORPTION", EffectType::ABSORPTION},
-        {"RETRIBUTION", EffectType::RETRIBUTION}
+        {"RETRIBUTION", EffectType::RETRIBUTION},
+        {"SLOW", EffectType::SLOW},
+        {"SILENCE", EffectType::SILENCE},
+        {"NONE", EffectType::NONE}
     };
     auto iterator = effectTypeMap.find(effect_str);
     if (iterator != effectTypeMap.end()) 

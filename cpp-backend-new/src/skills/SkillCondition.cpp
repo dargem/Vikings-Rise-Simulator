@@ -4,7 +4,18 @@
 SkillCondition::SkillCondition(ConditionType condition_type, EffectType trigger_requirement)
     : condition_type {condition_type},
     trigger_requirement { trigger_requirement }
-{}
+{
+    if (
+        condition_type == ConditionType::HAS_EFFECT_SELF || 
+        condition_type == ConditionType::HAS_EFFECT_TARGET
+    )
+    {
+        if (trigger_requirement == EffectType::NONE)
+        {
+            throw std::runtime_error("Trigger requirement is none while a condition is needed");
+        }
+    }
+}
 
 bool SkillCondition::isMet(const Combatant& self, const Combatant& target) const
 {   

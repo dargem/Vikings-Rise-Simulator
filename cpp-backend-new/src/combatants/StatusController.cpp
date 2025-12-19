@@ -5,6 +5,11 @@ StatusController::StatusController()
 {
     for (int i = 0; i < static_cast<int>(EffectType::COUNT); ++i) 
     {
+        if (static_cast<EffectType>(i) == EffectType::NONE)
+        {
+            continue;
+        }
+        
         debuff_collection[static_cast<EffectType>(i)] = std::vector<TimedEffect>();
     }
 }

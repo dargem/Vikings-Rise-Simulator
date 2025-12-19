@@ -15,27 +15,35 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
             "Sigrid": {
                 "AwakenedActive": [
                     {
-                        "skillType": { "category": "COMMAND" },
-                        "trigger": { 
-                            "triggerRequirement": "POISON",
-                            "conditionType": "HAS_EFFECT_SELF",
-                            "dependentRequirement": "BASIC_DEALT"
-                        },
+                        "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
+                        "category": "AWAKEN",
+                        
                         "direct_damage_skills": [
                             {
-                                "magnitude": 100.0,
-                                "target": "ENEMY",
-                                "chance": 0.5
+                                "conditionType": "NONE",
+                                "triggerRequirement": "NONE",
+                                "magnitude": 1700,
+                                "chance": 1,
+                                "target": "ENEMY"
+                            },
+                            {
+                                "conditionType": "HAS_EFFECT_TARGET",
+                                "triggerRequirement": "SILENCE",
+                                "magnitude": 1200,
+                                "chance": 1,
+                                "target": "ENEMY"
                             }
                         ],
                         "status_skills": [
-                            { 
-                                "type": "HEAL", 
-                                "magnitude": 50,
+                            {
+                                "type": "BLEED",
+                                "conditionType": "HAS_EFFECT_TARGET",
+                                "triggerRequirement": "SLOW",
+                                "magnitude": 300,
+                                "chance": 1,
                                 "skillDuration": 2,
-                                "removable": false,
-                                "chance": 1.0,
-                                "target": "FRIENDLY"
+                                "removable": true,
+                                "target": "ENEMY"
                             }
                         ]
                     }
@@ -48,7 +56,7 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
     bool is_primary { true };
     auto skills = parser.loadSkills(skillJson, CommanderName::Sigrid, is_primary);
     
-    ASSERT_EQ(skills.size(), 2);
+    ASSERT_EQ(skills.size(), 3);
     
     auto* damageSkill = skills[0].get();
     ASSERT_NE(damageSkill, nullptr);

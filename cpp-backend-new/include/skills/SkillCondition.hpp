@@ -1,7 +1,6 @@
 #ifndef SKILL_CONDITION_HPP
 #define SKILL_CONDITION_HPP
 
-#include <optional>
 #include "skills/ConditionType.hpp"
 #include "effects/EffectType.hpp"
 
