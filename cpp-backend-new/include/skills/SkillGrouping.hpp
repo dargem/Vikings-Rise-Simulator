@@ -5,6 +5,7 @@
 #include "skills/Skill.hpp"
 #include "orchestration/CombatantEvent.hpp"
 #include "utils/NumberGenerator.hpp"
+#include <memory>
 
 class SkillGrouping
 {
