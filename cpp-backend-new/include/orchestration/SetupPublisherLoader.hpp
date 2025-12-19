@@ -51,7 +51,7 @@ private:
     ConditionType stringToConditionType(const std::string& condition_str) const;
     
     // Build SkillCondition from trigger requirements
-    SkillCondition buildSkillCondition(const json& trigger_json) const;
+    SkillCondition buildCondition(const json& trigger_json) const;
     
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     SkillTarget determineSkillTarget(const json& skill_json) const;

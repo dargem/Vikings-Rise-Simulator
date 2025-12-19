@@ -42,7 +42,7 @@ private:
     [[nodiscard]] static CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str, bool is_primary_commander);
 
     // Build SkillCondition from trigger requirements
-    [[nodiscard]] static SkillCondition buildSkillCondition(const json& skill_json);
+    [[nodiscard]] static Condition buildCondition(const json& skill_json);
     
     // Determine skill target from JSON (FRIENDLY, ENEMY, etc.)
     [[nodiscard]] static SkillTarget determineSkillTarget(const json& skill_json);

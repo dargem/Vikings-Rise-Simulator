@@ -6,10 +6,10 @@
 
 class Combatant; // Forward declaration
 
-struct SkillCondition
+struct Condition
 {
 public:
-    SkillCondition(ConditionType condition_type, EffectType trigger_requirement);
+    Condition(ConditionType condition_type, EffectType trigger_requirement);
     [[nodiscard]] bool isMet(const Combatant& self, const Combatant& target) const;
 private:
     ConditionType condition_type;

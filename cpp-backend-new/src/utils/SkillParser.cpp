@@ -19,12 +19,6 @@ std::vector<std::unique_ptr<Skill>> SkillParser::loadSkills(const json& skill_da
     }
     
     const json& commander = skill_data["Commanders"][name_str];
-    
-    // Parse all skill categories (AwakenedActive, Secondary, etc.)
-    if (!commander.contains("AwakenedActive"))
-    {
-        throw std::runtime_error("Commander does not have an active: " + name_str);
-    }
 
     for (const auto& [category, skill_array] : commander.items()) 
     {
@@ -100,7 +94,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
 
         for (const json& skill : status_skills)
         {
-            SkillCondition condition = buildSkillCondition(skill);
+            Condition condition = buildCondition(skill);
             SkillTarget target = determineSkillTarget(skill);
 
             if (
@@ -138,7 +132,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
 
         for (const json& skill : damage_skills)
         {
-            SkillCondition condition = buildSkillCondition(skill);
+            Condition condition = buildCondition(skill);
 
             SkillTarget target = determineSkillTarget(skill);
 
@@ -157,7 +151,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     return skills;
 }
 
-SkillCondition SkillParser::buildSkillCondition(const json& skill_json)
+Condition SkillParser::buildCondition(const json& skill_json)
 {
     if (skill_json.contains("conditionType") && skill_json.contains("triggerRequirement"))
     {

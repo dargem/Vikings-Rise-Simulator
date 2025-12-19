@@ -4,7 +4,7 @@
 StatusSkill::StatusSkill(
     const TimedEffect status_effect, 
     const SkillType skill_type, 
-    const SkillCondition skill_condition, 
+    const Condition skill_condition, 
     const CombatantEvent skill_dependent, 
     const SkillTarget skill_target,
     double chance,
@@ -17,7 +17,7 @@ StatusSkill::StatusSkill(
     is_removable { is_removable }
 {}
 
-void StatusSkill::onDependent(Combatant& self, Combatant& target) const
+void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
 {
     if (Skill::checkCondition(self, target))
     {

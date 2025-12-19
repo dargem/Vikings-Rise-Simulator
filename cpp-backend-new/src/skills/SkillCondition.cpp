@@ -1,7 +1,7 @@
 #include "skills/SkillCondition.hpp"
 #include "combatants/Combatant.hpp"
 
-SkillCondition::SkillCondition(ConditionType condition_type, EffectType trigger_requirement)
+Condition::Condition(ConditionType condition_type, EffectType trigger_requirement)
     : condition_type {condition_type},
     trigger_requirement { trigger_requirement }
 {
@@ -17,7 +17,7 @@ SkillCondition::SkillCondition(ConditionType condition_type, EffectType trigger_
     }
 }
 
-bool SkillCondition::isMet(const Combatant& self, const Combatant& target) const
+bool Condition::isMet(const Combatant& self, const Combatant& target) const
 {   
     switch(condition_type)
     {

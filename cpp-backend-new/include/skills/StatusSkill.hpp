@@ -16,7 +16,7 @@ public:
     StatusSkill(
         TimedEffect status_effect, 
         SkillType skill_type, 
-        SkillCondition skill_condition, 
+        Condition skill_condition, 
         CombatantEvent skill_dependent, 
         SkillTarget skill_target, 
         double chance,
@@ -24,7 +24,7 @@ public:
         bool is_removable
     );
 
-    void onDependent(Combatant& self, Combatant& target) const override;
+    void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const override;
     bool operator==(const Skill& other) const override;
     [[nodiscard]] static std::vector<CombatantEvent> getTriggerEvents();
 private:

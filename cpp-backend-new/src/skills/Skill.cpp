@@ -2,7 +2,7 @@
 
 Skill::Skill(
     SkillType skill_type, 
-    SkillCondition skill_condition, 
+    Condition skill_condition, 
     CombatantEvent skill_dependent, 
     SkillTarget target,
     double chance

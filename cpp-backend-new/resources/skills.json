@@ -1,34 +1,54 @@
 {
     "Commanders": {
-        "Sephina": {
-            "AwakenedActive": [
-                {
-                    "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
-                    "category": "AWAKEN",
+            "Sigrid": {
+                "Moonlit Strike-(Night Ravens Raid Awakened)": [
+                    {
+                        "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
+                        "category": "AWAKEN",
+                        "chance": 1.0,
+                        
+                        "direct_damage_skills": [
+                            {
+                                "conditionType": "NONE",
+                                "triggerRequirement": "NONE",
+                                "magnitude": 1700,
+                                "chance": 1,
+                                "target": "ENEMY"
+                            },
+                            {
+                                "conditionType": "HAS_EFFECT_TARGET",
+                                "triggerRequirement": "SILENCE",
+                                "magnitude": 1200,
+                                "chance": 1,
+                                "target": "ENEMY"
+                            }
+                        ],
+                        "status_skills": [
+                            {
+                                "type": "BLEED",
+                                "conditionType": "HAS_EFFECT_TARGET",
+                                "triggerRequirement": "SLOW",
+                                "magnitude": 300,
+                                "chance": 1,
+                                "skillDuration": 2,
+                                "removable": true,
+                                "target": "ENEMY"
+                            }
+                        ]
+                    }
+                ],
+                "DarkmoonElegy": {
+                    "dependentRequirement": "BASIC_DEALT",
+                    "category": "COOPERATION",
 
-                    "direct_damage_skills": [
-                        {
-                            "triggerRequirement": "NONE",
-                            "magnitude": 1700
-                        },
-                        {
-                            "conditionType": "HAS_EFFECT_TARGET",
-                            "triggerRequirement": "SILENCE",
-                            "magnitude": 1200
-                        }
-                    ],
-                    "status_skills": [
-                        {
-                            "type": "BLEED",
-                            "conditionType": "HAS_EFFECT_TARGET",
-                            "triggerRequirement": "SLOW",
-                            "magnitude": 300,
-                            "skillDuration": 2,
-                            "removable": true
-                        }
-                    ]
+                    "direct_damage_skills": {
+                        "conditionType": "NONE",
+                        "triggerRequirement": "NONE",
+                        "magnitude": "500",
+                        "chance": 0.2
+                    }
                 }
-            ]
+            }
         },
 
         "Sigrid": {

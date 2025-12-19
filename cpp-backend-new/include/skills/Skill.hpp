@@ -6,6 +6,7 @@
 #include "skills/SkillCondition.hpp"
 #include "skills/SkillTarget.hpp"
 #include "orchestration/CombatantEvent.hpp"
+#include "utils/NumberGenerator.hpp"
 
 // forward declaration to avoid circular dependency
 class Combatant;
@@ -15,13 +16,13 @@ class Skill
 public:
     Skill(
         SkillType skill_type, 
-        SkillCondition skill_condition, 
+        Condition skill_condition, 
         CombatantEvent skill_dependent, 
         SkillTarget target,
         double chance
     );
     virtual ~Skill() = default;
-    virtual void onDependent(Combatant& self, Combatant& target) const = 0;
+    virtual void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const = 0;
     virtual bool operator==(const Skill& other) const = 0;
 
     [[nodiscard]] bool checkCondition(const Combatant& friendly, const Combatant& target) const;
@@ -37,7 +38,7 @@ private:
     const bool always_triggers;
 
     // e.g. a skill dependent on a basic attack will that needs a conditional bleed effect type to proc
-    const SkillCondition skill_condition;
+    const Condition skill_condition;
     // e.g. a skill is dependent on a basic attack for it to actually trigger
     CombatantEvent skill_dependent;
     SkillTarget target;

@@ -39,12 +39,12 @@ bool CombatPublisher::unsubToEvent(const Skill& skill, const CombatantEvent even
     return true;
 }
 
-void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& self, Combatant& target) const
+void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& self, Combatant& target, NumberGenerator& number_generator) const
 {
     const std::vector<const Skill*>& skills = combat_event_subscribers.at(event);
     for (const Skill* skill : skills)
     {
-        skill->onDependent(self, target);
+        skill->onDependent(self, target, number_generator);
     }
 }
 

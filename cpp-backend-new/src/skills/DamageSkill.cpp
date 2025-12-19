@@ -2,7 +2,7 @@
 
 DamageSkill::DamageSkill(
     SkillType skill_type,
-    SkillCondition skill_condition, 
+    Condition skill_condition, 
     CombatantEvent skill_dependent, 
     SkillTarget skill_target,
     double chance,
@@ -12,7 +12,7 @@ DamageSkill::DamageSkill(
     damage_magnitude { damage_magnitude }
 {}
 
-void DamageSkill::onDependent(Combatant& self, Combatant& target) const
+void DamageSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
 {}
 
 bool DamageSkill::operator==(const Skill& other) const
