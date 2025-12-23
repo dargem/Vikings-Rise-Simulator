@@ -1,91 +1,54 @@
 {
     "Commanders": {
-            "Sigrid": {
-                "Moonlit Strike-(Night Ravens Raid Awakened)": [
-                    {
-                        "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
-                        "category": "AWAKEN",
-                        "chance": 1.0,
-                        
-                        "direct_damage_skills": [
-                            {
-                                "conditionType": "NONE",
-                                "triggerRequirement": "NONE",
-                                "magnitude": 1700,
-                                "chance": 1,
-                                "target": "ENEMY"
-                            },
-                            {
-                                "conditionType": "HAS_EFFECT_TARGET",
-                                "triggerRequirement": "SILENCE",
-                                "magnitude": 1200,
-                                "chance": 1,
-                                "target": "ENEMY"
-                            }
-                        ],
-                        "status_skills": [
-                            {
-                                "type": "BLEED",
-                                "conditionType": "HAS_EFFECT_TARGET",
-                                "triggerRequirement": "SLOW",
-                                "magnitude": 300,
-                                "chance": 1,
-                                "skillDuration": 2,
-                                "removable": true,
-                                "target": "ENEMY"
-                            }
-                        ]
-                    }
-                ],
-                "DarkmoonElegy": {
-                    "dependentRequirement": "BASIC_DEALT",
-                    "category": "COOPERATION",
-
-                    "direct_damage_skills": {
-                        "conditionType": "NONE",
-                        "triggerRequirement": "NONE",
-                        "magnitude": "500",
-                        "chance": 0.2
-                    }
-                }
-            }
-        },
-
         "Sigrid": {
-            "AwakenedActive": [
+            "Moonlit Strike-(Night Ravens Raid Awakened)": [
                 {
-                    "id": "sigrid_primary_hit",
-                    "trigger": { 
-                        "conditionType": "HAS_EFFECT_SELF",
-                        "triggerRequirement": "POISON",
-                        "dependentRequirement": "BASIC_DEALT",
-                        "target": "ENEMY"
-                    },
-                    "status_skills": [
-                        { 
-                            "type": "HEALING", 
-                            "magnitude": 50,
-                            "skillDuration": 2,
-                            "removable": false,
-                            "chance": 1.0,
-                            "target": "FRIENDLY"
-                        }
-                    ],
-                    "direct_damage_skills": [
-                        { 
-                            "magnitude": 50,
-                            "chance": 0.5,
+                    "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
+                    "category": "AWAKEN",
+                    "chance": 1.0,
+                    
+                    "direct_skills": [
+                        {
+                            "conditionType": "NONE",
+                            "type": "DAMAGE",
+                            "triggerRequirement": "NONE",
+                            "magnitude": 1700,
+                            "chance": 1,
+                            "target": "ENEMY"
+                        },
+                        {
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "SILENCE",
+                            "magnitude": 1200,
+                            "chance": 1,
                             "target": "ENEMY"
                         }
                     ],
-                    "skillType": {
-                        "category": "COMMAND"
-                    }
+                    "status_skills": [
+                        {
+                            "type": "BLEED",
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "SLOW",
+                            "magnitude": 300,
+                            "chance": 1,
+                            "skillDuration": 2,
+                            "removable": true,
+                            "target": "ENEMY"
+                        }
+                    ]
                 }
             ],
-            "Secondary" : [
+            "DarkmoonElegy": {
+                "dependentRequirement": "BASIC_DEALT",
+                "category": "COOPERATION",
 
-            ]
+                "direct_skills": {
+                    "conditionType": "NONE",
+                    "triggerRequirement": "NONE",
+                    "magnitude": "500",
+                    "chance": 0.2
+                }
+            }
         }
     },
     "Skills": {
@@ -97,5 +60,5 @@
     "Slot2MountSkills": {
 
     }
-
+    
 }

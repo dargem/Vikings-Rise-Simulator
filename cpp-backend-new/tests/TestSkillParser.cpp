@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "utils/SkillParser.hpp"
-#include "skills/DamageSkill.hpp"
+#include "skills/DirectSkill.hpp"
 #include "skills/StatusSkill.hpp"
 #include <nlohmann/json.hpp>
 
@@ -18,10 +18,11 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
                         "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
                         "category": "AWAKEN",
                         
-                        "direct_damage_skills": [
+                        "direct_skills": [
                             {
                                 "conditionType": "NONE",
                                 "triggerRequirement": "NONE",
+                                "type": "DAMAGE",
                                 "magnitude": 1700,
                                 "chance": 1,
                                 "target": "ENEMY"
@@ -29,6 +30,7 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
                             {
                                 "conditionType": "HAS_EFFECT_TARGET",
                                 "triggerRequirement": "SILENCE",
+                                "type": "DAMAGE",
                                 "magnitude": 1200,
                                 "chance": 1,
                                 "target": "ENEMY"
@@ -58,8 +60,8 @@ TEST(SkillParserTest, LoadSkillsForFakeSigrid) {
     
     ASSERT_EQ(skills.size(), 3);
     
-    auto* damageSkill = skills[0].get();
-    ASSERT_NE(damageSkill, nullptr);
+    auto* direct_skill = skills[0].get();
+    ASSERT_NE(direct_skill, nullptr);
 }
 
 TEST(SkillParserTest, LoadSkillsThrowsOnInvalidSkill) {

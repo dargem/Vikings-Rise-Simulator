@@ -26,7 +26,6 @@ public:
 
     void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const override;
     bool operator==(const Skill& other) const override;
-    [[nodiscard]] static std::vector<CombatantEvent> getTriggerEvents();
 private:
     const TimedEffect status_effect;
     const bool is_removable;

@@ -74,7 +74,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
         is_primary_commander
     );
 
-    if (!skill_json.contains("status_skills") || !skill_json.contains("direct_damage_skills"))
+    if (!skill_json.contains("status_skills") || !skill_json.contains("direct_skills"))
     {
         throw std::runtime_error("Commander talent contains no skills");
     }
@@ -117,17 +117,17 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
     }
 
     // Process damage effects, if it has them
-    if (skill_json.contains("direct_damage_skills"))
+    if (skill_json.contains("direct_skills"))
     {
-        const json& damage_skills = skill_json["direct_damage_skills"];
+        const json& damage_skills = skill_json["direct_skills"];
         if (!damage_skills.is_array()) 
         {
-            throw std::runtime_error("direct_damage_skills must be an array");
+            throw std::runtime_error("direct_skills must be an array");
         }
 
         if (damage_skills.empty()) 
         {
-            throw std::runtime_error("Skill has empty direct_damage_skills");
+            throw std::runtime_error("Skill has empty direct_skills");
         }
 
         for (const json& skill : damage_skills)
@@ -136,15 +136,16 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
 
             SkillTarget target = determineSkillTarget(skill);
 
-            if (!skill.contains("magnitude") || !skill.contains("chance")) 
+            if (!skill.contains("magnitude") || !skill.contains("chance") || !skill.contains("type")) 
             {
                 throw std::runtime_error("Damage skill missing required fields");
             }
 
+            DirectEffectType effect = stringToDirectEffectType(skill["type"].get<std::string>());
             const double chance = skill["chance"].get<double>();
             const double magnitude = skill["magnitude"].get<double>();
 
-            skills.push_back(std::make_unique<DamageSkill>(skill_type, condition, dependent, target, chance, magnitude));
+            skills.push_back(std::make_unique<DirectSkill>(skill_type, condition, dependent, target, chance, effect, magnitude));
         }
     }
     
@@ -281,4 +282,20 @@ CombatantEvent SkillParser::stringToCombatantEvent(const std::string& combatant_
     }
 
     throw std::runtime_error("Unknown CombatantEvent: " + combatant_event_str);
+}
+
+DirectEffectType SkillParser::stringToDirectEffectType(const std::string& effect_type_str)
+{
+    static const std::map<std::string, DirectEffectType> directEffectMap = {
+        {"DAMAGE", DirectEffectType::DAMAGE},
+        {"HEAL", DirectEffectType::HEAL}
+    };
+
+    auto iterator = directEffectMap.find(effect_type_str);
+    if (iterator != directEffectMap.end())
+    {
+        return iterator->second;
+    }
+
+    throw std::runtime_error("Direct effect cannot be " + effect_type_str);
 }

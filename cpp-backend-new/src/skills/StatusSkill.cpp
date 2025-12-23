@@ -35,11 +35,6 @@ void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerato
     }
 }
 
-std::vector<CombatantEvent> StatusSkill::getTriggerEvents()
-{
-    return {};
-}
-
 bool StatusSkill::operator==(const Skill& other) const
 {
     const auto* other_skill = dynamic_cast<const StatusSkill*>(&other);

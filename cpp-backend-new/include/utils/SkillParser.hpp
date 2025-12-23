@@ -8,7 +8,7 @@
 #include <nlohmann/json.hpp>
 #include "skills/Skill.hpp"
 #include "skills/StatusSkill.hpp"
-#include "skills/DamageSkill.hpp"
+#include "skills/DirectSkill.hpp"
 #include "skills/SkillType.hpp"
 #include "skills/SkillTarget.hpp"
 #include "skills/ConditionType.hpp"
@@ -19,6 +19,7 @@
 #include "utils/MountSlot1Names.hpp"
 #include "utils/MountSlot2Names.hpp"
 #include "orchestration/CombatantEvent.hpp"
+#include "effects/DirectEffectType.hpp"
 
 using json = nlohmann::json;
 
@@ -40,6 +41,7 @@ private:
     [[nodiscard]] static SkillTarget stringToSkillTarget(const std::string& target_str);
     [[nodiscard]] static ConditionType stringToConditionType(const std::string& condition_str);
     [[nodiscard]] static CombatantEvent stringToCombatantEvent(const std::string& combatant_event_str, bool is_primary_commander);
+    [[nodiscard]] static DirectEffectType stringToDirectEffectType(const std::string& effect_type_str);
 
     // Build SkillCondition from trigger requirements
     [[nodiscard]] static Condition buildCondition(const json& skill_json);

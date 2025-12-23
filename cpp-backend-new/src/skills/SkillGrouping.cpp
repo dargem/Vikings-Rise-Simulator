@@ -1,5 +1,6 @@
 #include "skills/SkillGrouping.hpp"
 
+
 SkillGrouping::SkillGrouping(CombatantEvent dependent, double chance)
     : dependent { dependent },
     chance { chance },
@@ -16,7 +17,7 @@ void SkillGrouping::onDependent(Combatant& self, Combatant& target, NumberGenera
 
     for (const auto& skill: skills)
     {
-        skill.get()->onDependent(self, target, number_generator);
+        skill->onDependent(self, target, number_generator);
     }
 }
 

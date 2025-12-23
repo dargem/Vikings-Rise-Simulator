@@ -6,7 +6,7 @@ add_executable(unit_tests
     ../src/effects/Timer.cpp
     ../src/utils/SkillParser.cpp
     ../src/skills/Skill.cpp
-    ../src/skills/DamageSkill.cpp
+    ../src/skills/DirectSkill.cpp
     ../src/skills/StatusSkill.cpp
     ../src/skills/SkillCondition.cpp
     ../src/combatants/Combatant.cpp

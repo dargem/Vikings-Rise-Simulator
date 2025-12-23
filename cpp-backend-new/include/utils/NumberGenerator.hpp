@@ -22,7 +22,7 @@ public:
 
 private:
     // used internally for bitshifting an int
-    static uint64_t rotl(const uint64_t value, int shift);
+    static uint64_t rotl(uint64_t value, int shift);
     
     static uint64_t splitmix64(uint64_t& seed);
 
