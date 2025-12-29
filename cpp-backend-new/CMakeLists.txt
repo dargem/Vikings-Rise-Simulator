@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
 project(cpp-backend-project)
 
@@ -38,9 +38,23 @@ include_directories(include)
 # Define resource directory path
 add_compile_definitions(RESOURCE_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
+# Ensure nlohmann_json is available (prefer system, fallback to FetchContent).
+include(FetchContent)
+find_package(nlohmann_json 3.2.0 QUIET)
+if(NOT nlohmann_json_FOUND)
+    message(STATUS "nlohmann_json not found; fetching v3.11.3")
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.3
+    )
+    FetchContent_MakeAvailable(nlohmann_json)
+endif()
+
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 add_executable(cpp-backend-project ${SOURCES})
+target_link_libraries(cpp-backend-project PRIVATE nlohmann_json::nlohmann_json)
 
 find_package(GTest REQUIRED)
 

@@ -14,7 +14,7 @@ add_executable(unit_tests
     ../src/orchestration/CombatPublisher.cpp
 )
 
-target_link_libraries(unit_tests GTest::GTest GTest::Main)
+target_link_libraries(unit_tests PRIVATE GTest::GTest GTest::Main nlohmann_json::nlohmann_json)
 
 add_test(NAME TimedEffectTest COMMAND unit_tests)
 add_test(NAME TimerTest COMMAND unit_tests)
