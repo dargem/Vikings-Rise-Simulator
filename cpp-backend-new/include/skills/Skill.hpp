@@ -7,6 +7,7 @@
 #include "skills/SkillTarget.hpp"
 #include "orchestration/CombatantEvent.hpp"
 #include "utils/NumberGenerator.hpp"
+#include <memory>
 
 // forward declaration to avoid circular dependency
 class Combatant;
@@ -29,8 +30,10 @@ public:
 
     [[nodiscard]] SkillType getSkillType() const;
     [[nodiscard]] SkillTarget getSkillTarget() const;
+    [[nodiscard]] CombatantEvent getSkillDependent() const;
 private:
-    SkillType skill_type;
+    std::unique_ptr<NumberGenerator> number_generator;
+    const SkillType skill_type;
     const double chance;
     // a flag used alongside chance for when chance == 1, number generation isn't needed
     // number generation however is not optimized out by the compiler as the internal state
@@ -40,8 +43,8 @@ private:
     // e.g. a skill dependent on a basic attack will that needs a conditional bleed effect type to proc
     const Condition skill_condition;
     // e.g. a skill is dependent on a basic attack for it to actually trigger
-    CombatantEvent skill_dependent;
-    SkillTarget target;
+    const CombatantEvent skill_dependent;
+    const SkillTarget target;
 };
 
 #endif

@@ -29,3 +29,8 @@ SkillTarget Skill::getSkillTarget() const
 {
     return target;
 }
+
+CombatantEvent Skill::getSkillDependent() const
+{
+    return skill_dependent;
+}

@@ -1,6 +1,7 @@
 #ifndef COMBATANT_SETUP_HPP
 #define COMBATANT_SETUP_HPP
 
+#include <array>
 #include "utils/SkillName.hpp"
 #include "utils/CommanderName.hpp"
 #include "utils/MountSlot1Names.hpp"
@@ -13,10 +14,10 @@ struct CombatantSetup
     static constexpr int NUM_SLOT_1_MOUNT_SKILLS = 2;
     static constexpr int NUM_SLOT_2_MOUNT_SKILLS = 2;
     
-    CommanderName commanders[NUM_COMMANDERS];
-    SkillName skills[NUM_SKILLS];
-    MountSlot1Names slot_1_skills[NUM_SLOT_1_MOUNT_SKILLS];
-    MountSlot2Names slot_2_skills[NUM_SLOT_2_MOUNT_SKILLS];
+    std::array<CommanderName, NUM_COMMANDERS> commanders;
+    std::array<SkillName, NUM_SKILLS> num_skills;
+    std::array<MountSlot1Names, NUM_SLOT_1_MOUNT_SKILLS> slot_1_skills;
+    std::array<MountSlot2Names, NUM_SLOT_2_MOUNT_SKILLS> slot_2_skills;
 };
 
 #endif

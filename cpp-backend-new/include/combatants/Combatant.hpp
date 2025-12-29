@@ -34,7 +34,6 @@ private:
 
     std::vector<TimedEffect> status_effects;
     std::vector<TimedEffect> buff_effects;
-    std::vector<const Skill*> skills;
 };  
 
 #endif
