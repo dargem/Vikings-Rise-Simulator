@@ -24,7 +24,12 @@ public:
         bool is_removable
     );
 
-    void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const override;
+    void onDependent(
+        Combatant& self, 
+        Combatant& target, 
+        NumberGenerator& number_generato
+    ) const override;
+    
     bool operator==(const Skill& other) const override;
 private:
     const TimedEffect status_effect;

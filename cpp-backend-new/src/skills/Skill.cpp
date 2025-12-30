@@ -20,9 +20,19 @@ SkillType Skill::getSkillType() const
     return skill_type;
 }
 
-bool Skill::checkCondition(const Combatant& friendly, const Combatant& target) const
+// checks if the skill should trigger
+// checks if skill condition is met
+// checks if probability condition is met
+bool Skill::checkCondition(
+    const Combatant& friendly, 
+    const Combatant& target, 
+    NumberGenerator& number_generator
+) const
 {
-    return skill_condition.isMet(friendly, target) && (always_triggers);
+    return(
+        skill_condition.isMet(friendly, target) && 
+        (always_triggers || number_generator.getRandomDouble() < chance)
+    );
 }
 
 SkillTarget Skill::getSkillTarget() const

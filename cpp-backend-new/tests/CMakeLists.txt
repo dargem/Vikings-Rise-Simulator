@@ -5,6 +5,7 @@ add_executable(unit_tests
     ../src/effects/TimedEffect.cpp
     ../src/effects/Timer.cpp
     ../src/utils/SkillParser.cpp
+    ../src/utils/NumberGenerator.cpp
     ../src/skills/Skill.cpp
     ../src/skills/DirectSkill.cpp
     ../src/skills/StatusSkill.cpp

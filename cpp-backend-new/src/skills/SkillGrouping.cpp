@@ -1,6 +1,5 @@
 #include "skills/SkillGrouping.hpp"
 
-
 SkillGrouping::SkillGrouping(CombatantEvent dependent, double chance)
     : dependent { dependent },
     chance { chance },

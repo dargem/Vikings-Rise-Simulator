@@ -19,7 +19,11 @@ public:
      * @param target the targets combatant
      * @param number_generator used for number generation
      */
-    void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const;
+    void onDependent(
+        Combatant& self, 
+        Combatant& target, 
+        NumberGenerator& number_generator
+    ) const;
 
     /**
      * @brief Add a skill to the groupings internal vector
@@ -34,7 +38,8 @@ private:
     const bool always_triggers;
     const double chance;
 
-    [[nodiscard]] bool checkShouldTrigger(NumberGenerator& number_generator) const;
+    [[nodiscard]] 
+    bool checkShouldTrigger(NumberGenerator& number_generator) const;
 };
 
 #endif

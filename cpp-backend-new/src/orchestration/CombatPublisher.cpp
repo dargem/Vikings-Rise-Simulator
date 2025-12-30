@@ -1,6 +1,7 @@
 #include "orchestration/CombatPublisher.hpp"
 #include <vector>
 #include <algorithm>
+#include <ranges>
 
 CombatPublisher::CombatPublisher() 
 {

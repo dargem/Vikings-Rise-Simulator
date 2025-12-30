@@ -19,7 +19,12 @@ public:
         double damage_magnitude
     );
 
-    void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const override;
+    void onDependent(
+        Combatant& self, 
+        Combatant& target, 
+        NumberGenerator& number_generator
+    ) const override;
+    
     bool operator==(const Skill& other) const override;
 private:
     const DirectEffectType effect;

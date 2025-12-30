@@ -19,7 +19,7 @@ StatusSkill::StatusSkill(
 
 void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
 {
-    if (Skill::checkCondition(self, target))
+    if (Skill::checkCondition(self, target, number_generator))
     {
         const double scalars = 1;
         TimedEffect sent_effect(status_effect, scalars);

@@ -1,5 +1,6 @@
 #include "skills/SkillCondition.hpp"
 #include "combatants/Combatant.hpp"
+#include <stdexcept>
 
 Condition::Condition(ConditionType condition_type, EffectType trigger_requirement)
     : condition_type {condition_type},

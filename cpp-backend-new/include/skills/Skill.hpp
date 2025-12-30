@@ -22,17 +22,28 @@ public:
         SkillTarget target,
         double chance
     );
+
     virtual ~Skill() = default;
-    virtual void onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const = 0;
+
+    virtual void onDependent(
+        Combatant& self, 
+        Combatant& target, 
+        NumberGenerator& number_generator
+    ) const = 0;
+    
     virtual bool operator==(const Skill& other) const = 0;
 
-    [[nodiscard]] bool checkCondition(const Combatant& friendly, const Combatant& target) const;
+    [[nodiscard]] 
+    bool checkCondition(
+        const Combatant& friendly, 
+        const Combatant& target, 
+        NumberGenerator& number_generator
+    ) const;
 
     [[nodiscard]] SkillType getSkillType() const;
     [[nodiscard]] SkillTarget getSkillTarget() const;
     [[nodiscard]] CombatantEvent getSkillDependent() const;
 private:
-    std::unique_ptr<NumberGenerator> number_generator;
     const SkillType skill_type;
     const double chance;
     // a flag used alongside chance for when chance == 1, number generation isn't needed
