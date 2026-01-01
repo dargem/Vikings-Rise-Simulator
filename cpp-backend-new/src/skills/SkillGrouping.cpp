@@ -20,7 +20,18 @@ void SkillGrouping::onDependent(Combatant& self, Combatant& target, NumberGenera
     }
 }
 
+CombatantEvent SkillGrouping::getDependentEvent() const
+{
+    return dependent;
+}
+
+void SkillGrouping::addSkill(std::unique_ptr<Skill> skill)
+{
+    skills.push_back(std::move(skill));
+}
+
 inline bool SkillGrouping::checkShouldTrigger(NumberGenerator& number_generator) const
 {
     return always_triggers || number_generator.getRandomDouble() < chance;
 }
+

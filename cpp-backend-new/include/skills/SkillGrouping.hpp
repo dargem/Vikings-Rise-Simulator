@@ -31,6 +31,8 @@ public:
      * @param skill skill to add
      */
     void addSkill(std::unique_ptr<Skill> skill);
+
+    [[nodiscard]] CombatantEvent getDependentEvent() const;
 private:
     std::vector<std::unique_ptr<Skill>> skills;
 

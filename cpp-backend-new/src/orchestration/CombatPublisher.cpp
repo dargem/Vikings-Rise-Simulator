@@ -7,49 +7,49 @@ CombatPublisher::CombatPublisher()
 {
     for (int i = 0; i < static_cast<int>(CombatantEvent::COUNT); ++i) 
     {
-        combat_event_subscribers[static_cast<CombatantEvent>(i)] = std::vector<const Skill*>();
+        combat_event_subscribers[static_cast<CombatantEvent>(i)] = std::vector<const SkillGrouping&>();
     }
 }
 
-bool CombatPublisher::subToEvent(const Skill& skill, const CombatantEvent event) 
+bool CombatPublisher::subToEvent(const SkillGrouping& new_skill_grouping) 
 {
-    std::vector<const Skill*>& skills = combat_event_subscribers[event];
+    CombatantEvent event = new_skill_grouping.getDependentEvent();
+    std::vector<const SkillGrouping&>& current_groupings = combat_event_subscribers[event];
 
-    if (std::ranges::find(skills, &skill) != skills.end())
+    for (const SkillGrouping& skill_grouping : current_groupings)
     {
-        // skill already inside the vector
-        return false;
+        // equivalence logic, return false if is in already
     }
     
-    skills.push_back(&skill);
+    current_groupings.push_back(new_skill_grouping);
+
     return true;
 }
 
-bool CombatPublisher::unsubToEvent(const Skill& skill, const CombatantEvent event)
+bool CombatPublisher::unsubToEvent(const SkillGrouping& remove_skill_grouping)
 {
-    std::vector<const Skill*>& skills = combat_event_subscribers[event];
+    CombatantEvent event = remove_skill_grouping.getDependentEvent();
+    std::vector<const SkillGrouping&>& current_groupings = combat_event_subscribers[event];
     
-    auto iterator = std::ranges::find(skills, &skill);
-    if (iterator == skills.end())
+    for (const SkillGrouping& skill_grouping : current_groupings)
     {
-        // skill not inside the vector
-        return false;
+        // equivalent logic, erase and return true if already in
     }
 
-    skills.erase(iterator);
-    return true;
+    // not inside loop
+    return false;
 }
 
 void CombatPublisher::publishEvent(const CombatantEvent event, Combatant& self, Combatant& target, NumberGenerator& number_generator) const
 {
-    const std::vector<const Skill*>& skills = combat_event_subscribers.at(event);
-    for (const Skill* skill : skills)
+    const std::vector<const SkillGrouping&>& skills = combat_event_subscribers.at(event);
+    for (const Skill& skill : skills)
     {
-        skill->onDependent(self, target, number_generator);
+        skill.onDependent(self, target, number_generator);
     }
 }
 
-void CombatPublisher::addSkill(std::unique_ptr<Skill> skill) 
+void CombatPublisher::addSkillGrouping(std::unique_ptr<SkillGrouping> skill_grouping) 
 {
-    owned_skills.push_back(std::move(skill));
+    owned_skill_groupings.push_back(std::move(skill_grouping));
 }
