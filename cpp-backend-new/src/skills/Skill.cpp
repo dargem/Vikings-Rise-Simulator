@@ -35,6 +35,7 @@ bool Skill::checkCondition(
     );
 }
 
+
 SkillTarget Skill::getSkillTarget() const
 {
     return target;

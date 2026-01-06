@@ -16,7 +16,7 @@ public:
     Combatant(int troops, Stats stats);
 
     [[nodiscard]] bool checkEffectActive(EffectType effect_type) const;
-    void addSkill(const Skill& skill, CombatantEvent combat_event);
+    void addSkill(const Skill* skill);
     void addStatusEffect(TimedEffect timed_effect, EffectType type);
 
     void setTroops(int troops);
@@ -25,7 +25,6 @@ public:
     [[nodiscard]] double getAttack() const;
     [[nodiscard]] double getDefense() const;
     [[nodiscard]] double getHealth() const;
-
 private:
     int troops;
     Stats stats;

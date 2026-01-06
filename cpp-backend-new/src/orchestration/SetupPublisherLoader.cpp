@@ -33,7 +33,7 @@ bool SetupPublisherLoader::loadJson()
     }
 }
 
-void SetupPublisherLoader::loadPublisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup) const
+void SetupPublisherLoader::loadPublisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup)
 {
     SkillParser parser;
 
@@ -45,7 +45,9 @@ void SetupPublisherLoader::loadPublisher(CombatPublisher& combat_publisher, cons
         auto skills = parser.loadSkills(skill_data, combatant_setup.commanders[i], is_primary);
         for (auto& skill : skills) 
         {
-            combat_publisher.addSkill(std::move(skill));
+            // Store ownership in this loader, provide reference to publisher
+            combat_publisher.addSkill(skill.get());
+            owned_skills.push_back(std::move(skill));
         }
     }
     

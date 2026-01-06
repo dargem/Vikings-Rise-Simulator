@@ -24,12 +24,13 @@ public:
     bool loadJson();
 
     /**
-     * @brief Loads a combat_publisher with 
+     * @brief Loads and owns all Skills from JSON, provides them to CombatPublishers via references
+     * Ownership of all Skills remains with SetupPublisherLoader
      * 
-     * @param combat_publisher 
-     * @param commanders 
+     * @param combat_publisher The publisher to subscribe skills to
+     * @param combatant_setup The setup containing commander information
      */
-    void loadPublisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup) const;
+    void loadPublisher(CombatPublisher& combat_publisher, const CombatantSetup& combatant_setup);
 private:
     
     static constexpr std::string_view skills_path = RESOURCE_DIR "/skills.json";
@@ -37,6 +38,7 @@ private:
     json skill_data;
     json mount_slot_1_data;
     json mount_slot_2_data;
+    std::vector<std::unique_ptr<Skill>> owned_skills;
     /*
 
     std::vector<Skill> loadSkills(const json& skill_data, CommanderName commander_name, CombatPublisher& combat_publisher) const;

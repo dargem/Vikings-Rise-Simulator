@@ -5,7 +5,7 @@
 #include <map>
 #include <memory>
 #include "orchestration/CombatantEvent.hpp"
-#include "skills/SkillGrouping.hpp"
+#include "skills/Skill.hpp"
 #include "utils/NumberGenerator.hpp"
 // forward declaration for combatant to avoid circular dependency
 class Combatant;
@@ -14,15 +14,14 @@ class CombatPublisher
 {
 public:
     CombatPublisher();
-    bool subToEvent(const SkillGrouping& skill_grouping);
-    bool unsubToEvent(const SkillGrouping& skill_grouping);
+    bool subToEvent(const Skill* skill);
+    bool unsubToEvent(const Skill* skill);
     void publishEvent(CombatantEvent event, Combatant& self, Combatant& target, NumberGenerator& number_generator) const;
     
-    // Takes ownership of the skill
-    void addSkillGrouping(std::unique_ptr<SkillGrouping> skill_grouping);
+    // Subscribe a skill reference (does not take ownership)
+    void addSkill(const Skill* skill);
 private:
-    std::vector<std::unique_ptr<const SkillGrouping>> owned_skill_groupings;
-    std::map<CombatantEvent, std::vector<const SkillGrouping&>> combat_event_subscribers;
+    std::map<CombatantEvent, std::vector<const Skill*>> combat_event_subscribers;
 };
 
 #endif

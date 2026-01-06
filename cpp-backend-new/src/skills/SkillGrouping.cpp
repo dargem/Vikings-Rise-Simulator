@@ -1,15 +1,19 @@
 #include "skills/SkillGrouping.hpp"
 
-SkillGrouping::SkillGrouping(CombatantEvent dependent, double chance)
-    : dependent { dependent },
-    chance { chance },
-    always_triggers { chance == 1.0 }
+SkillGrouping::SkillGrouping(
+    SkillType skill_type, 
+    Condition skill_condition, 
+    CombatantEvent dependent, 
+    SkillTarget target,
+    double chance
+)
+    : Skill(skill_type, skill_condition, dependent, target, chance)
 {}
 
 void SkillGrouping::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
 {
     // early return if shouldn't trigger
-    if (!checkShouldTrigger(number_generator))
+    if (!Skill::checkCondition(self, target, number_generator))
     {
         return;
     }
@@ -20,18 +24,7 @@ void SkillGrouping::onDependent(Combatant& self, Combatant& target, NumberGenera
     }
 }
 
-CombatantEvent SkillGrouping::getDependentEvent() const
-{
-    return dependent;
-}
-
 void SkillGrouping::addSkill(std::unique_ptr<Skill> skill)
 {
     skills.push_back(std::move(skill));
 }
-
-inline bool SkillGrouping::checkShouldTrigger(NumberGenerator& number_generator) const
-{
-    return always_triggers || number_generator.getRandomDouble() < chance;
-}
-

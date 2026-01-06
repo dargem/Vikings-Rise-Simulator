@@ -27,9 +27,9 @@ bool Combatant::checkEffectActive(const EffectType effect_type) const
     return status_controller.checkEffectActive(effect_type);
 }
 
-void Combatant::addSkill(const Skill& skill, const CombatantEvent combat_event)
+void Combatant::addSkill(const Skill* skill)
 {
-    combat_publisher.subToEvent(skill, combat_event);
+    combat_publisher.subToEvent(skill);
 }
 
 void Combatant::setTroops(int troops) 

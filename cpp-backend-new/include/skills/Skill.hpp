@@ -23,6 +23,10 @@ public:
         double chance
     );
 
+    Skill(
+        
+    );
+
     virtual ~Skill() = default;
 
     virtual void onDependent(
@@ -33,6 +37,8 @@ public:
     
     virtual bool operator==(const Skill& other) const = 0;
 
+    // Checks if a skill should trigger
+    // Checks RNG + Trigger condition
     [[nodiscard]] 
     bool checkCondition(
         const Combatant& friendly, 
