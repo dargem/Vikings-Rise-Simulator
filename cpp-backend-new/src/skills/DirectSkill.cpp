@@ -9,9 +9,10 @@ DirectSkill::DirectSkill(
     DirectEffectType effect,
     double damage_magnitude
 ) 
-    : Skill(skill_type, skill_condition, skill_dependent, skill_target, chance),
+    : Skill(skill_type, skill_condition, skill_dependent, chance),
     effect { effect },
-    damage_magnitude { damage_magnitude }
+    damage_magnitude { damage_magnitude },
+    skill_target { skill_target }
 {}
 
 void DirectSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const

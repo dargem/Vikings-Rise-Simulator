@@ -26,9 +26,11 @@ public:
     ) const override;
     
     bool operator==(const Skill& other) const override;
+    
 private:
     const DirectEffectType effect;
-    const double damage_magnitude; 
+    const double damage_magnitude;
+    const SkillTarget skill_target;
 };
 
 #endif

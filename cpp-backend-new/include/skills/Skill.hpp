@@ -19,7 +19,6 @@ public:
         SkillType skill_type, 
         Condition skill_condition, 
         CombatantEvent skill_dependent, 
-        SkillTarget target,
         double chance
     );
 
@@ -47,7 +46,6 @@ public:
     ) const;
 
     [[nodiscard]] SkillType getSkillType() const;
-    [[nodiscard]] SkillTarget getSkillTarget() const;
     [[nodiscard]] CombatantEvent getSkillDependent() const;
 private:
     const SkillType skill_type;
@@ -61,7 +59,6 @@ private:
     const Condition skill_condition;
     // e.g. a skill is dependent on a basic attack for it to actually trigger
     const CombatantEvent skill_dependent;
-    const SkillTarget target;
 };
 
 #endif

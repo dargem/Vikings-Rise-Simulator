@@ -14,7 +14,6 @@ public:
         SkillType skill_type, 
         Condition skill_condition, 
         CombatantEvent dependent, 
-        SkillTarget target,
         double chance
     );
 

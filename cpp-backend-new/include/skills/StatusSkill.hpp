@@ -35,6 +35,7 @@ private:
     const TimedEffect status_effect;
     const bool is_removable;
     const EffectType effect_type;
+    const SkillTarget skill_target;
 };
 
 #endif

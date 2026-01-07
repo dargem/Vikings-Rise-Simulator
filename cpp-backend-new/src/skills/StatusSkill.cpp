@@ -11,10 +11,11 @@ StatusSkill::StatusSkill(
     const EffectType effect_type, 
     const bool is_removable
 )
-    : Skill(skill_type, skill_condition, skill_dependent, skill_target, chance),
+    : Skill(skill_type, skill_condition, skill_dependent, chance),
     status_effect(status_effect),
     effect_type { effect_type },
-    is_removable { is_removable }
+    is_removable { is_removable },
+    skill_target { skill_target }
 {}
 
 void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
@@ -23,7 +24,7 @@ void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerato
     {
         const double scalars = 1;
         TimedEffect sent_effect(status_effect, scalars);
-        switch (Skill::getSkillTarget())
+        switch (skill_target)
         {
         case SkillTarget::FRIENDLY:
             self.addStatusEffect(sent_effect, effect_type);

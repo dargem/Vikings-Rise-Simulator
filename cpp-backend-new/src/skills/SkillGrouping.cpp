@@ -4,10 +4,9 @@ SkillGrouping::SkillGrouping(
     SkillType skill_type, 
     Condition skill_condition, 
     CombatantEvent dependent, 
-    SkillTarget target,
     double chance
 )
-    : Skill(skill_type, skill_condition, dependent, target, chance)
+    : Skill(skill_type, skill_condition, dependent, chance)
 {}
 
 void SkillGrouping::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
