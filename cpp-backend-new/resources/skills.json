@@ -1,22 +1,24 @@
 {
     "Commanders": {
-        "Sigrid": {
+        "Sephina": {
             "Moonlit Strike-(Night Ravens Raid Awakened)": [
                 {
-                    "dependentRequirement": "COMMANDER_ACTIVE_DEALT",
+                    "trigger": {
+                        "dependentRequirement": "COMMANDER_ACTIVE_DEALT"
+                    },
                     "category": "AWAKEN",
-                    "chance": 1.0,
                     
                     "direct_skills": [
                         {
-                            "conditionType": "NONE",
                             "type": "DAMAGE",
+                            "conditionType": "NONE",
                             "triggerRequirement": "NONE",
                             "magnitude": 1700,
                             "chance": 1,
                             "target": "ENEMY"
                         },
                         {
+                            "type": "DAMAGE",
                             "conditionType": "HAS_EFFECT_TARGET",
                             "triggerRequirement": "SILENCE",
                             "magnitude": 1200,
@@ -38,17 +40,78 @@
                     ]
                 }
             ],
-            "DarkmoonElegy": {
-                "dependentRequirement": "BASIC_DEALT",
-                "category": "COOPERATION",
-
-                "direct_skills": {
-                    "conditionType": "NONE",
-                    "triggerRequirement": "NONE",
-                    "magnitude": "500",
-                    "chance": 0.2
+            "Darkmoon Elegy": [
+                {
+                    "trigger": {
+                        "dependentRequirement": "BASIC_DEALT",
+                        "chance": 0.2
+                    },
+                    "category": "COOPERATION",
+                    "direct_skills": [
+                        {
+                            "type": "DAMAGE",
+                            "conditionType": "NONE",
+                            "triggerRequirement": "NONE",
+                            "magnitude": 500,
+                            "chance": 1,
+                            "target": "ENEMY"
+                        },
+                        {
+                            "type": "DAMAGE",
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "SILENCE",
+                            "magnitude": 1000,
+                            "chance": 1,
+                            "target": "ENEMY"
+                        }
+                    ],
+                    "status_skills": [
+                        {
+                            "type": "DEBUFF_REMOVAL", 
+                            "conditionType": "NONE",
+                            "triggerRequirement": "NONE",
+                            "magnitude": 1,
+                            "chance": 1,
+                            "target": "FRIENDLY"
+                        },
+                        {
+                            "type": "BUFF_REMOVAL",
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "SILENCE",
+                            "magnitude": 1,
+                            "chance": 1,
+                            "target": "FRIENDLY"
+                        }
+                    ]
                 }
-            }
+            ],
+            "Raven Feather Blade": [
+                {
+                    "trigger": {
+                        "dependentRequirement": "BASIC_DEALT"
+                    },
+                    "category": "PASSIVE",
+                    "direct_skills": [
+                        {
+                            "type": "HEAL",
+                            "conditionType": "HAS_EFFECT_TARGET",
+                            "triggerRequirement": "BLEED",
+                            "magnitude": 250,
+                            "chance": 0.25,
+                            "target": "FRIENDLY"
+                        }
+                    ],
+                    "passive_effects": [
+                        {
+                            "target": "FRIENDLY",
+                            "type": "BASIC_ATTACK",
+                            "effect": "DAMAGE_INCREASE",
+                            "magnitude": 0.3
+                        }
+                    ]
+                }
+            ]
+
         }
     },
     "Skills": {
