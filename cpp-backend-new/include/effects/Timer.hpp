@@ -3,11 +3,11 @@
 
 class Timer
 {
-    public:
-        Timer(double duration);
-        bool checkAndDeincrementDuration();   
-    private:
-        double duration;
+public:
+    Timer(double duration);
+    bool checkAndDeincrementDuration();   
+private:
+    double duration;
 };
 
 #endif // TIMER_HPP

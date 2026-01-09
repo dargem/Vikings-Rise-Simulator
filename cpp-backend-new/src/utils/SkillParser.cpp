@@ -74,7 +74,7 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
         is_primary_commander
     );
 
-    if (!skill_json.contains("status_skills") || !skill_json.contains("direct_skills"))
+    if (!skill_json.contains("status_skills") || !skill_json.contains("direct_skills") ||  !skill_json.contains("passive_effects"))
     {
         throw std::runtime_error("Commander talent contains no skills");
     }
@@ -147,6 +147,14 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
 
             skills.push_back(std::make_unique<DirectSkill>(skill_type, condition, dependent, target, chance, effect, magnitude));
         }
+    }
+
+    // Process passive effects, if it has them
+    // e.g. +30% BA damage
+
+    if (skill_json.contains("passive_effects"))
+    {
+        const json& passive_effects = skill_json["passive_effects"];
     }
     
     return skills;

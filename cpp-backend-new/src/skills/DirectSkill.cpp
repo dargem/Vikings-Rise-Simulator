@@ -16,7 +16,23 @@ DirectSkill::DirectSkill(
 {}
 
 void DirectSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
-{}
+{
+    switch (effect) 
+    {
+    case DirectEffectType::DAMAGE:
+        // just damage the target, no skills self damage currently avoids branching
+        // can add in later if there is self damage added
+
+        // holder damage enemy
+        return;
+    case DirectEffectType::HEAL:
+        // just heals the friendly, no skills heal the target currently avoids branching
+        // can change later
+
+        // holder heal friendly
+        return;
+    }
+}
 
 bool DirectSkill::operator==(const Skill& other) const
 {
