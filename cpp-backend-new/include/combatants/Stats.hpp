@@ -15,7 +15,7 @@ struct Stats
     double bleed_dealt_increase;
     double basic_dealt_increase;
     double counter_dealt_increase;
-
+    
 };
 
 #endif

@@ -15,7 +15,8 @@ StatusSkill::StatusSkill(
     status_effect(status_effect),
     effect_type { effect_type },
     is_removable { is_removable },
-    skill_target { skill_target }
+    skill_target { skill_target },
+    apply_func { skill_target == SkillTarget::FRIENDLY ? &applyToSelf : &applyToTarget }
 {}
 
 void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerator& number_generator) const
@@ -24,15 +25,8 @@ void StatusSkill::onDependent(Combatant& self, Combatant& target, NumberGenerato
     {
         const double scalars = 1;
         TimedEffect sent_effect(status_effect, scalars);
-        switch (skill_target)
-        {
-        case SkillTarget::FRIENDLY:
-            self.addStatusEffect(sent_effect, effect_type);
-            break;
-        case SkillTarget::ENEMY:
-            target.addStatusEffect(sent_effect, effect_type);
-            break;
-        };
+
+        apply_func(self, target, sent_effect, effect_type);
     }
 }
 
@@ -44,4 +38,14 @@ bool StatusSkill::operator==(const Skill& other) const
         return getSkillType() == other_skill->getSkillType();
     }
     return false;
+}
+
+static void applyToSelf(Combatant& self, Combatant& target, const TimedEffect& effect, EffectType type) 
+{
+    self.addStatusEffect(effect, type);
+}
+
+static void applyToTarget(Combatant& self, Combatant& target, const TimedEffect& effect, EffectType type) 
+{
+    target.addStatusEffect(effect, type);
 }

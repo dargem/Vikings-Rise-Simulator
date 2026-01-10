@@ -36,6 +36,12 @@ private:
     const bool is_removable;
     const EffectType effect_type;
     const SkillTarget skill_target;
+
+    using ApplyFunction = void(*)(Combatant&, Combatant&, const TimedEffect&, EffectType);
+    ApplyFunction apply_func;
+
+    static void applyToSelf(Combatant& self, Combatant& target, const TimedEffect& effect, EffectType type);
+    static void applyToTarget(Combatant& self, Combatant& target, const TimedEffect& effect, EffectType type);
 };
 
 #endif
