@@ -8,7 +8,6 @@ add_executable(unit_tests
     ../src/utils/NumberGenerator.cpp
     ../src/skills/Skill.cpp
     ../src/skills/DirectSkill.cpp
-    ../src/skills/StatusSkill.cpp
     ../src/skills/SkillCondition.cpp
     ../src/combatants/Combatant.cpp
     ../src/combatants/StatusController.cpp
