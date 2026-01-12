@@ -9,9 +9,17 @@
 struct Stats
 {
 public:
-    double& getStat(StatRequest request);
+    // Returns copy of the stat corresponding to the request
+    [[nodiscard]] double getStat(StatRequest request) const;
+
+    // Adds the amount of the double to the stat corresponding with the request
+    void changeStat(StatRequest request, double change);
+
+    // Merge another stat object into the called object
+    // Sums together all stats effectively
+    void mergeStats(const Stats& other);
 private:
-    std::array<double, static_cast<size_t>(StatRequest::COUNT)> _data;
+    std::array<double, static_cast<size_t>(StatRequest::COUNT)> data{};
 };
 
 #endif
