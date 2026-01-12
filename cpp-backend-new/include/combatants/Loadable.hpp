@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "skills/Skill.hpp"
-#include "combatants/Stats.hpp"
+#include "combatants/stats/Stats.hpp"
 
 // a loadable is a collection of data 
 // that exists to be loaded by a combatant

@@ -112,8 +112,36 @@ std::vector<std::unique_ptr<Skill>> SkillParser::jsonToSkill(const json& skill_j
             const TimedEffect timed_effect(skill["skillDuration"].get<double>(), skill["magnitude"].get<double>());
             EffectType effect_type = stringToEffectType(skill["type"].get<std::string>());
             const bool is_removable = skill["removable"].get<bool>();
-            skills.push_back(std::make_unique<StatusSkill>(timed_effect, skill_type, condition, dependent, target, chance, effect_type, is_removable));
-        }
+
+            if (target == SkillTarget::FRIENDLY)
+            {
+                skills.push_back(std::make_unique<StatusSkill<SkillTarget::FRIENDLY>>(
+                    timed_effect, 
+                    skill_type, 
+                    condition, 
+                    dependent, 
+                    chance, 
+                    effect_type, 
+                    is_removable
+                ));
+            }
+            else if (target == SkillTarget::ENEMY)
+            {
+                skills.push_back(std::make_unique<StatusSkill<SkillTarget::ENEMY>>(
+                    timed_effect, 
+                    skill_type, 
+                    condition, 
+                    dependent, 
+                    chance, 
+                    effect_type, 
+                    is_removable
+                ));
+            }
+            else
+            {
+                throw std::runtime_error("target not valid, must be a friendly or an enemy");
+            }
+        }   
     }
 
     // Process damage effects, if it has them

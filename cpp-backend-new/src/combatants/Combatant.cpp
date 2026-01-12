@@ -49,15 +49,15 @@ void Combatant::setStats(Stats stats)
 
 double Combatant::getAttack() const
 {
-    return stats.attack;
+    return stats.getAttack();
 }
 
 double Combatant::getDefense() const
 {
-    return stats.defense;
+    return stats.getDefense();
 }
 
 double Combatant::getHealth() const
 {
-    return stats.health;
+    return stats.getHealth();
 }

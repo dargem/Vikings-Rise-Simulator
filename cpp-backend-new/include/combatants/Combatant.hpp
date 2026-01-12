@@ -7,7 +7,7 @@
 #include "orchestration/CombatantEvent.hpp"
 #include "combatants/StatusController.hpp"
 #include "skills/Skill.hpp"
-#include "combatants/Stats.hpp"
+#include "combatants/stats/Stats.hpp"
 #include <vector>
 
 class Combatant

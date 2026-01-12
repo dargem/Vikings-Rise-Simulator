@@ -1,7 +1,9 @@
 #ifndef STAT_REQUEST_HPP
 #define STAT_REQUEST_HPP
 
-enum class StatRequest
+#include <cstdint>
+
+enum class StatRequest : uint8_t
 {
     Attack = 0,
     Defense,
