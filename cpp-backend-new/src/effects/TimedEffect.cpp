@@ -1,7 +1,7 @@
 #include "effects/TimedEffect.hpp"
 
 TimedEffect::TimedEffect(double duration, double effectMagnitude)
-    : timer { Timer(duration) },
+    : timer { duration },
     magnitude { effectMagnitude }
 {}
 

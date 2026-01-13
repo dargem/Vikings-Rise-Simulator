@@ -31,6 +31,4 @@ bool Condition::isMet(const Combatant& self, const Combatant& target) const
     case ConditionType::TROOP_COUNT_GREATER_THAN_TARGET:
         return self.getTroops() > target.getTroops();
     }
-
-    return true;
 }
